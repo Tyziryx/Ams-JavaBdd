@@ -6,9 +6,9 @@ import java.sql.*;
 public class Connexion {
 
 
-    String url = "jdbc:postgresql://db.tidic.fr:5432/postgres" ;
-    String id = "postgres" ;
-    String mdp = "bj%4U3c_84";
+    String url = "jdbc:postgresql://db.tidic.fr:5432/superette01" ;
+    String id = "jdbc_user" ;
+    String mdp = "xa32vc8b";
     Connection cn = null ; Statement st = null ; ResultSet rs = null ;
 
 
@@ -40,11 +40,13 @@ public class Connexion {
         } catch (SQLException e) {
             e.printStackTrace();
 
-
-
 }
     }
     public ResultSet getResult(){
         return rs;
+    }
+
+    public Connection getConn() {
+        return cn;
     }
 }

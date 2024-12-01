@@ -1,102 +1,99 @@
 package data;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Locale;
 
 public class Produit implements IData {
-    int id ;
-    int numachat;
+    int id_produit;
+    int id_achat;
     String nom ;
     String description;
     String categorie;
-    double prixventeactuel;
-    private HashMap<String, fieldType> map;
+    double prix_vente;
+
+    // LinkedHashMap pour garder l'ordre des colonnes
+    private LinkedHashMap<String, fieldType> map;
     private String values;
 
-    public Produit(int id, int numachat, String nom, String description, String categorie, double prixventeactuel) {
-        this.id = id;
-        this.numachat = numachat;
-        this.nom = nom;
-        this.description = description;
-        this.categorie = categorie;
-        this.prixventeactuel = prixventeactuel;
+    public Produit(int id_produit, int id_achat, String nom, String description, String categorie, double prix_vente) {
+        this.id_produit = id_produit;
+        this.id_achat = id_achat;
+        this.nom = nom.replaceAll("'", "''");; // Pour éviter les erreurs de syntaxe SQL avec les guillemets
+        this.description = description.replaceAll("'", "''");;
+        this.categorie = categorie.replaceAll("'", "''");;
+        this.prix_vente = prix_vente;
     }
 
-    public int getId() {
-        return id;
+    public int getId_produit() {
+        return id_produit;
     }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setId_produit(int id_produit) {
+        this.id_produit = id_produit;
     }
-
-    public int getNumachat() {
-        return numachat;
+    public int getId_achat() {
+        return id_achat;
     }
-
-    public void setNumachat(int numachat) {
-        this.numachat = numachat;
+    public void setId_achat(int id_achat) {
+        this.id_achat = id_achat;
     }
-
     public String getNom() {
         return nom;
     }
-
     public void setNom(String nom) {
         this.nom = nom;
     }
-
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
-
     public String getCategorie() {
         return categorie;
     }
-
     public void setCategorie(String categorie) {
         this.categorie = categorie;
     }
-
-    public double getPrixventeactuel() {
-        return prixventeactuel;
+    public double getPrix_vente() {
+        return prix_vente;
     }
-
-    public void setPrixventeactuel(double prixventeactuel) {
-        this.prixventeactuel = prixventeactuel;
+    public void setPrix_vente(double prix_vente) {
+        this.prix_vente = prix_vente;
     }
 
     @Override
     public void getStruct() {
-        HashMap<String, fieldType> map = new HashMap<>();
-        map.put("id", fieldType.INT4);
-        map.put("numachat", fieldType.INT4);
+        LinkedHashMap<String, fieldType> map = new LinkedHashMap<>();
+        map.put("id_produit", fieldType.INT4);
+        map.put("id_achat", fieldType.INT4);
         map.put("nom", fieldType.VARCHAR);
         map.put("description", fieldType.VARCHAR);
         map.put("categorie", fieldType.VARCHAR);
-        map.put("prixventeactuel", fieldType.FLOAT8);
+        map.put("prix_vente", fieldType.FLOAT8);
 
         this.map = map;
 
-        StringBuilder valuesBuilder = new StringBuilder();
+        StringBuilder values = new StringBuilder();
         for (String key : map.keySet()) {
-            if (valuesBuilder.length() > 0) {
-                valuesBuilder.append(", ");
+            if (values.length() > 0) {
+                values.append(", ");
             }
-            valuesBuilder.append(key);
+            values.append(key);
         }
-        this.values = valuesBuilder.toString();
+        this.values = values.toString();
 
 
     }
 
     @Override
     public String getValues() {
-        return String.format("%d, %d, '%s', '%s', '%s', %f",
-                this.id, this.numachat, this.nom, this.description, this.categorie, this.prixventeactuel);
+        String res = String.format(
+                Locale.US, // par ce que sinon le float est écrit avec une virgule
+                "%d, %d, '%s', '%s', '%s', %f",
+                this.id_produit, this.id_achat, this.nom, this.description, this.categorie, prix_vente
+        );
+        return res;
     }
 
     @Override
@@ -111,6 +108,7 @@ public class Produit implements IData {
         }
         for (String key : this.map.keySet()) {
             if (!tableStruct.containsKey(key) || tableStruct.get(key) != this.map.get(key)) {
+//                System.out.println("Key: " + key + " tableStruct: " + tableStruct.get(key) + " this.map: " + this.map.get(key));
                 return false;
             }
         }
