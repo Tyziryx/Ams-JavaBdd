@@ -1,4 +1,6 @@
-package data;
+package superette.data.entities;
+
+import superette.data.sql.fieldType;
 
 import java.util.HashMap;
 
@@ -16,5 +18,5 @@ public interface IData {
 
     //METHODE PERMETTANT DE VERIFIER QUE LA TABLE ET L'INSTANCE PARTAGE LES MEMES ATTRIBUTS ET MEMES TYPES
     //PREND EN PARAMETRE LA MAP ATTRIBUT/TYPE DE LA TABLE ...
-    public boolean check(HashMap<String, fieldType> tableStruct) ;
+    public boolean check(HashMap<String, fieldType> tableStruct);
 }

@@ -1,4 +1,4 @@
-package data;
+package superette.data.sql;
 
 public enum fieldType {
 
