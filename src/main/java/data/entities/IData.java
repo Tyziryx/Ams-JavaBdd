@@ -1,6 +1,6 @@
-package superette.data.entities;
+package main.java.data.entities;
 
-import superette.data.sql.fieldType;
+import main.java.data.sql.fieldType;
 
 import java.util.HashMap;
 

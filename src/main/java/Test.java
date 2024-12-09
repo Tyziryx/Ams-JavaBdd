@@ -1,6 +1,6 @@
-package superette;
+package main.java;
 
-import superette.data.sql.Gestion;
+import main.java.data.sql.Gestion;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

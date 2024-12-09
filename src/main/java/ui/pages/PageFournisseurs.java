@@ -1,8 +1,7 @@
-package superette.ui.pages;
+package main.java.ui.pages;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;

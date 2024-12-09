@@ -1,11 +1,13 @@
-package superette;
+package main.java;
 
 import javafx.scene.layout.BorderPane;
-import superette.ui.components.Navbar;
-import superette.ui.pages.PagePrincipale;
+import main.java.ui.components.Navbar;
+import main.java.ui.pages.PagePrincipale;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.net.URL;
 
 public class App extends Application {
 
@@ -23,6 +25,10 @@ public class App extends Application {
         page.setCenter(pagePrincipale);
 
         Scene scene = new Scene(page, WINDOW_WIDTH, WINDOW_HEIGHT);
+        URL url = getClass().getResource("../ressources/style.css");
+        String css = url.toExternalForm();
+        page.getStylesheets().add(css);
+        scene.getStylesheets().add(css);
         ps.setScene(scene);
         ps.setTitle(WINDOW_TITLE);
         ps.show();

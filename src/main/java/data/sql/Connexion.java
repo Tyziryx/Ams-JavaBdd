@@ -1,4 +1,4 @@
-package superette.data.sql;
+package main.java.data.sql;
 
 import java.sql.*;
 

@@ -1,4 +1,4 @@
-package superette.ui.components;
+package main.java.ui.components;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -7,11 +7,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import superette.ui.pages.*;
+import main.java.ui.pages.Page;
+import main.java.ui.pages.PageFournisseurs;
+import main.java.ui.pages.PagePrincipale;
+import main.java.ui.pages.PageStock;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -55,6 +56,6 @@ public class Navbar extends VBox {
 
     private void styleButton(Button button) {
         button.setPrefWidth(150);
-        button.setStyle("-fx-font-size: 14px;-fx-background-color: #ecf0f1; -fx-text-fill: #2c3e50; -fx-padding: 10;");
+        button.setStyle("-fx-font-size: 14px;-fx-background-color: #ecf0f1; -fx-padding: 10;");
     }
 }

@@ -1,6 +1,6 @@
-package superette.data.sql;
+package main.java.data.sql;
 
-import superette.data.entities.IData;
+import main.java.data.entities.IData;
 
 import java.sql.*;
 import java.util.HashMap;

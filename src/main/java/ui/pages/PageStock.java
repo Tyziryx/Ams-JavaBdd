@@ -1,4 +1,4 @@
-package superette.ui.pages;
+package main.java.ui.pages;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -6,7 +6,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.sql.SQLException;
-import superette.data.Util;
+import main.java.data.Util;
 
 public class PageStock extends VBox implements Page{
     public PageStock(double spacing) throws SQLException {
