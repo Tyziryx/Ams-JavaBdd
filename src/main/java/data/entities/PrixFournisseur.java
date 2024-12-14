@@ -78,11 +78,8 @@ public class PrixFournisseur implements IData {
     }
 
 
-
-
-
-    public void getQuery() {
-        System.out.println("INSERT INTO prix_fournisseur (id_fournisseur, id_produit, prix) VALUES (" + id_fournisseur + ", " + id_produit + ", " + prix + ");");
+    public static String getQuery() {
+        return "SELECT id_fournisseur, id_produit, prix FROM prix_fournisseur";
     }
 
 

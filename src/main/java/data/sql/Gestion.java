@@ -173,12 +173,12 @@ public class Gestion {
                 }
                 break;
             case PRIX_FOURNISSEUR:
-                ResultSet rs3 = g.execute(Prix_fournisseur.getQuery());
+                ResultSet rs3 = g.execute(PrixFournisseur.getQuery());
                 while (rs3.next()) {
                     int id_fournisseur = rs3.getInt("id_fournisseur");
                     int id_produit = rs3.getInt("id_produit");
                     float prix = rs3.getFloat("prix");
-                    items.add(new main.java.data.entities.Prix_fournisseur(id_fournisseur, id_produit, prix));
+                    items.add(new main.java.data.entities.PrixFournisseur(id_fournisseur, id_produit, prix));
                 }
                 break;
                 case CONTRAT:
@@ -187,7 +187,7 @@ public class Gestion {
                     int id_fournisseur = rs4.getInt("id_fournisseur");
                     int id_produit = rs4.getInt("id_produit");
                     float prix = rs4.getFloat("prix");
-                    items.add(new main.java.data.entities.Prix_fournisseur(id_fournisseur, id_produit, prix));
+                    items.add(new main.java.data.entities.PrixFournisseur(id_fournisseur, id_produit, prix));
                 }
                 break;
         }
