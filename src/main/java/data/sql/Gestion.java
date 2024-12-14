@@ -1,9 +1,15 @@
 package main.java.data.sql;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import main.java.data.entities.Fournisseur;
 import main.java.data.entities.IData;
+import main.java.data.entities.Contrats;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Gestion {
 
@@ -134,6 +140,51 @@ public class Gestion {
         PreparedStatement ps = cn.getConn().prepareStatement(query);
         ps.executeUpdate();
         cn.disconnect();
+    }
+
+    /**
+     * Cette méthode permet de récupérer le contenu d'une table
+     *
+     * @param tables type de table
+     * @throws SQLException
+     */
+    public static ObservableList<IData> getTable(Tables tables) throws SQLException {
+        List<IData> items = new ArrayList<>();
+        Gestion g = new Gestion();
+
+        switch (tables) {
+            case PRODUIT:
+                ResultSet rs = g.execute(Contrats.getQuery());
+                while (rs.next()) {
+                    int id = rs.getInt("id_produit");
+                    int id_achat = rs.getInt("id_achat");
+                    String nom = rs.getString("nom");
+                    String desc = rs.getString("description");
+                    String categorie = rs.getString("categorie");
+                    items.add(new Contrats(id, id_achat, nom, desc, categorie));
+                }
+                break;
+            case FOURNISSEUR:
+                ResultSet rs2 = g.execute(Fournisseur.getQuery());
+                while (rs2.next()) {
+                    String nom_societe = rs2.getString("nom_societe");
+                    int siret = rs2.getInt("siret");
+                    String adresse = rs2.getString("adresse");
+                    String email = rs2.getString("email");
+                    items.add(new Fournisseur(nom_societe, siret, adresse, email));
+                }
+                break;
+            case PRIX_FOURNISSEUR:
+                ResultSet rs3 = g.execute("SELECT * FROM prix_fournisseur");
+                while (rs3.next()) {
+                    int id_fournisseur = rs3.getInt("id_fournisseur");
+                    int id_produit = rs3.getInt("id_produit");
+                    float prix = rs3.getFloat("prix");
+                    items.add(new main.java.data.entities.Prix_fournisseur(id_fournisseur, id_produit, prix));
+                }
+                break;
+        }
+        return FXCollections.observableArrayList(items);
     }
 
 }

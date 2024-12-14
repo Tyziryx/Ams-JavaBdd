@@ -1,6 +1,5 @@
 package main.java.ui.pages;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
@@ -10,9 +9,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.sql.SQLException;
-import main.java.data.Util;
+
 import main.java.data.entities.IData;
-import main.java.data.entities.Produit;
 import main.java.data.sql.Tables;
 
 public class PageStock extends VBox implements Page {
