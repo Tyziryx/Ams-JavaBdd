@@ -11,6 +11,7 @@ import javafx.scene.text.Text;
 import java.sql.SQLException;
 
 import main.java.data.entities.IData;
+import main.java.data.sql.Gestion;
 import main.java.data.sql.Tables;
 
 public class PageStock extends VBox implements Page {
@@ -23,7 +24,7 @@ public class PageStock extends VBox implements Page {
 
         TableView<IData> table = new TableView<>();
         table.getStyleClass().add("table-view");
-        table.setItems(Util.getTable(Tables.PRODUIT));
+        table.setItems(Gestion.getTable(Tables.PRODUIT));
 
         TableColumn<IData, String> nom = new TableColumn<>("Nom");
         nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
