@@ -1,9 +1,11 @@
-package data;
+package main.java.data.entities;
+
+import main.java.data.sql.fieldType;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class Prix_fournisseur implements IData{
+public class Prix_fournisseur implements IData {
 
     int id_fournisseur;
     int id_produit;
@@ -67,8 +69,11 @@ public class Prix_fournisseur implements IData{
     @Override
     public boolean check(HashMap<String, fieldType> tableStruct) {
 
+
         return false;
     }
+
+
 }
 
 
