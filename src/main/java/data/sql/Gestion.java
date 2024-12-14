@@ -84,7 +84,7 @@ public class Gestion {
      * @param query requête SQL
      * @throws SQLException si la requête contient un INSERT
      */
-    public ResultSet execute(String sql) throws SQLException {
+    public static ResultSet execute(String sql) throws SQLException {
         if (sql.trim().toUpperCase().startsWith("INSERT")) {
             throw new SQLException("On ne peux pas utiliser cette méthode pour les requêtes INSERT");
         }
