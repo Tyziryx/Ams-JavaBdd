@@ -9,6 +9,8 @@ out/
 *.iws
 .idea/
 misc.xml
+Ams-JavaBdd.iml
+postgresql_42_7_4.xml
 
 
 ### NetBeans ###
