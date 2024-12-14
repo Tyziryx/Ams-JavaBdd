@@ -5,14 +5,14 @@ import main.java.data.sql.fieldType;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class Prix_fournisseur implements IData {
+public class PrixFournisseur implements IData {
 
     int id_fournisseur;
     int id_produit;
     float prix ;
     private LinkedHashMap<String, fieldType> map;
 
-    public Prix_fournisseur(int id_fournisseur, int id_produit, float prix) {
+    public PrixFournisseur(int id_fournisseur, int id_produit, float prix) {
         this.id_fournisseur = id_fournisseur;
         this.id_produit = id_produit;
         this.prix = prix;
@@ -43,9 +43,6 @@ public class Prix_fournisseur implements IData {
         this.id_fournisseur = id_fournisseur;
     }
 
-
-
-
     public int getId_fournisseur() {return id_fournisseur;}
 
     public void setId_produit(int id_produit) {this.id_produit = id_produit;}
@@ -68,9 +65,24 @@ public class Prix_fournisseur implements IData {
 
     @Override
     public boolean check(HashMap<String, fieldType> tableStruct) {
+        if (this.map.size() != tableStruct.size()) {
+            return false;
+        }
+        for (String key : this.map.keySet()) {
+            if (!tableStruct.containsKey(key) || tableStruct.get(key) != this.map.get(key)) {
+//                System.out.println("Key: " + key + " tableStruct: " + tableStruct.get(key) + " this.map: " + this.map.get(key));
+                return false;
+            }
+        }
+        return true;
+    }
 
 
-        return false;
+
+
+
+    public void getQuery() {
+        System.out.println("INSERT INTO prix_fournisseur (id_fournisseur, id_produit, prix) VALUES (" + id_fournisseur + ", " + id_produit + ", " + prix + ");");
     }
 
 
