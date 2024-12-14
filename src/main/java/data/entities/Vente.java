@@ -5,7 +5,6 @@ import main.java.data.sql.fieldType;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Locale;
 
 public class Vente implements IData {
 
@@ -16,22 +15,22 @@ public class Vente implements IData {
         int id_produit;
        int num_lot;
         Date vente;
-        float prix_unité;
-        float prix_final;,
-        int quantité;
+        float prix_unite;
+        float prix_final;
+        int quantite;
 
         // LinkedHashMap pour garder l'ordre des colonnes
         private LinkedHashMap<String, fieldType> map;
         private String values;
 
-        public Vente(int id_produit, int id_achat, String nom, String description, String categorie) {
-           this.numero_ticket = numero_ticket;
+        public Vente(int numero_ticket, int id_produit, int num_lot, Date vente, float prix_unite, float prix_final, int quantite) {
+            this.numero_ticket = numero_ticket;
             this.id_produit = id_produit;
             this.num_lot = num_lot;
             this.vente = vente;
-            this.prix_unité = prix_unité;
+            this.prix_unite =prix_unite;
             this.prix_final = prix_final;
-            this.quantité = quantité;
+            this.quantite = quantite;
         }
 
         public int getNumero_ticket() {
@@ -66,12 +65,12 @@ public class Vente implements IData {
             this.vente = vente;
         }
 
-        public float getPrix_unité() {
-            return prix_unité;
+        public float getPrix_unite() {
+            return prix_unite;
         }
 
-        public void setPrix_unité(float prix_unité) {
-            this.prix_unité = prix_unité;
+        public void setPrix_unite(float prix_unite) {
+            this.prix_unite = prix_unite;
         }
 
         public float getPrix_final() {
@@ -82,12 +81,12 @@ public class Vente implements IData {
             this.prix_final = prix_final;
         }
 
-        public int getQuantité() {
-            return quantité;
+        public int getQuantite() {
+            return quantite;
         }
 
-        public void setQuantité(int quantité) {
-            this.quantité = quantité;
+        public void setQuantite(int quantite) {
+            this.quantite = quantite;
         }
 
         @Override
@@ -148,7 +147,14 @@ public class Vente implements IData {
             }
         }
         return true;
-        }}
+        }
+public void getquery() {
+        System.out.println("INSERT INTO vente (numero_ticket, id_produit, num_lot, vente, prix_unité, prix_final, quantité) VALUES (" + numero_ticket + ", " + id_produit + ", " + num_lot + ", " + vente + ", " + prix_unite + ", " + prix_final + ", " + quantite + ");");
+    }
+
+
+
+}
 
 
 
