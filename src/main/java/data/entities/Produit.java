@@ -1,4 +1,6 @@
-package data;
+package main.java.data.entities;
+
+import main.java.data.sql.fieldType;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -7,7 +9,7 @@ import java.util.Locale;
 public class Produit implements IData {
     int id_produit;
     int id_achat;
-    String nom ;
+    String nom;
     String description;
     String categorie;
     double prix_vente;
@@ -19,45 +21,59 @@ public class Produit implements IData {
     public Produit(int id_produit, int id_achat, String nom, String description, String categorie, double prix_vente) {
         this.id_produit = id_produit;
         this.id_achat = id_achat;
-        this.nom = nom.replaceAll("'", "''");; // Pour éviter les erreurs de syntaxe SQL avec les guillemets
-        this.description = description.replaceAll("'", "''");;
-        this.categorie = categorie.replaceAll("'", "''");;
+        this.nom = nom.replaceAll("'", "''");
+        ; // Pour éviter les erreurs de syntaxe SQL avec les guillemets
+        this.description = description.replaceAll("'", "''");
+        ;
+        this.categorie = categorie.replaceAll("'", "''");
+        ;
         this.prix_vente = prix_vente;
     }
 
     public int getId_produit() {
         return id_produit;
     }
+
     public void setId_produit(int id_produit) {
         this.id_produit = id_produit;
     }
+
     public int getId_achat() {
         return id_achat;
     }
+
     public void setId_achat(int id_achat) {
         this.id_achat = id_achat;
     }
+
     public String getNom() {
         return nom;
     }
+
     public void setNom(String nom) {
         this.nom = nom;
     }
+
     public String getDescription() {
         return description;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
+
     public String getCategorie() {
         return categorie;
     }
+
     public void setCategorie(String categorie) {
         this.categorie = categorie;
     }
+
     public double getPrix_vente() {
         return prix_vente;
     }
+
     public void setPrix_vente(double prix_vente) {
         this.prix_vente = prix_vente;
     }

@@ -1,4 +1,4 @@
-package data;
+package main.java.data.sql;
 
 public enum fieldType {
 
