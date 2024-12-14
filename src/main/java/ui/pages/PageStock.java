@@ -38,6 +38,8 @@ public class PageStock extends VBox implements Page {
         desc.setCellValueFactory(new PropertyValueFactory<>("description"));
         desc.getStyleClass().add("table-column");
 
+        title.getStyleClass().add("table-column");
+
         table.getColumns().addAll(nom, id, desc);
 
         components.addAll(title, table);

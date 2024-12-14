@@ -13,17 +13,17 @@ import main.java.data.sql.Tables;
 
 import java.sql.SQLException;
 
-public class PageFournisseurs extends VBox implements Page{
-    public PageFournisseurs(double spacing) throws SQLException {
+public class PageAchats extends VBox implements Page {
+    public PageAchats(double spacing) throws SQLException {
         super(spacing);
 
         ObservableList<Node> components = this.getChildren();
 
-        Text title = new Text("C'est la page des Fournisseurs");
+        Text title = new Text("C'est la page des Achats");
 
         TableView<IData> table = new TableView<>();
         table.getStyleClass().add("table-view");
-        table.setItems(Gestion.getTable(Tables.FOURNISSEUR));
+//        table.setItems();
 
         TableColumn<IData, String> nom = new TableColumn<>("Nom société");
         nom.setCellValueFactory(new PropertyValueFactory<>("nom_societe"));

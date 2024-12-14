@@ -15,9 +15,8 @@ public class PagePrincipale extends VBox implements Page{
         ObservableList<Node> components = this.getChildren();
 
         Text someLabel = new Text("C'est la page Principale");
-        TextField someTextField = new TextField();
 
-        components.addAll(someLabel, someTextField);
+        components.addAll(someLabel);
 
     }
 }

@@ -9,7 +9,7 @@ public class PrixFournisseur implements IData {
 
     int id_fournisseur;
     int id_produit;
-    float prix ;
+    float prix;
     private LinkedHashMap<String, fieldType> map;
 
     public PrixFournisseur(int id_fournisseur, int id_produit, float prix) {
@@ -43,18 +43,25 @@ public class PrixFournisseur implements IData {
         this.id_fournisseur = id_fournisseur;
     }
 
-    public int getId_fournisseur() {return id_fournisseur;}
-
-    public void setId_produit(int id_produit) {this.id_produit = id_produit;}
-
-    public int getId_produit() {return id_produit;}
-
-    public void setPrix(float prix) {this.prix = prix;
+    public int getId_fournisseur() {
+        return id_fournisseur;
     }
 
-    public float getPrix() {return prix;
+    public void setId_produit(int id_produit) {
+        this.id_produit = id_produit;
     }
 
+    public int getId_produit() {
+        return id_produit;
+    }
+
+    public void setPrix(float prix) {
+        this.prix = prix;
+    }
+
+    public float getPrix() {
+        return prix;
+    }
 
 
     @Override

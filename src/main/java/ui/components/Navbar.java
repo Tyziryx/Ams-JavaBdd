@@ -7,10 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import main.java.ui.pages.Page;
-import main.java.ui.pages.PageFournisseurs;
-import main.java.ui.pages.PagePrincipale;
-import main.java.ui.pages.PageStock;
+import main.java.ui.pages.*;
 
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
@@ -28,6 +25,8 @@ public class Navbar extends VBox {
         Map<String, Page> buttonList = new LinkedHashMap<String, Page>() {{
             put("Accueil", new PagePrincipale(20));
             put("Fournisseurs", new PageFournisseurs(20));
+            put("Achats", new PageAchats(20));
+            put("Ventes", new PageVentes(20));
             put("Stock", new PageStock(20));
         }};
 

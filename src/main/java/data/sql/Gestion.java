@@ -181,13 +181,28 @@ public class Gestion {
                     items.add(new main.java.data.entities.PrixFournisseur(id_fournisseur, id_produit, prix));
                 }
                 break;
-                case CONTRAT:
+            case CONTRAT:
                 ResultSet rs4 = g.execute(Contrat.getQuery());
                 while (rs4.next()) {
                     int id_fournisseur = rs4.getInt("id_fournisseur");
                     int id_produit = rs4.getInt("id_produit");
                     float prix = rs4.getFloat("prix");
                     items.add(new main.java.data.entities.PrixFournisseur(id_fournisseur, id_produit, prix));
+                }
+                break;
+            case VENTE:
+                ResultSet rs5 = g.execute(Vente.getQuery());
+                // numero_ticket, id_produit, num_lot, date_vente, prix_unite, prix_final, quantite
+                while (rs5.next()) {
+                    int numero_ticket = rs5.getInt("numero_ticket");
+                    int id_produit = rs5.getInt("id_produit");
+                    int num_lot = rs5.getInt("num_lot");
+                    Date vente = rs5.getDate("date_vente");
+                    float prix_unite = rs5.getFloat("prix_unite");
+                    float prix_final = rs5.getFloat("prix_final");
+                    int quantite = rs5.getInt("quantite");
+                    items.add(new Vente(numero_ticket, id_produit, num_lot, vente, prix_unite, prix_final, quantite));
+
                 }
                 break;
         }
