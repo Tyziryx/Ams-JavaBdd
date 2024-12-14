@@ -23,7 +23,6 @@ public class Navbar extends VBox {
     public Navbar(BorderPane page) throws SQLException {
         this.page = page;
         this.setSpacing(10);
-        this.setStyle("-fx-background-color: #2c3e50; -fx-padding: 10;");
 
         Label navbarTitle = new Label("");
         Map<String, Page> buttonList = new LinkedHashMap<String, Page>() {{
@@ -36,11 +35,10 @@ public class Navbar extends VBox {
             // Récup du nom et de la page
             String name = entry.getKey();
             Page pageType = entry.getValue();
+            this.getStyleClass().add("navbar");
 
             // Creation et setup du boutton
             Button button = new Button(name);
-            styleButton(button);
-
             // Ajout de la fonction qui permet de switch de page
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
@@ -54,8 +52,4 @@ public class Navbar extends VBox {
         }
     }
 
-    private void styleButton(Button button) {
-        button.setPrefWidth(150);
-        button.setStyle("-fx-font-size: 14px;-fx-background-color: #ecf0f1; -fx-padding: 10;");
-    }
 }

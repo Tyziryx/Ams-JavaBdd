@@ -1,7 +1,95 @@
-.text {
-    -fx-text-fill: red;
+.root {
+    -fx-font-family: 'Arial', sans-serif;
+    -fx-background-color: #f8fafc;
+}
+.navbar {
+    -fx-background-color: #2c3e50;
+    -fx-padding: 10px;
+    -fx-start-margin: 10px;
+}
+.navbar .button {
+    -fx-background-color: #ecf0f1;
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+    -fx-pref-width: 150px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-margin: 5px 0;
+}
+.navbar .button:hover {
+    /*-fx-background-color: #bdc3c7;*/
 }
 
-.button {
+
+* {
+    -fx-primary-color: #007acc;
+    -fx-secondary-color: #4B6EAF;
+    -fx-accent-color: #B6FF00;
+    -fx-grey-color: #b9b9b9;
+    -fx-light-grey-color: #d1d1d1;
+    -fx-lightest-grey-color: #F9F9FB;
+
+    -fx-focus-color: -fx-secondary-color;
+}
+.table-button {
+    -fx-background-color: -fx-primary-color;
+    -fx-cursor: hand;
+}
+.table-button:hover{
+    -fx-background-color: transparent;
+}
+.table-view {
+    -fx-border-color: transparent;
+    -fx-background-color: transparent; /* OR  -fx-background-insets: 0.0; */
+}
+.table-view .column-header-background,
+.table-view .column-header-background .filler,
+.table-view .corner {
+    -fx-background-color: transparent;
+}
+.table-view .column-header {
+    -fx-background-color: -fx-light-grey-color;
+    -fx-border-color: -fx-grey-color;
+}
+.table-view .column-header .label{
+    -fx-font-weight: bold;
+    -fx-alignment: center-left;
+}
+/* This is just magic */
+.table-row-cell:filled {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent -fx-lightest-grey-color -fx-lightest-grey-color -fx-lightest-grey-color, transparent;
+    -fx-border-insets: 0, 1;
+}
+.table-row-cell:empty {
+    -fx-background-color: transparent;
+}
+.table-row-cell:filled:hover {
+    -fx-background-color: -fx-light-grey-color;
+}
+.table-row-cell:filled:selected:hover {
+    -fx-background-color: -fx-light-grey-color;
+}
+.table-row-cell:filled:selected {
+    -fx-background-color: #eaeaea;
+    -fx-background-insets: 0.0;
+    -fx-background-radius: 0.0;
+}
+.table-row-cell:filled:selected .table-cell {
+    -fx-text-fill: black;
+}
+.table-view .cell:filled{
+    -fx-cell-size: 30;
+    -fx-alignment: center-left;
+}
+.check-box-table-cell > .check-box:selected .box .mark {
+    -fx-background-color: white;
+}
+.check-box-table-cell > .check-box:selected .box{
+    -fx-background-color: -fx-accent-color;
+}
+.table-view .placeholder .label {
     -fx-text-fill: red;
+    -fx-padding:20px;
 }

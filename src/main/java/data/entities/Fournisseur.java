@@ -6,63 +6,20 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 
-public class Produit implements IData {
-    int id_produit;
-    int id_achat;
-    String nom;
-    String description;
-    String categorie;
+public class Fournisseur implements IData {
+    private String nom_societe;
+    private int siret;
+    private String adresse;
+    private String email;
 
-    // LinkedHashMap pour garder l'ordre des colonnes
     private LinkedHashMap<String, fieldType> map;
     private String values;
 
-    public Produit(int id_produit, int id_achat, String nom, String description, String categorie) {
-        this.id_produit = id_produit;
-        this.id_achat = id_achat;
-        this.nom = nom.replaceAll("'", "''");
-        this.description = description.replaceAll("'", "''");
-        this.categorie = categorie.replaceAll("'", "''");
-    }
-
-    public int getId_produit() {
-        return id_produit;
-    }
-
-    public void setId_produit(int id_produit) {
-        this.id_produit = id_produit;
-    }
-
-    public int getId_achat() {
-        return id_achat;
-    }
-
-    public void setId_achat(int id_achat) {
-        this.id_achat = id_achat;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getCategorie() {
-        return categorie;
-    }
-
-    public void setCategorie(String categorie) {
-        this.categorie = categorie;
+    public Fournisseur(String nom_societe, int siret, String adresse, String email) {
+        this.nom_societe = nom_societe;
+        this.siret = siret;
+        this.adresse = adresse;
+        this.email = email;
     }
 
     @Override
@@ -85,16 +42,50 @@ public class Produit implements IData {
             values.append(key);
         }
         this.values = values.toString();
+    }
 
+    public String getNom_societe() {
+        return nom_societe;
+    }
 
+    public void setNom_societe(String nom_societe) {
+        this.nom_societe = nom_societe;
+    }
+
+    public int getSiret() {
+        return siret;
+    }
+
+    public void setSiret(int siret) {
+        this.siret = siret;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public static String getQuery() {
+        return "SELECT nom_societe, siret, adresse, email FROM fournisseur";
     }
 
     @Override
     public String getValues() {
         String res = String.format(
                 Locale.US, // par ce que sinon le float est écrit avec une virgule
-                "%d, %d, '%s', '%s', '%s', %f",
-                this.id_produit, this.id_achat, this.nom, this.description, this.categorie
+                "%d, %d, '%s', '%s', '%s'",
+                this.nom_societe, this.siret, this.adresse, this.email
         );
         return res;
     }
@@ -116,9 +107,5 @@ public class Produit implements IData {
             }
         }
         return true;
-    }
-
-    public static String getQuery() {
-        return "SELECT id_produit, id_achat, nom, description, categorie FROM produit;";
     }
 }
