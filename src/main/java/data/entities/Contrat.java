@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 
-public class Contrats implements IData {
+public class Contrat implements IData {
     int id_produit;
     int quantite_min;
     Date date_debut;
@@ -18,7 +18,7 @@ public class Contrats implements IData {
     private LinkedHashMap<String, fieldType> map;
     private String values;
 
-    public Contrats(int id_produit, int quantite_min, Date date_debut, Date date_fin, float prix_produit) {
+    public Contrat(int id_produit, int quantite_min, Date date_debut, Date date_fin, float prix_produit) {
         this.id_produit = id_produit;
         this.quantite_min = quantite_min;
         this.date_debut = date_debut;

@@ -8,6 +8,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import main.java.data.entities.IData;
+import main.java.data.sql.Gestion;
 import main.java.data.sql.Tables;
 
 import java.sql.SQLException;
@@ -22,7 +23,7 @@ public class PageFournisseurs extends VBox implements Page{
 
         TableView<IData> table = new TableView<>();
         table.getStyleClass().add("table-view");
-        table.setItems(Util.getTable(Tables.FOURNISSEUR));
+        table.setItems(Gestion.getTable(Tables.FOURNISSEUR));
 
         TableColumn<IData, String> nom = new TableColumn<>("Nom société");
         nom.setCellValueFactory(new PropertyValueFactory<>("nom_societe"));

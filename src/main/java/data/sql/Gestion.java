@@ -2,9 +2,7 @@ package main.java.data.sql;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import main.java.data.entities.Fournisseur;
-import main.java.data.entities.IData;
-import main.java.data.entities.Contrats;
+import main.java.data.entities.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -154,14 +152,14 @@ public class Gestion {
 
         switch (tables) {
             case PRODUIT:
-                ResultSet rs = g.execute(Contrats.getQuery());
+                ResultSet rs = g.execute(Produit.getQuery());
                 while (rs.next()) {
                     int id = rs.getInt("id_produit");
                     int id_achat = rs.getInt("id_achat");
                     String nom = rs.getString("nom");
                     String desc = rs.getString("description");
                     String categorie = rs.getString("categorie");
-                    items.add(new Contrats(id, id_achat, nom, desc, categorie));
+                    items.add(new Produit(id, id_achat, nom, desc, categorie));
                 }
                 break;
             case FOURNISSEUR:
@@ -175,11 +173,20 @@ public class Gestion {
                 }
                 break;
             case PRIX_FOURNISSEUR:
-                ResultSet rs3 = g.execute("SELECT * FROM prix_fournisseur");
+                ResultSet rs3 = g.execute(Prix_fournisseur.getQuery());
                 while (rs3.next()) {
                     int id_fournisseur = rs3.getInt("id_fournisseur");
                     int id_produit = rs3.getInt("id_produit");
                     float prix = rs3.getFloat("prix");
+                    items.add(new main.java.data.entities.Prix_fournisseur(id_fournisseur, id_produit, prix));
+                }
+                break;
+                case CONTRAT:
+                ResultSet rs4 = g.execute(Contrat.getQuery());
+                while (rs4.next()) {
+                    int id_fournisseur = rs4.getInt("id_fournisseur");
+                    int id_produit = rs4.getInt("id_produit");
+                    float prix = rs4.getFloat("prix");
                     items.add(new main.java.data.entities.Prix_fournisseur(id_fournisseur, id_produit, prix));
                 }
                 break;
