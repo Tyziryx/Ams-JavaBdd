@@ -14,7 +14,7 @@ import main.java.data.sql.Tables;
 import java.sql.SQLException;
 
 public class PageVentes extends VBox implements Page {
-    public PageVentes(double spacing) throws SQLException {
+    public PageVentes(double spacing) throws SQLException {                                                                                                            
         super(spacing);
 
         ObservableList<Node> components = this.getChildren();

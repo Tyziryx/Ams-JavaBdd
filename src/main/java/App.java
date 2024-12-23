@@ -25,7 +25,7 @@ public class App extends Application {
         page.setCenter(pagePrincipale);
 
         Scene scene = new Scene(page, WINDOW_WIDTH, WINDOW_HEIGHT);
-        URL url = getClass().getResource("../ressources/style.css");
+        URL url = getClass().getResource("/css/style.css");
         String css = url.toExternalForm();
         page.getStylesheets().add(css);
         scene.getStylesheets().add(css);

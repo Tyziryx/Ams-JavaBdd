@@ -5,10 +5,17 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.SVGPath;
 import main.java.ui.pages.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -17,7 +24,7 @@ public class Navbar extends VBox {
 
     private BorderPane page;
 
-    public Navbar(BorderPane page) throws SQLException {
+    public Navbar(BorderPane page) throws SQLException, IOException {
         this.page = page;
         this.setSpacing(10);
 
@@ -38,6 +45,9 @@ public class Navbar extends VBox {
 
             // Creation et setup du boutton
             Button button = new Button(name);
+            // Ajout de l'icone du bouton
+
+
             // Ajout de la fonction qui permet de switch de page
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
@@ -50,5 +60,4 @@ public class Navbar extends VBox {
             this.getChildren().add(button);
         }
     }
-
 }
