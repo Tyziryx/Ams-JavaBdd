@@ -19,6 +19,20 @@
     -fx-cursor: hand;
 
 }
+
+
+
+
+
+.hbox {
+    -fx-opacity: 0.5;
+}
+
+.hbox:hover {
+    -fx-opacity: 1;
+}
+
+
 .Accueil-button {
     /* Bouton sans fond */
     -fx-border-color: transparent; /* Pas de bordure */

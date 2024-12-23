@@ -9,15 +9,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.SVGPath;
 import main.java.ui.pages.*;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -52,10 +47,20 @@ public class Navbar extends VBox {
 
             // Création de l'icône SVG via la classe CSS
 
-
-
-            Image icon = new Image("/icons/"+name.toLowerCase()+".png");
+            Image icon ;
+            try {
+                 icon = new Image("icons/"+name.toLowerCase()+".png");
+            }
+            catch (Exception e) {
+                 icon = new Image("icons/accueilgris.png");
+            }
             ImageView iconView = new ImageView(icon);
+            iconView.getStyleClass().add("icon-image");
+
+          //  iconView.getStyleClass().add(name + "-button"); // Ajout de la classe CSS
+            iconView.setFitWidth(18);
+            iconView.setFitHeight(18);
+            // Taille de l'icône
 
             // Création du texte du bouton
             Label label = new Label(name);
@@ -66,6 +71,7 @@ public class Navbar extends VBox {
 
             // Attachement du HBox au bouton
             button.setGraphic(hBox);
+            button.getStyleClass().add("hbox");
 
 
             // Ajout de la fonction qui permet de switch de page
