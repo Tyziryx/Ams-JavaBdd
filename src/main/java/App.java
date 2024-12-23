@@ -1,5 +1,6 @@
 package main.java;
 
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import main.java.ui.components.Navbar;
 import main.java.ui.pages.PagePrincipale;
@@ -29,6 +30,7 @@ public class App extends Application {
         String css = url.toExternalForm();
         page.getStylesheets().add(css);
         scene.getStylesheets().add(css);
+        ps.getIcons().add(new Image(getClass().getResourceAsStream("/images/logo.png")));
         ps.setScene(scene);
         ps.setTitle(WINDOW_TITLE);
         ps.show();
