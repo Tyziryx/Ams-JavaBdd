@@ -8,6 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
 import main.java.ui.pages.*;
@@ -44,8 +46,26 @@ public class Navbar extends VBox {
             this.getStyleClass().add("navbar");
 
             // Creation et setup du boutton
-            Button button = new Button(name);
-            // Ajout de l'icone du bouton
+            Button button = new Button();
+            button.getStyleClass().add("navbar-button"); // Classe générale du bouton
+            HBox hBox = new HBox(10); // Espacement entre icône et texte
+
+            // Création de l'icône SVG via la classe CSS
+
+
+
+            Image icon = new Image("/icons/"+name.toLowerCase()+".png");
+            ImageView iconView = new ImageView(icon);
+
+            // Création du texte du bouton
+            Label label = new Label(name);
+            label.getStyleClass().add("navbar-label");
+
+            // Ajout de l'icône et du texte dans le HBox
+            hBox.getChildren().addAll(iconView, label);
+
+            // Attachement du HBox au bouton
+            button.setGraphic(hBox);
 
 
             // Ajout de la fonction qui permet de switch de page
