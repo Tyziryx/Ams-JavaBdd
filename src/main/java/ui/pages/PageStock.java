@@ -5,8 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
+import javafx.scene.layout.HBox;
 
 import java.sql.SQLException;
 
@@ -14,13 +13,11 @@ import main.java.data.entities.IData;
 import main.java.data.sql.Gestion;
 import main.java.data.sql.Tables;
 
-public class PageStock extends VBox implements Page {
+public class PageStock extends Page {
     public PageStock(double spacing) throws SQLException {
-        super(spacing);
-
+        super(spacing, "Stock");
+        HBox tableBox = new HBox();
         ObservableList<Node> components = this.getChildren();
-
-        Text title = new Text("C'est la page du Stock");
 
         TableView<IData> table = new TableView<>();
         table.getStyleClass().add("table-view");
@@ -42,6 +39,11 @@ public class PageStock extends VBox implements Page {
 
         table.getColumns().addAll(nom, id, desc);
 
-        components.addAll(title, table);
+        table.prefWidthProperty().bind(tableBox.widthProperty());
+
+        tableBox.getStyleClass().add("table-box");
+        tableBox.getChildren().addAll(table);
+
+        components.addAll(title, tableBox);
     }
 }

@@ -8,15 +8,12 @@ import javafx.scene.text.Text;
 
 import java.net.URL;
 
-public class PagePrincipale extends VBox implements Page{
+public class PagePrincipale extends Page{
     public PagePrincipale(double spacing) {
-        super(spacing);
+        super(spacing, "Page Principale");
 
         ObservableList<Node> components = this.getChildren();
-
-        Text someLabel = new Text("C'est la page Principale");
-
-        components.addAll(someLabel);
+        components.addAll(title);
 
     }
 }

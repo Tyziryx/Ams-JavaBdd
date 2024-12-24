@@ -1,28 +1,36 @@
+@font-face {
+    font-family: 'Lexend';
+    src: url('../fonts/Lexend-ExtraBold.ttf');
+}
+
 .root {
-    -fx-font-family: 'Arial', sans-serif;
-    -fx-background-color: #dce1e5;
+    -fx-font-family: 'Lexend';
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
+    -maincolor: #ffffff;
+    -secondcolor: #ffffff;
+    -background-maincolor: #dce1e5;
+    -background-secondcolor: #e6ebef;
+    -text-fill: #203141;
+    -text-secondfill: #6e7886;
+
+    -fx-background-color: -background-maincolor;
 }
 .navbar {
-    -fx-background-color: #e6ebef;
+    -fx-background-color: -background-secondcolor;
     -fx-padding: 35px;
     -fx-start-margin: 10px;
 }
 .navbar .button {
-    -fx-background-color: #e6ebef;
-    -fx-text-fill: #2c3e50;
+    -fx-background-color: -background-secondcolor;
+    -fx-text-fill: -text-secondfill;
     -fx-font-size: 14px;
     -fx-padding: 10px 20px 10px 20px;
-    -fx-pref-width: 155px;
+    -fx-pref-width: 150px;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
     -fx-alignment: center-left;
-    -fx-cursor: hand;
-
 }
-
-
-
-
 
 .hbox {
     -fx-opacity: 0.5;
@@ -32,7 +40,6 @@
     -fx-opacity: 1;
 }
 
-
 .Accueil-button {
     /* Bouton sans fond */
     -fx-border-color: transparent; /* Pas de bordure */
@@ -40,7 +47,6 @@
     -fx-min-height: 24px;
     -fx-max-width: 24px;
     -fx-max-height: 24px;
-    -fx-background-color: red; /* Couleur du SVG */
     -fx-shape: "M421.985,229.833L217.847,25.981c-7.235-7.238-16.94-13.374-29.121-18.416C176.541,2.522,165.407,0,155.318,0H36.547 C26.648,0,18.083,3.619,10.85,10.848C3.617,18.081,0.002,26.646,0.002,36.545v118.771c0,10.088,2.519,21.219,7.564,33.404 s11.182,21.792,18.417,28.837L230.118,421.98c7.043,7.043,15.602,10.564,25.697,10.564c9.89,0,18.558-3.521,25.98-10.564 l140.186-140.47c7.043-7.046,10.561-15.604,10.561-25.693C432.542,245.919,429.024,237.258,421.985,229.833";
 }
 
@@ -59,18 +65,15 @@
     -fx-min-height: 24px;
     -fx-max-width: 24px;
     -fx-max-height: 24px;
-
     -fx-shape: "M421.985,229.833L217.847,25.981c-7.235-7.238-16.94-13.374-29.121-18.416C176.541,2.522,165.407,0,155.318,0H36.547 C26.648,0,18.083,3.619,10.85,10.848C3.617,18.081,0.002,26.646,0.002,36.545v118.771c0,10.088,2.519,21.219,7.564,33.404   s11.182,21.792,18.417,28.837L230.118,421.98c7.043,7.043,15.602,10.564,25.697,10.564c9.89,0,18.558-3.521,25.98-10.564   l140.186-140.47c7.043-7.046,10.561-15.604,10.561-25.693C432.542,245.919,429.024,237.258,421.985,229.833 ";
-
 }
+
 .Ventes-button{
     -fx-min-width: 4px;
     -fx-min-height: 24px;
     -fx-max-width: 24px;
     -fx-max-height: 24px;
     -fx-shape: "M421.985,229.833L217.847,25.981c-7.235-7.238-16.94-13.374-29.121-18.416C176.541,2.522,165.407,0,155.318,0H36.547 C26.648,0,18.083,3.619,10.85,10.848C3.617,18.081,0.002,26.646,0.002,36.545v118.771c0,10.088,2.519,21.219,7.564,33.404   s11.182,21.792,18.417,28.837L230.118,421.98c7.043,7.043,15.602,10.564,25.697,10.564c9.89,0,18.558-3.521,25.98-10.564   l140.186-140.47c7.043-7.046,10.561-15.604,10.561-25.693C432.542,245.919,429.024,237.258,421.985,229.833 ";
-
-
 }
 
 .Stock-button{
@@ -79,13 +82,7 @@
     -fx-max-width: 24px;
     -fx-max-height: 24px;
     -fx-shape: "M421.985,229.833L217.847,25.981c-7.235-7.238-16.94-13.374-29.121-18.416C176.541,2.522,165.407,0,155.318,0H36.547 C26.648,0,18.083,3.619,10.85,10.848C3.617,18.081,0.002,26.646,0.002,36.545v118.771c0,10.088,2.519,21.219,7.564,33.404   s11.182,21.792,18.417,28.837L230.118,421.98c7.043,7.043,15.602,10.564,25.697,10.564c9.89,0,18.558-3.521,25.98-10.564   l140.186-140.47c7.043-7.046,10.561-15.604,10.561-25.693C432.542,245.919,429.024,237.258,421.985,229.833 ";
-
-
 }
-
-
-
-
 
 .icon-button:hover {
     -icon-paint: linear-gradient(to bottom, red, black);
@@ -103,78 +100,77 @@
 }
 
 .navbar .button:hover {
-    -fx-background-color: #d3d8dc;
+    -fx-text-fill: -text-fill;
+    -fx-background-color: -background-maincolor;
 }
 
+.content {
+    -fx-padding: 25px;
+}
+.content-title {
+    -fx-font-size: 25px;
+    -fx-text-fill: -text-fill;
+    -fx-font-weight: bold;
+}
 
-* {
-    -fx-primary-color: #007acc;
-    -fx-secondary-color: #4B6EAF;
-    -fx-accent-color: #B6FF00;
-    -fx-grey-color: #b9b9b9;
-    -fx-light-grey-color: #d1d1d1;
-    -fx-lightest-grey-color: #F9F9FB;
+.table-box {
+    -fx-background-radius: 1em;
+    -fx-border-radius: 1em;
+    -fx-overflow: hidden; /* Cacher l'overflow */
+    -fx-background-color: -background-secondcolor;
+    -fx-background-insets: 0.0;
+    -fx-padding: 15px;
+}
+.table-view:focused, .cell {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
 
-    -fx-focus-color: -fx-secondary-color;
-}
-.table-button {
-    -fx-background-color: -fx-primary-color;
-    -fx-cursor: hand;
-}
-.table-button:hover{
-    -fx-background-color: transparent;
-}
-.table-view {
+.table-view .column-header,
+.table-view .column-header-background .filler {
+    -fx-background-color: -background-secondcolor;
     -fx-border-color: transparent;
-    -fx-background-color: transparent; /* OR  -fx-background-insets: 0.0; */
-}
-.table-view .column-header-background,
-.table-view .column-header-background .filler,
-.table-view .corner {
-    -fx-background-color: transparent;
-}
-.table-view .column-header {
-    -fx-background-color: -fx-light-grey-color;
-    -fx-border-color: -fx-grey-color;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
 .table-view .column-header .label{
+    -fx-text-fill: -text-fill;
     -fx-font-weight: bold;
-    -fx-alignment: center-left;
+    -fx-alignment: CENTER_LEFT;
 }
-/* This is just magic */
-.table-row-cell:filled {
+.table-view .cell{
+    -fx-cell-size: 35;
+    -fx-background-color: -background-secondcolor;
+    -fx-text-fill: -text-fill;
+    -fx-alignment: CENTER_LEFT;
+    -fx-font-weight: 500;
+
+}
+
+/* scroll bar starts here */
+
+/* The increment and decrement button CSS class of scrollbar */
+.table-view .increment-button ,.table-view .decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 2em;
+
+}
+
+/* The main scrollbar **track** CSS class  */
+.table-view .scroll-bar:horizontal .track,
+.table-view .scroll-bar:vertical .track{
     -fx-background-color: transparent;
-    -fx-border-color: transparent -fx-lightest-grey-color -fx-lightest-grey-color -fx-lightest-grey-color, transparent;
-    -fx-border-insets: 0, 1;
+    -fx-border-color:derive( #a8b0b4,80%);
+
+    -fx-background-radius: 2em;
+    -fx-border-radius:2em;
 }
-.table-row-cell:empty {
-    -fx-background-color: transparent;
-}
-.table-row-cell:filled:hover {
-    -fx-background-color: -fx-light-grey-color;
-}
-.table-row-cell:filled:selected:hover {
-    -fx-background-color: -fx-light-grey-color;
-}
-.table-row-cell:filled:selected {
-    -fx-background-color: #eaeaea;
-    -fx-background-insets: 0.0;
-    -fx-background-radius: 0.0;
-}
-.table-row-cell:filled:selected .table-cell {
-    -fx-text-fill: black;
-}
-.table-view .cell:filled{
-    -fx-cell-size: 30;
-    -fx-alignment: center-left;
-}
-.check-box-table-cell > .check-box:selected .box .mark {
-    -fx-background-color: white;
-}
-.check-box-table-cell > .check-box:selected .box{
-    -fx-background-color: -fx-accent-color;
-}
-.table-view .placeholder .label {
-    -fx-text-fill: red;
-    -fx-padding:20px;
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.table-view .scroll-bar:horizontal .thumb,
+.table-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #bfc4c7;
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+
 }

@@ -13,13 +13,12 @@ import main.java.data.sql.Tables;
 
 import java.sql.SQLException;
 
-public class PageAchats extends VBox implements Page {
+public class PageAchats extends Page {
     public PageAchats(double spacing) throws SQLException {
-        super(spacing);
+        super(spacing, "Achats");
 
         ObservableList<Node> components = this.getChildren();
 
-        Text title = new Text("C'est la page des Achats");
 
         TableView<IData> table = new TableView<>();
         table.getStyleClass().add("table-view");

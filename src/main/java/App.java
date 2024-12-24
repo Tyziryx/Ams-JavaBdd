@@ -23,6 +23,7 @@ public class App extends Application {
         page.setLeft(navbar);
 
         PagePrincipale pagePrincipale = new PagePrincipale(20);
+        pagePrincipale.getStyleClass().add("content");
         page.setCenter(pagePrincipale);
 
         Scene scene = new Scene(page, WINDOW_WIDTH, WINDOW_HEIGHT);
