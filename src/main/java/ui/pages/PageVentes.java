@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import main.java.data.entities.IData;
@@ -17,6 +18,7 @@ public class PageVentes extends Page {
     public PageVentes(double spacing) throws SQLException {
         super(spacing, "Ventes");
 
+        HBox tableBox = new HBox();
         ObservableList<Node> components = this.getChildren();
 
         TableView<IData> table = new TableView<>();
@@ -54,8 +56,16 @@ public class PageVentes extends Page {
 
         table.getColumns().addAll(numero_ticket, id_produit, num_lot, date_vente, prix_unite, prix_final, quantite);
 
+        tableBox.prefWidthProperty().bind(this.widthProperty());
+        tableBox.prefHeightProperty().bind(this.heightProperty());
 
-        components.addAll(title, table);
+        table.prefWidthProperty().bind(tableBox.widthProperty());
+        table.prefHeightProperty().bind(tableBox.heightProperty());
+
+        tableBox.getStyleClass().add("table-box");
+        tableBox.getChildren().addAll(table);
+
+        components.addAll(title, tableBox);
 
     }
 }

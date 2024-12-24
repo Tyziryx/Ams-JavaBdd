@@ -83,7 +83,7 @@
 #######################
  */
 .content {
-    -fx-padding: 25px;
+    -fx-padding: 30px;
 }
 .content-title {
     -fx-font-size: 25px;
@@ -127,20 +127,24 @@
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 }
-.table-view .column-header .label{
-    -fx-text-fill: -text-fill;
+.table-view .column-header .label {
+    -fx-text-fill: #b2becc;
     -fx-font-weight: bold;
     -fx-alignment: CENTER_LEFT;
+    -fx-border-color: -background-maincolor; /* Couleur de la bordure */
+    -fx-border-width: 0 0 1px 0; /* Bordure en bas de chaque en-tête */
+    -fx-border-style: solid;
 }
 .table-view .cell{
+    -fx-border-color: -background-maincolor;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-style: solid;
     -fx-cell-size: 35;
     -fx-background-color: -background-secondcolor;
     -fx-text-fill: -text-fill;
     -fx-alignment: CENTER_LEFT;
     -fx-font-weight: 500;
-
 }
-
 
 /* Suppression des barres de scrolling */
 *.increment-button,
@@ -157,5 +161,19 @@
     -fx-background-insets: 0;
     -fx-padding: 0;
     -fx-shape: null;
+}
+
+/*
+#######################
+# Barre de Recherche ##
+#######################
+ */
+.search-bar {
+    -fx-background-color: -background-secondcolor;
+    -fx-border-color: -background-maincolor;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px;
 }
 
