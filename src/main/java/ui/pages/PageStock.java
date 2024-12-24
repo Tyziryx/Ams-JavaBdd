@@ -18,7 +18,6 @@ public class PageStock extends Page {
         super(spacing, "Stock");
         HBox tableBox = new HBox();
         ObservableList<Node> components = this.getChildren();
-
         TableView<IData> table = new TableView<>();
         table.getStyleClass().add("table-view");
         table.setItems(Gestion.getTable(Tables.PRODUIT));
@@ -39,7 +38,13 @@ public class PageStock extends Page {
 
         table.getColumns().addAll(nom, id, desc);
 
+        // Bind the HBox dimensions to the parent container
+        tableBox.prefWidthProperty().bind(this.widthProperty());
+        tableBox.prefHeightProperty().bind(this.heightProperty());
+
+        // Set the TableView to fill the HBox
         table.prefWidthProperty().bind(tableBox.widthProperty());
+        table.prefHeightProperty().bind(tableBox.heightProperty());
 
         tableBox.getStyleClass().add("table-box");
         tableBox.getChildren().addAll(table);

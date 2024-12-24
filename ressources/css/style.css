@@ -109,6 +109,16 @@
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 }
+.cell {
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+.table-view {
+    -fx-background-color: -background-secondcolor;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
 
 .table-view .column-header,
 .table-view .column-header-background .filler {
@@ -130,25 +140,22 @@
     -fx-font-weight: 500;
 
 }
-.table-view .increment-button ,.table-view .decrement-button {
-    -fx-background-color:transparent;
-    -fx-background-radius: 2em;
 
+
+/* Suppression des barres de scrolling */
+*.increment-button,
+*.decrement-button {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+*.increment-arrow,
+*.decrement-arrow {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-shape: null;
 }
 
-.table-view .scroll-bar:horizontal .track,
-.table-view .scroll-bar:vertical .track{
-    -fx-background-color: transparent;
-    -fx-border-color:derive( #a8b0b4,80%);
-
-    -fx-background-radius: 2em;
-    -fx-border-radius:2em;
-}
-
-.table-view .scroll-bar:horizontal .thumb,
-.table-view .scroll-bar:vertical .thumb {
-    -fx-background-color: #bfc4c7;
-    -fx-background-insets: 2, 0, 0;
-    -fx-background-radius: 2em;
-
-}
