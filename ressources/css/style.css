@@ -16,26 +16,38 @@
 
     -fx-background-color: -background-maincolor;
 }
+
+/*
+#######################
+######## NAVBAR #######
+#######################
+*/
 .navbar {
     -fx-background-color: -background-secondcolor;
     -fx-padding: 35px;
-    -fx-start-margin: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 20, 0, 0, 0);
+    -fx-background-radius: 0 1.5em 1.5em 0;
+}
+.navbar .navbar-title {
+    -fx-font-size: 20px;
+    -fx-text-fill: -text-fill;
+    -fx-font-weight: bold;
 }
 .navbar .button {
     -fx-background-color: -background-secondcolor;
     -fx-text-fill: -text-secondfill;
     -fx-font-size: 14px;
-    -fx-padding: 10px 20px 10px 20px;
-    -fx-pref-width: 150px;
+    -fx-padding: 10px 25px 20px 10px;
+    -fx-pref-width: 180px;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
     -fx-alignment: center-left;
+    -fx-border-insets: 0 25px 10px 0;
+    -fx-background-insets: 0 10px 10px 0;
 }
-
 .hbox {
     -fx-opacity: 0.5;
 }
-
 .hbox:hover {
     -fx-opacity: 1;
 }
@@ -84,10 +96,6 @@
     -fx-shape: "M421.985,229.833L217.847,25.981c-7.235-7.238-16.94-13.374-29.121-18.416C176.541,2.522,165.407,0,155.318,0H36.547 C26.648,0,18.083,3.619,10.85,10.848C3.617,18.081,0.002,26.646,0.002,36.545v118.771c0,10.088,2.519,21.219,7.564,33.404   s11.182,21.792,18.417,28.837L230.118,421.98c7.043,7.043,15.602,10.564,25.697,10.564c9.89,0,18.558-3.521,25.98-10.564   l140.186-140.47c7.043-7.046,10.561-15.604,10.561-25.693C432.542,245.919,429.024,237.258,421.985,229.833 ";
 }
 
-.icon-button:hover {
-    -icon-paint: linear-gradient(to bottom, red, black);
-}
-
 .text-button {
     -fx-background-color: transparent;
     -fx-text-fill: #2c3e50;
@@ -104,6 +112,16 @@
     -fx-background-color: -background-maincolor;
 }
 
+.navbar .button.active {
+    -fx-opacity: 0.7;
+    -fx-background-color: -background-maincolor;
+}
+
+/*
+#######################
+# Contenu de la Page ##
+#######################
+ */
 .content {
     -fx-padding: 25px;
 }
@@ -113,6 +131,12 @@
     -fx-font-weight: bold;
 }
 
+
+/*
+#######################
+####### Tableau #######
+#######################
+ */
 .table-box {
     -fx-background-radius: 1em;
     -fx-border-radius: 1em;
@@ -146,17 +170,12 @@
     -fx-font-weight: 500;
 
 }
-
-/* scroll bar starts here */
-
-/* The increment and decrement button CSS class of scrollbar */
 .table-view .increment-button ,.table-view .decrement-button {
     -fx-background-color:transparent;
     -fx-background-radius: 2em;
 
 }
 
-/* The main scrollbar **track** CSS class  */
 .table-view .scroll-bar:horizontal .track,
 .table-view .scroll-bar:vertical .track{
     -fx-background-color: transparent;
@@ -166,7 +185,6 @@
     -fx-border-radius:2em;
 }
 
-/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
 .table-view .scroll-bar:horizontal .thumb,
 .table-view .scroll-bar:vertical .thumb {
     -fx-background-color: #bfc4c7;
