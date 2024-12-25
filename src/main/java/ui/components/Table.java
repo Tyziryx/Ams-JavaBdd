@@ -159,6 +159,7 @@ public class Table extends VBox {
     public TableView.TableViewSelectionModel<IData> getSelectionModel() {
         return table.getSelectionModel();
     }
+
 }
 
 

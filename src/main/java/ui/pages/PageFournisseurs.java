@@ -2,9 +2,11 @@ package main.java.ui.pages;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.control.TableRow;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import main.java.data.entities.Fournisseur;
+import main.java.data.entities.IData;
 import main.java.data.sql.Tables;
 import main.java.ui.components.Modal;
 import main.java.ui.components.Table;
@@ -48,33 +50,22 @@ public class PageFournisseurs extends Page {
         modal = new Modal(10, "Informations sur le fournisseur");
 
         // Ajouter un gestionnaire d'événements pour le tableau des fournisseurs
-        tableFournisseurs.getSelectionModel(nom_societe).setOnMouseClicked(event -> {
-            if (event.getClickCount() == 1) {
-                System.out.println("Double-clic détecté !");
-
-                Fournisseur selectedFournisseur = (Fournisseur) tableFournisseurs.getSelectionModel().getSelectedItem();
-                if (selectedFournisseur != null) {
-                    try {
-                        showModalWithData(selectedFournisseur);
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
+        tableFournisseurs.getTable().setRowFactory(tv -> {
+            TableRow<IData> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    System.out.println("Double click");
+                    Fournisseur fournisseur = (Fournisseur)row.getItem();
+                    showModalWithData(fournisseur);
                 }
-            }
-        });
+            });
+            return row;
+        });}
+
+    private void showModalWithData(Fournisseur fournisseur) {
     }
 
-    private void showModalWithData(Fournisseur fournisseur) throws SQLException {
-        // Extraire les données nécessaires du fournisseur
-        String nomSociete = fournisseur.getNom_societe();
-        String siret = String.valueOf(fournisseur.getSiret());
-        String adresse = fournisseur.getAdresse();
-        String email = fournisseur.getEmail();
 
-        // Mettre à jour les données de la modale
-        modal.setFournisseurData(nomSociete, siret, adresse, email);
-
-        // Afficher la modale
-        modal.open();
-    }
 }
+
+
