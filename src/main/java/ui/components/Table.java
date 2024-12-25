@@ -2,7 +2,6 @@ package main.java.ui.components;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -12,16 +11,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import main.java.data.entities.IData;
-import main.java.data.entities.Produit;
 import main.java.data.sql.Gestion;
 import main.java.data.sql.Tables;
 import main.java.util.Colonne;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 public class Table extends VBox {
     private TableView<IData> table = new TableView<>();
