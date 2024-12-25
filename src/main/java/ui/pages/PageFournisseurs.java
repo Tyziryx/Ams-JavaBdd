@@ -2,57 +2,44 @@ package main.java.ui.pages;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import main.java.data.entities.IData;
-import main.java.data.sql.Gestion;
+import javafx.scene.layout.Priority;
 import main.java.data.sql.Tables;
+import main.java.ui.components.Table;
+import main.java.util.Colonne;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
 
 public class PageFournisseurs extends Page{
     public PageFournisseurs(double spacing) throws SQLException {
         super(spacing, "Fournisseurs");
+        ArrayList<Colonne> tableContentFournisseurs = new ArrayList<Colonne>() {
+            {
+                add(new Colonne("nom_societe", "Nom société", 150));
+                add(new Colonne("siret", "Siret", 100));
+            }
+        };
+        Table tableFournisseurs = new Table(Tables.FOURNISSEUR, tableContentFournisseurs, true);
 
-        HBox tableBox = new HBox();
+        ArrayList<Colonne> tableContentContrats = new ArrayList<Colonne>() {
+            {
+                add(new Colonne("id_fournisseur", "Fournisseur", 110));
+                add(new Colonne("quantite_min", "Quantité min", 115));
+                add(new Colonne("date_fin", "Date de fin", 100));
+                add(new Colonne("prix_produit", "Prix", 100));
+            }
+        };
+        Table tableContrats = new Table(Tables.CONTRAT, tableContentContrats, true);
+
+        HBox tables = new HBox();
+        HBox.setHgrow(tableContrats, Priority.ALWAYS);
+        tables.getChildren().addAll(tableFournisseurs, tableContrats);
+
         ObservableList<Node> components = this.getChildren();
-
-        TableView<IData> table = new TableView<>();
-        table.getStyleClass().add("table-view");
-        table.setItems(Gestion.getTable(Tables.FOURNISSEUR));
-
-        TableColumn<IData, String> nom = new TableColumn<>("Nom société");
-        nom.setCellValueFactory(new PropertyValueFactory<>("nom_societe"));
-        nom.getStyleClass().add("table-column");
-
-        TableColumn<IData, Integer> id = new TableColumn<>("Siret");
-        id.setCellValueFactory(new PropertyValueFactory<>("siret"));
-        id.getStyleClass().add("table-column");
-
-        TableColumn<IData, String> adresse = new TableColumn<>("adresse");
-        adresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
-        adresse.getStyleClass().add("table-column");
-
-        TableColumn<IData, String> email = new TableColumn<>("email");
-        email.setCellValueFactory(new PropertyValueFactory<>("email"));
-        email.getStyleClass().add("table-column");
-
-        table.getColumns().addAll(nom, id, adresse, email);
-
-        tableBox.prefWidthProperty().bind(this.widthProperty());
-        tableBox.prefHeightProperty().bind(this.heightProperty());
-
-        table.prefWidthProperty().bind(tableBox.widthProperty());
-        table.prefHeightProperty().bind(tableBox.heightProperty());
-
-        tableBox.getStyleClass().add("table-box");
-        tableBox.getChildren().addAll(table);
-
-        components.addAll(title, tableBox);
+        components.addAll(title, tables);
 
     }
 }

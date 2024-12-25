@@ -71,6 +71,11 @@ public class PrixFournisseur implements IData {
     }
 
     @Override
+    public String toString() {
+        return id_fournisseur + " " + id_produit + " " + prix;
+    }
+
+    @Override
     public boolean check(HashMap<String, fieldType> tableStruct) {
         if (this.map.size() != tableStruct.size()) {
             return false;

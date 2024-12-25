@@ -91,6 +91,11 @@ public class Fournisseur implements IData {
     }
 
     @Override
+    public String toString() {
+        return nom_societe + " " + siret + " " + adresse + " " + email;
+    }
+
+    @Override
     public HashMap<String, fieldType> getMap() {
         return this.map;
     }

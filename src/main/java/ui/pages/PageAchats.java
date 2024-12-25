@@ -11,48 +11,27 @@ import javafx.scene.text.Text;
 import main.java.data.entities.IData;
 import main.java.data.sql.Gestion;
 import main.java.data.sql.Tables;
+import main.java.ui.components.Table;
+import main.java.util.Colonne;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class PageAchats extends Page {
     public PageAchats(double spacing) throws SQLException {
         super(spacing, "Achats");
 
-        HBox tableBox = new HBox();
         ObservableList<Node> components = this.getChildren();
 
+        ArrayList<Colonne> colonnes = new ArrayList<Colonne>(){{
+            add(new Colonne("Nom société", "nom_societe", 110));
+            add(new Colonne("Siret", "siret", 85));
+            add(new Colonne("Adresse", "adresse", 100));
+            add(new Colonne("Email", "email", 100));
+        }};
+        Table table = new Table(Tables.PRODUIT, colonnes, true);
 
-        TableView<IData> table = new TableView<>();
-        table.getStyleClass().add("table-view");
-//        table.setItems();
-
-        TableColumn<IData, String> nom = new TableColumn<>("Nom société");
-        nom.setCellValueFactory(new PropertyValueFactory<>("nom_societe"));
-        nom.getStyleClass().add("table-column");
-
-        TableColumn<IData, Integer> id = new TableColumn<>("Siret");
-        id.setCellValueFactory(new PropertyValueFactory<>("siret"));
-        id.getStyleClass().add("table-column");
-
-        TableColumn<IData, String> adresse = new TableColumn<>("adresse");
-        adresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
-        adresse.getStyleClass().add("table-column");
-
-        TableColumn<IData, String> email = new TableColumn<>("email");
-        email.setCellValueFactory(new PropertyValueFactory<>("email"));
-        email.getStyleClass().add("table-column");
-
-        table.getColumns().addAll(nom, id, adresse, email);
-
-        tableBox.prefWidthProperty().bind(this.widthProperty());
-        tableBox.prefHeightProperty().bind(this.heightProperty());
-
-        table.prefWidthProperty().bind(tableBox.widthProperty());
-        table.prefHeightProperty().bind(tableBox.heightProperty());
-
-        tableBox.getStyleClass().add("table-box");
-        tableBox.getChildren().addAll(table);
-        components.addAll(title, tableBox);
+        components.addAll(title, table);
 
     }
 }

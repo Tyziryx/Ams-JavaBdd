@@ -100,6 +100,11 @@ public class Produit implements IData {
     }
 
     @Override
+    public String toString() {
+        return id_produit + " " + id_achat + " " + nom + " " + description + " " + categorie;
+    }
+
+    @Override
     public HashMap<String, fieldType> getMap() {
         return this.map;
     }

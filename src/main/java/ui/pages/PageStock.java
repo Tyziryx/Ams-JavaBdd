@@ -11,84 +11,32 @@ import javafx.scene.layout.HBox;
 
 import java.nio.charset.Charset;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
+import javafx.scene.layout.VBox;
 import main.java.data.entities.IData;
 import main.java.data.entities.Produit;
 import main.java.data.sql.Gestion;
 import main.java.data.sql.Tables;
+import main.java.ui.components.Table;
+import main.java.util.Colonne;
 
 public class PageStock extends Page {
     public PageStock(double spacing) throws SQLException {
         super(spacing, "Stock");
 
-        /* Box du tableau */
-        HBox tableBox = new HBox();
         ObservableList<Node> components = this.getChildren();
+        ArrayList<Colonne> tableContent = new ArrayList<Colonne>() {
+            {
+                add(new Colonne("id_produit", "ID Produit", 100));
+                add(new Colonne("nom", "Nom", 165));
+                add(new Colonne("description", "Description", 400));
+            }
+        };
+        Table table = new Table(Tables.PRODUIT, tableContent, true);
 
-
-
-        /* Tableau */
-        TableView<IData> table = new TableView<>();
-        table.getStyleClass().add("table-view");
-
-
-        /* Barre de recherche */
-        TextField searchBar = new TextField();
-        searchBar.setPromptText("Rechercher...");
-        searchBar.getStyleClass().add("search-bar");
-        ObservableList<IData> data = Gestion.getTable(Tables.PRODUIT);
-        FilteredList<IData> filteredData = new FilteredList<>(data, p -> true);
-        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(iProduct -> {
-                Produit product = (Produit) iProduct;
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (product.getNom().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (product.getDescription().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (Integer.toString(product.getId_produit()).contains(lowerCaseFilter)) {
-                    return true;
-                }
-                return false;
-            });
-        });
-
-        table.setItems(filteredData);
-
-
-        /* Colonnes */
-        TableColumn<IData, String> nom = new TableColumn<>("Nom");
-        nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
-        nom.getStyleClass().add("table-column");
-
-        TableColumn<IData, Integer> id = new TableColumn<>("id");
-        id.setCellValueFactory(new PropertyValueFactory<>("id_produit"));
-        id.getStyleClass().add("table-column");
-
-        TableColumn<IData, Integer> desc = new TableColumn<>("description");
-        desc.setCellValueFactory(new PropertyValueFactory<>("description"));
-        desc.getStyleClass().add("table-column");
-
-        title.getStyleClass().add("table-column");
-
-        table.getColumns().addAll(nom, id, desc);
-
-
-        /* Taille de la box */
-        tableBox.prefWidthProperty().bind(this.widthProperty());
-        tableBox.prefHeightProperty().bind(this.heightProperty());
-        table.prefWidthProperty().bind(tableBox.widthProperty());
-        table.prefHeightProperty().bind(tableBox.heightProperty());
-
-        tableBox.getStyleClass().add("table-box");
-        tableBox.getChildren().addAll(table);
-
-        components.addAll(title,searchBar, tableBox);
+        components.addAll(title, table);
     }
 
 }

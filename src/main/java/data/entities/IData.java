@@ -13,6 +13,8 @@ public interface IData {
     //RETOURNE UNE CHAINE DE CARACTERE PRE-REMPLIE PERMETTANT DE COMPOSER LA REQUETE INSERT ...
     public String getValues();
 
+    public String toString();
+
     //GETTER DE LA MAP CREE AVEC LA METHODE getStruct ...
     public HashMap<String, fieldType> getMap();
 

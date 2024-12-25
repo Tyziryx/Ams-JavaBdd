@@ -85,7 +85,7 @@ public class Gestion {
     /**
      * Exécute une requête SQL hors Insert
      *
-     * @param query requête SQL
+     * @param sql requête SQL
      * @throws SQLException si la requête contient un INSERT
      */
     public static ResultSet execute(String sql) throws SQLException {
@@ -94,14 +94,14 @@ public class Gestion {
         }
         Connexion cn = new Connexion();
         cn.connect();
-        System.out.println("Connected");
+        //System.out.println("Connected");
         try {
             Statement stmt = cn.getConn().createStatement();
             return stmt.executeQuery(sql);
 
         } finally {
             cn.disconnect();
-            System.out.println("Disconnected");
+            //System.out.println("Disconnected");
         }
     }
 
@@ -178,7 +178,7 @@ public class Gestion {
                     int id_fournisseur = rs3.getInt("id_fournisseur");
                     int id_produit = rs3.getInt("id_produit");
                     float prix = rs3.getFloat("prix");
-                    items.add(new main.java.data.entities.PrixFournisseur(id_fournisseur, id_produit, prix));
+                    items.add(new PrixFournisseur(id_fournisseur, id_produit, prix));
                 }
                 break;
             case CONTRAT:
@@ -186,8 +186,11 @@ public class Gestion {
                 while (rs4.next()) {
                     int id_fournisseur = rs4.getInt("id_fournisseur");
                     int id_produit = rs4.getInt("id_produit");
-                    float prix = rs4.getFloat("prix");
-                    items.add(new main.java.data.entities.PrixFournisseur(id_fournisseur, id_produit, prix));
+                    float prix = rs4.getFloat("prix_produit");
+                    Date date_debut = rs4.getDate("date_debut");
+                    Date date_fin = rs4.getDate("date_fin");
+                    int quantite_min = rs4.getInt("quantite_min");
+                    items.add(new Contrat(id_fournisseur, id_produit, quantite_min, date_debut, date_fin, prix));
                 }
                 break;
             case VENTE:

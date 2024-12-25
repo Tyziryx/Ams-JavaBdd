@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 
 public class Contrat implements IData {
+    int id_fournisseur;
     int id_produit;
     int quantite_min;
     Date date_debut;
@@ -18,7 +19,8 @@ public class Contrat implements IData {
     private LinkedHashMap<String, fieldType> map;
     private String values;
 
-    public Contrat(int id_produit, int quantite_min, Date date_debut, Date date_fin, float prix_produit) {
+    public Contrat(int id_fournisseur ,int id_produit, int quantite_min, Date date_debut, Date date_fin, float prix_produit) {
+        this.id_fournisseur = id_fournisseur;
         this.id_produit = id_produit;
         this.quantite_min = quantite_min;
         this.date_debut = date_debut;
@@ -66,14 +68,23 @@ public class Contrat implements IData {
         this.prix_produit = prix_produit;
     }
 
+    public int getId_fournisseur() {
+        return id_fournisseur;
+    }
+
+    public void setId_fournisseur(int id_fournisseur) {
+        this.id_fournisseur = id_fournisseur;
+    }
+
     @Override
     public void getStruct() {
         LinkedHashMap<String, fieldType> map = new LinkedHashMap<>();
+        map.put("id_fournisseur", fieldType.INT4);
         map.put("id_produit", fieldType.INT4);
         map.put("quantite_min", fieldType.INT4);
         map.put("date_debut", fieldType.DATE);
         map.put("date_fin", fieldType.DATE);
-        map.put("prix_produits", fieldType.FLOAT8);
+        map.put("prix_produit", fieldType.FLOAT8);
 
         this.map = map;
 
@@ -100,6 +111,11 @@ public class Contrat implements IData {
     }
 
     @Override
+    public String toString() {
+        return id_fournisseur + " " + id_produit + " " + quantite_min + " " + date_debut + " " + date_fin + " " + prix_produit;
+    }
+
+    @Override
     public HashMap<String, fieldType> getMap() {
         return this.map;
     }
@@ -119,6 +135,6 @@ public class Contrat implements IData {
     }
 
     public static String getQuery() {
-        return "SELECT id_produit, id_achat, nom, description, categorie FROM produit;";
+        return "SELECT id_fournisseur, id_produit, quantite_min, date_debut, date_fin, prix_produit FROM contrat";
     }
 }

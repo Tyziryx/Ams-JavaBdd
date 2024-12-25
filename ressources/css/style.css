@@ -25,7 +25,7 @@
 .navbar {
     -fx-background-color: -background-secondcolor;
     -fx-padding: 35px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 20, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.05), 20, 0, 0, 0);
     -fx-background-radius: 0 1.5em 1.5em 0;
 }
 .navbar .navbar-title {
@@ -102,8 +102,12 @@
     -fx-border-radius: 1em;
     -fx-overflow: hidden; /* Cacher l'overflow */
     -fx-background-color: -background-secondcolor;
-    -fx-background-insets: 0.0;
-    -fx-padding: 15px;
+    -fx-padding: 15px 30px 15px 15px;
+    -fx-background-insets: 0 15px 0 0;
+    -fx-border-insets: 0 15px 0 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.01), 20, 0, 0, 0);
+    -fx-font-size: 14px;
+
 }
 .table-view:focused, .cell {
     -fx-focus-color: transparent;
@@ -131,13 +135,12 @@
     -fx-text-fill: #b2becc;
     -fx-font-weight: bold;
     -fx-alignment: CENTER_LEFT;
-    -fx-border-color: -background-maincolor; /* Couleur de la bordure */
-    -fx-border-width: 0 0 1px 0; /* Bordure en bas de chaque en-tête */
-    -fx-border-style: solid;
+    -fx-border-color: transparent;
+    -fx-padding: 10px 0 10px 0;
 }
 .table-view .cell{
-    -fx-border-color: -background-maincolor;
-    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: #e1e5ea;
+    -fx-border-width: 1px 0 0 0;
     -fx-border-style: solid;
     -fx-cell-size: 35;
     -fx-background-color: -background-secondcolor;
@@ -165,15 +168,28 @@
 
 /*
 #######################
-# Barre de Recherche ##
+####### Header ########
 #######################
  */
 .search-bar {
-    -fx-background-color: -background-secondcolor;
+    -fx-background-color: -background-maincolor;
+    -fx-border-color: transparent;
+    -fx-font-size: 12px;
+    -fx-font-weight: 400;
+    -fx-padding: 5px 5px 19px 5px;
+    -fx-background-insets: 0 0 14px 0;
+    -fx-background-radius: 8px;
+}
+.table-header {
     -fx-border-color: -background-maincolor;
-    -fx-border-width: 1px;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
-    -fx-padding: 10px;
+    -fx-border-width: 0 0 2px 0;
+    -fx-font-size: 12px;
+}
+.table-title {
+    -fx-font-size: 14px;
+    -fx-text-fill: -text-fill;
+    -fx-font-weight: 400;
+    -fx-text-alignment: center;
+    -fx-padding: 5px 0 0 0;
 }
 

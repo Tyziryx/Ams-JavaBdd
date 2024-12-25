@@ -115,6 +115,11 @@ public class Vente implements IData {
         return values;
     }
 
+    @Override
+    public String toString() {
+        return numero_ticket + " " + id_produit + " " + num_lot + " " + date_vente + " " + prix_unite + " " + prix_final + " " + quantite;
+    }
+
     public void setValues(String values) {
         this.values = values;
     }
