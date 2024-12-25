@@ -16,6 +16,7 @@ import main.java.data.sql.Gestion;
 import main.java.data.sql.Tables;
 import main.java.util.Colonne;
 
+import javax.swing.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -72,4 +73,8 @@ public class Table extends VBox {
         this.getStyleClass().add("table-box");
         this.getChildren().addAll(table);
     }
-}
+
+
+    public TableView.TableViewSelectionModel<IData> getSelectionModel() {
+        return table.getSelectionModel();
+    }}

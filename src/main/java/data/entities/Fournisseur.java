@@ -112,5 +112,5 @@ public class Fournisseur implements IData {
             }
         }
         return true;
-    }
-}
+    }}
+
