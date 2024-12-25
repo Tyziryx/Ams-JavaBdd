@@ -26,15 +26,17 @@ public class PageFournisseurs extends Page {
         };
         Table tableFournisseurs = new Table(Tables.FOURNISSEUR, tableContentFournisseurs, true);
 
+
         ArrayList<Colonne> tableContentContrats = new ArrayList<Colonne>() {
             {
                 add(new Colonne("id_fournisseur", "Fournisseur", 110));
-                add(new Colonne("quantite_min", "Quantité min", 115));
+                add(new Colonne("quantite_min", "Quantité min", 60));
                 add(new Colonne("date_fin", "Date de fin", 100));
-                add(new Colonne("prix_produit", "Prix", 100));
+                add(new Colonne("prix_produit", "Prix", 60));
+                add(new Colonne("nom", "Produit", 100));
             }
         };
-        Table tableContrats = new Table(Tables.CONTRAT, tableContentContrats, true);
+        Table tableContrats = new Table("SELECT * FROM contrat JOIN produit ON contrat.id_produit = produit.id_produit ", "Contrats", tableContentContrats, true);
 
         HBox tables = new HBox();
         HBox.setHgrow(tableContrats, Priority.ALWAYS);

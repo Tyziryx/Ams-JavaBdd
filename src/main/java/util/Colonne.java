@@ -5,8 +5,8 @@ public class Colonne {
     private String titre;
     private int largeur;
 
-    public Colonne(String nomColonne, String titre, int taille) {
-        this.nom = nomColonne;
+    public Colonne(String nom, String titre, int taille) {
+        this.nom = nom;
         this.titre = titre;
         this.largeur = taille;
     }
