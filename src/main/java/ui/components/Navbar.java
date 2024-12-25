@@ -27,7 +27,7 @@ public class Navbar extends VBox {
         this.page = page;
         this.setSpacing(10);
         VBox vBox = new VBox();
-        Text navbarTitle = new Text("Masup");
+        Label navbarTitle = new Label("MaSupduNet");
         navbarTitle.getStyleClass().add("navbar-title");
         vBox.getChildren().add(navbarTitle);
         vBox.getStyleClass().add("navbar");

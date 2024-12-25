@@ -32,6 +32,7 @@
     -fx-font-size: 20px;
     -fx-text-fill: -text-fill;
     -fx-font-weight: bold;
+    -fx-padding: 0 0 20px 0;
 }
 .navbar .button {
     -fx-background-color: -background-secondcolor;
