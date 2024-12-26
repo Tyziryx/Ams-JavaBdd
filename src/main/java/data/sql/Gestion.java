@@ -7,6 +7,7 @@ import main.java.data.entities.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class Gestion {
@@ -19,9 +20,10 @@ public class Gestion {
      * @return HashMap<String, fieldType>
      * @throws SQLException
      */
-    public HashMap<String, fieldType> structTable(String table, boolean display) throws SQLException {
-        HashMap<String, fieldType> map = new HashMap<String, fieldType>();
+    public static LinkedHashMap<String, FieldType> structTable(String table, boolean display) throws SQLException {
+        LinkedHashMap<String, FieldType> map = new LinkedHashMap<>();
         Connexion cn = new Connexion();
+        table = table.toLowerCase();
 
         cn.connect();
         String query = "SELECT column_name, data_type FROM information_schema.columns WHERE table_name = '" + table + "'";
@@ -41,17 +43,15 @@ public class Gestion {
                 type = "FLOAT8";
             }
 
-            fieldType ft = fieldType.valueOf(type.toUpperCase());
+            FieldType ft = FieldType.valueOf(type.toUpperCase());
             map.put(column, ft);
 
             if (display) {
                 System.out.println(column + " : " + type);
             }
-
         }
         cn.disconnect();
         return map;
-
     }
 
     /**
@@ -60,7 +60,7 @@ public class Gestion {
      * @param table nom de la table à afficher
      * @throws SQLException
      */
-    public void displayTable(String table) throws SQLException {
+    public static void displayTable(String table) throws SQLException {
         Connexion cn = new Connexion();
         cn.connect();
         String query = "SELECT * FROM " + table;
@@ -112,10 +112,10 @@ public class Gestion {
      * @param table
      * @throws SQLException
      */
-    public void insert(IData data, String table) throws SQLException {
-        HashMap<String, fieldType> structTable = structTable(table, false);
+    public static void insert(IData data, String table) throws SQLException {
+        HashMap<String, FieldType> structTable = structTable(table, false);
         data.getStruct();
-        HashMap<String, fieldType> structData = data.getMap();
+        HashMap<String, FieldType> structData = data.getMap();
 
         if (!data.check(structTable)) {
             throw new SQLException("Data and table structure do not match");
@@ -211,5 +211,4 @@ public class Gestion {
         }
         return FXCollections.observableArrayList(items);
     }
-
 }

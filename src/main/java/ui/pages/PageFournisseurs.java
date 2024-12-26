@@ -9,19 +9,18 @@ import javafx.scene.layout.Priority;
 import main.java.data.entities.Fournisseur;
 import main.java.data.entities.IData;
 import main.java.data.sql.Tables;
-import main.java.ui.components.Modal;
+import main.java.ui.components.ModalFournisseurs;
 import main.java.ui.components.Table;
 import main.java.util.Colonne;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.concurrent.ForkJoinPool;
 
 public class PageFournisseurs extends Page {
     private final BorderPane page;
-    public Modal modal;
+    public ModalFournisseurs modalFournisseurs;
 
-    public PageFournisseurs(double spacing , BorderPane page) throws SQLException {
+    public PageFournisseurs(BorderPane page, double spacing) throws SQLException {
         super(spacing, "Fournisseurs");
         this.page = page;
 
@@ -43,29 +42,31 @@ public class PageFournisseurs extends Page {
                 add(new Colonne("nom", "Produit", 100));
             }
         };
-        Table tableContrats = new Table("SELECT * FROM contrat JOIN produit ON contrat.id_produit = produit.id_produit ", "Contrats", tableContentContrats, true);
-
+        Table tableContrats = new Table(page, Tables.CONTRAT,"SELECT * FROM contrat JOIN produit ON contrat.id_produit = produit.id_produit ", "Contrats", tableContentContrats, true, true);
+        tableFournisseurs.getTable().getStyleClass().add("table-view");
         HBox tables = new HBox();
         HBox.setHgrow(tableContrats, Priority.ALWAYS);
         tables.getChildren().addAll(tableFournisseurs, tableContrats);
+
+
 
         ObservableList<Node> components = this.getChildren();
         components.addAll(title, tables );
         tableFournisseurs.getStyleClass().add("fournisseurs");
 
-        // Ajouter un gestionnaire d'événements pour le tableau des fournisseurs
         tableFournisseurs.getTable().setRowFactory(tv -> {
             TableRow<IData> row = new TableRow<>();
+            row.getStyleClass().add("row");
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     System.out.println("Double click");
                     Fournisseur fournisseur = (Fournisseur)row.getItem();
                     try {
-                        modal = new Modal(20, "Fournisseur", fournisseur);
+                        modalFournisseurs = new ModalFournisseurs(page,20, "Fournisseur", fournisseur);
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
-                    modal.affiche(page);                }
+                    modalFournisseurs.affiche();                }
             });
             return row;
         });}

@@ -1,6 +1,6 @@
 package main.java.data.entities;
 
-import main.java.data.sql.fieldType;
+import main.java.data.sql.FieldType;
 
 import java.util.HashMap;
 
@@ -16,9 +16,9 @@ public interface IData {
     public String toString();
 
     //GETTER DE LA MAP CREE AVEC LA METHODE getStruct ...
-    public HashMap<String, fieldType> getMap();
+    public HashMap<String, FieldType> getMap();
 
     //METHODE PERMETTANT DE VERIFIER QUE LA TABLE ET L'INSTANCE PARTAGE LES MEMES ATTRIBUTS ET MEMES TYPES
     //PREND EN PARAMETRE LA MAP ATTRIBUT/TYPE DE LA TABLE ...
-    public boolean check(HashMap<String, fieldType> tableStruct);
+    public boolean check(HashMap<String, FieldType> tableStruct);
 }

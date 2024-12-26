@@ -1,6 +1,6 @@
 package main.java.data.entities;
 
-import main.java.data.sql.fieldType;
+import main.java.data.sql.FieldType;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -17,7 +17,7 @@ public class Vente implements IData {
     int quantite;
 
     // LinkedHashMap pour garder l'ordre des colonnes
-    private LinkedHashMap<String, fieldType> map;
+    private LinkedHashMap<String, FieldType> map;
     private String values;
 
     public Vente(int numero_ticket, int id_produit, int num_lot, Date vente, float prix_unite, float prix_final, int quantite) {
@@ -88,14 +88,14 @@ public class Vente implements IData {
 
     @Override
     public void getStruct() {
-        LinkedHashMap<String, fieldType> map = new LinkedHashMap<>();
-        map.put("numero_ticket", fieldType.INT4);
-        map.put("id_produit", fieldType.INT4);
-        map.put("num_lot", fieldType.INT4);
-        map.put("date_vente", fieldType.DATE);
-        map.put("prix_unite", fieldType.FLOAT8);
-        map.put("prix_final", fieldType.FLOAT8);
-        map.put("quantite", fieldType.INT4);
+        LinkedHashMap<String, FieldType> map = new LinkedHashMap<>();
+        map.put("numero_ticket", FieldType.INT4);
+        map.put("id_produit", FieldType.INT4);
+        map.put("num_lot", FieldType.INT4);
+        map.put("date_vente", FieldType.DATE);
+        map.put("prix_unite", FieldType.FLOAT8);
+        map.put("prix_final", FieldType.FLOAT8);
+        map.put("quantite", FieldType.INT4);
 
         this.map = map;
     }
@@ -125,20 +125,20 @@ public class Vente implements IData {
     }
 
     @Override
-    public HashMap<String, fieldType> getMap() {
+    public HashMap<String, FieldType> getMap() {
         return map;
     }
 
-    public void setMap(LinkedHashMap<String, fieldType> map) {
+    public void setMap(LinkedHashMap<String, FieldType> map) {
         this.map = map;
     }
 
-    public void setMap(HashMap<String, fieldType> map) {
+    public void setMap(HashMap<String, FieldType> map) {
         this.map = new LinkedHashMap<>(map);
     }
 
 
-    public boolean check(HashMap<String, fieldType> tableStruct) {
+    public boolean check(HashMap<String, FieldType> tableStruct) {
         if (this.map.size() != tableStruct.size()) {
             return false;
         }

@@ -4,15 +4,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import main.java.data.entities.IData;
 import main.java.data.sql.Gestion;
 import main.java.data.sql.Tables;
@@ -78,7 +72,7 @@ public class Table extends VBox {
         this.getChildren().addAll(table);
     }
 
-    public Table(String sql, String titre, ArrayList<Colonne> tableContent, boolean head) throws SQLException {
+    public Table(BorderPane page, Tables type, String sql, String titre, ArrayList<Colonne> tableContent, boolean head, boolean editable) throws SQLException {
         super();
         dynamicTable.getStyleClass().add("table-view");
 
@@ -143,9 +137,38 @@ public class Table extends VBox {
             this.getChildren().add(dynamicTable);
         }
 
+
+
+        dynamicTable.setRowFactory(tv -> {
+            TableRow<ObservableList<String>> row = new TableRow<>();
+            row.getStyleClass().add("row");
+            if(editable && type != Tables.UNDEFINED) {
+                ContextMenu contextMenu = new ContextMenu();
+                ObservableList<String>[] item = new ObservableList[]{row.getItem()};
+                row.setOnContextMenuRequested(event -> {
+                    item[0] = row.getItem();
+                    contextMenu.show(page, event.getScreenX(), event.getScreenY());
+                });
+                MenuItem menuItem1 = new MenuItem("Ajouter");
+                MenuItem menuItem2 = new MenuItem("Modifier");
+                MenuItem menuItem3 = new MenuItem("Supprimer");
+                menuItem2.setOnAction((event) -> {
+                    try {
+                        ModalEdit modalEdit = new ModalEdit(page, 20, "Modifier", type, item[0], false);
+                        modalEdit.affiche();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+                contextMenu.getItems().addAll(menuItem1,menuItem2,menuItem3);
+            }
+            return row;
+        });
+
         VBox.setVgrow(this, Priority.ALWAYS);
         this.getStyleClass().add("table-box");
         this.getChildren().addAll(dynamicTable);
+
     }
 
     public TableView<IData> getTable() {

@@ -1,6 +1,6 @@
 package main.java.data.entities;
 
-import main.java.data.sql.fieldType;
+import main.java.data.sql.FieldType;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -16,7 +16,7 @@ public class Contrat implements IData {
     float prix_produit;
 
     // LinkedHashMap pour garder l'ordre des colonnes
-    private LinkedHashMap<String, fieldType> map;
+    private LinkedHashMap<String, FieldType> map;
     private String values;
 
     public Contrat(int id_fournisseur ,int id_produit, int quantite_min, Date date_debut, Date date_fin, float prix_produit) {
@@ -78,13 +78,13 @@ public class Contrat implements IData {
 
     @Override
     public void getStruct() {
-        LinkedHashMap<String, fieldType> map = new LinkedHashMap<>();
-        map.put("id_fournisseur", fieldType.INT4);
-        map.put("id_produit", fieldType.INT4);
-        map.put("quantite_min", fieldType.INT4);
-        map.put("date_debut", fieldType.DATE);
-        map.put("date_fin", fieldType.DATE);
-        map.put("prix_produit", fieldType.FLOAT8);
+        LinkedHashMap<String, FieldType> map = new LinkedHashMap<>();
+        map.put("id_fournisseur", FieldType.INT4);
+        map.put("id_produit", FieldType.INT4);
+        map.put("quantite_min", FieldType.INT4);
+        map.put("date_debut", FieldType.DATE);
+        map.put("date_fin", FieldType.DATE);
+        map.put("prix_produit", FieldType.FLOAT8);
 
         this.map = map;
 
@@ -116,12 +116,12 @@ public class Contrat implements IData {
     }
 
     @Override
-    public HashMap<String, fieldType> getMap() {
+    public HashMap<String, FieldType> getMap() {
         return this.map;
     }
 
     @Override
-    public boolean check(HashMap<String, fieldType> tableStruct) {
+    public boolean check(HashMap<String, FieldType> tableStruct) {
         if (this.map.size() != tableStruct.size()) {
             return false;
         }

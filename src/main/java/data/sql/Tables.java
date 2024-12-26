@@ -4,9 +4,10 @@ public enum Tables {
     PRODUIT,
     FOURNISSEUR,
     CONTRAT,
-    CONTACT,
+    CONTACT_ASSOCIE,
     LOT_DE_PRODUIT,
     PRIX_FOURNISSEUR,
     PRIX_VENTE,
-    VENTE
+    VENTE,
+    UNDEFINED
 }

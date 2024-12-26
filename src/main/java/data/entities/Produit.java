@@ -1,6 +1,6 @@
 package main.java.data.entities;
 
-import main.java.data.sql.fieldType;
+import main.java.data.sql.FieldType;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -14,7 +14,7 @@ public class Produit implements IData {
     String categorie;
 
     // LinkedHashMap pour garder l'ordre des colonnes
-    private LinkedHashMap<String, fieldType> map;
+    private LinkedHashMap<String, FieldType> map;
     private String values;
 
     public Produit(int id_produit, int id_achat, String nom, String description, String categorie) {
@@ -67,13 +67,13 @@ public class Produit implements IData {
 
     @Override
     public void getStruct() {
-        LinkedHashMap<String, fieldType> map = new LinkedHashMap<>();
-        map.put("id_produit", fieldType.INT4);
-        map.put("id_achat", fieldType.INT4);
-        map.put("nom", fieldType.VARCHAR);
-        map.put("description", fieldType.VARCHAR);
-        map.put("categorie", fieldType.VARCHAR);
-        map.put("prix_vente", fieldType.FLOAT8);
+        LinkedHashMap<String, FieldType> map = new LinkedHashMap<>();
+        map.put("id_produit", FieldType.INT4);
+        map.put("id_achat", FieldType.INT4);
+        map.put("nom", FieldType.VARCHAR);
+        map.put("description", FieldType.VARCHAR);
+        map.put("categorie", FieldType.VARCHAR);
+        map.put("prix_vente", FieldType.FLOAT8);
 
         this.map = map;
 
@@ -105,12 +105,12 @@ public class Produit implements IData {
     }
 
     @Override
-    public HashMap<String, fieldType> getMap() {
+    public HashMap<String, FieldType> getMap() {
         return this.map;
     }
 
     @Override
-    public boolean check(HashMap<String, fieldType> tableStruct) {
+    public boolean check(HashMap<String, FieldType> tableStruct) {
         if (this.map.size() != tableStruct.size()) {
             return false;
         }

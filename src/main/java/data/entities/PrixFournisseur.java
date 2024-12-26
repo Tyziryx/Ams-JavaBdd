@@ -1,6 +1,6 @@
 package main.java.data.entities;
 
-import main.java.data.sql.fieldType;
+import main.java.data.sql.FieldType;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -10,7 +10,7 @@ public class PrixFournisseur implements IData {
     int id_fournisseur;
     int id_produit;
     float prix;
-    private LinkedHashMap<String, fieldType> map;
+    private LinkedHashMap<String, FieldType> map;
 
     public PrixFournisseur(int id_fournisseur, int id_produit, float prix) {
         this.id_fournisseur = id_fournisseur;
@@ -22,9 +22,9 @@ public class PrixFournisseur implements IData {
     @Override
     public void getStruct() {
         map = new LinkedHashMap<>();
-        map.put("id_fournisseur", fieldType.INT4);
-        map.put("id_produit", fieldType.INT4);
-        map.put("prix", fieldType.FLOAT8);
+        map.put("id_fournisseur", FieldType.INT4);
+        map.put("id_produit", FieldType.INT4);
+        map.put("prix", FieldType.FLOAT8);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class PrixFournisseur implements IData {
 
 
     @Override
-    public HashMap<String, fieldType> getMap() {
+    public HashMap<String, FieldType> getMap() {
 
         return null;
     }
@@ -76,7 +76,7 @@ public class PrixFournisseur implements IData {
     }
 
     @Override
-    public boolean check(HashMap<String, fieldType> tableStruct) {
+    public boolean check(HashMap<String, FieldType> tableStruct) {
         if (this.map.size() != tableStruct.size()) {
             return false;
         }

@@ -168,10 +168,12 @@
     -fx-shape: null;
 }
 
-.fournisseurs .table-view .cell:hover {
+/*.fournisseurs .table-view .cell:hover {*/
+/*    -fx-background-color: -background-maincolor;*/
+/*}*/
+.fournisseurs .table-view .row:hover .cell {
     -fx-background-color: -background-maincolor;
 }
-
 /*
 #######################
 ####### Header ########
@@ -198,4 +200,3 @@
     -fx-text-alignment: center;
     -fx-padding: 5px 0 0 0;
 }
-
