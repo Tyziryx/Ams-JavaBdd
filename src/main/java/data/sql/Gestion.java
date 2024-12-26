@@ -116,6 +116,7 @@ public class Gestion {
      */
     public static void insert(IData data, String table) throws SQLException {
         HashMap<String, FieldType> structTable = structTable(table, false);
+
         data.getStruct();
         HashMap<String, FieldType> structData = data.getMap();
 
@@ -129,6 +130,7 @@ public class Gestion {
         String values = " VALUES (";
 
         for (String key : structData.keySet()) {
+            System.out.println(key + " : " + structData.get(key));
             query += key + ", ";
         }
 
@@ -141,6 +143,36 @@ public class Gestion {
         ps.executeUpdate();
         cn.disconnect();
     }
+
+    public static void update(IData data, String table) throws SQLException {
+        HashMap<String, FieldType> structTable = structTable(table, false);
+
+        data.getStruct();
+        HashMap<String, FieldType> structData = data.getMap();
+
+        if (!data.check(structTable)) {
+            throw new SQLException("Data and table structure do not match");
+        }
+
+        Connexion cn = new Connexion();
+        cn.connect();
+        String query = "UPDATE " + table + " SET ";
+        String values = " WHERE ";
+
+        for (String key : structData.keySet()) {
+            query += key + " = " + structData.get(key) + ", ";
+        }
+
+        query = query.substring(0, query.length() - 2);
+        values += data.getValues();
+        query += values;
+//        System.out.println(query);
+
+        PreparedStatement ps = cn.getConn().prepareStatement(query);
+        ps.executeUpdate();
+        cn.disconnect();
+    }
+
 
     /**
      * Cette méthode permet de récupérer le contenu d'une table
@@ -216,10 +248,12 @@ public class Gestion {
 
     /**
      * Cette méthode permet de convertir une LocalDate en Date
+     *
      * @param localDate
      * @return
      */
     public static java.sql.Date localDateToSqlDate(LocalDate localDate) {
+        Date date = java.sql.Date.valueOf(localDate);
         return java.sql.Date.valueOf(localDate);
     }
 }

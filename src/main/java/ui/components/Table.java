@@ -152,6 +152,14 @@ public class Table extends VBox {
                 MenuItem menuItem1 = new MenuItem("Ajouter");
                 MenuItem menuItem2 = new MenuItem("Modifier");
                 MenuItem menuItem3 = new MenuItem("Supprimer");
+                menuItem1.setOnAction((event) -> {
+                    try {
+                        ModalEdit modalEdit = new ModalEdit(page, 20, "Modifier", type, null, true);
+                        modalEdit.affiche();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
                 menuItem2.setOnAction((event) -> {
                     try {
                         ModalEdit modalEdit = new ModalEdit(page, 20, "Modifier", type, item[0], false);

@@ -101,7 +101,13 @@ public class Produit implements IData {
 
     @Override
     public String toString() {
-        return id_produit + " " + id_achat + " " + nom + " " + description + " " + categorie;
+        return "Produit{" +
+                "id_produit=" + id_produit +
+                ", id_achat=" + id_achat +
+                ", nom='" + nom + '\'' +
+                ", description='" + description + '\'' +
+                ", categorie='" + categorie + '\'' +
+                '}';
     }
 
     @Override

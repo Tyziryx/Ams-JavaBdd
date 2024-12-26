@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import main.java.Test;
+import main.java.data.entities.ContactAssocie;
 import main.java.data.entities.Contrat;
 import main.java.data.entities.IData;
 import main.java.data.sql.FieldType;
@@ -33,20 +34,21 @@ public class ModalEdit extends Modal {
         Object[] inputs = new Object[10];
         int i = 0;
         for (String key : data.keySet()) {
-            String item = (String) items.get(i);
+            String item = "";
+            if(!isNew) item = (String) items.get(i);
             FieldType type = data.get(key);
             Label label = new Label(key);
             if (type == FieldType.VARCHAR || type == FieldType.INT4 || type == FieldType.FLOAT8 || type == FieldType.NUMERIC) {
                 TextField textField = new TextField();
                 textField.setPromptText(key);
-                textField.setText(item);
+                if(!isNew) textField.setText(item);
                 form.getChildren().add(label);
                 form.getChildren().add(textField);
                 inputs[i] = textField;
             } else if (type == FieldType.DATE) {
                 DatePicker datePicker = new DatePicker();
                 datePicker.setPromptText(key);
-                datePicker.setValue(LocalDate.parse(item));
+                if(!isNew) datePicker.setValue(LocalDate.parse(item));
                 form.getChildren().add(label);
                 form.getChildren().add(datePicker);
                 inputs[i] = datePicker;
@@ -90,17 +92,29 @@ public class ModalEdit extends Modal {
 //                System.out.println(item.getValue());
             }
         }
-        DatePicker dateDebut = (DatePicker) inputs[2];
-        DatePicker dateFin = (DatePicker) inputs[3];
-        if(dateDebut.getValue().isAfter(dateFin.getValue())) {
-            showError(actionTarget, "La date de début ne peut pas etre après la date de fin");
-            return;
-        } else {
-            switch (tableType) {
-                case CONTRAT:
-                    Contrat contrat = new Contrat(inputs);
+
+        switch (tableType) {
+            case CONTRAT:
+                DatePicker dateDebut = (DatePicker) inputs[2];
+                DatePicker dateFin = (DatePicker) inputs[3];
+                if(dateDebut.getValue().isAfter(dateFin.getValue())) {
+                    showError(actionTarget, "La date de début ne peut pas etre après la date de fin");
+                    return;
+                }
+                Contrat contrat = new Contrat(inputs);
+                if(isNew) {
                     Gestion.insert(contrat, "contrat");
-            }
+                } else {
+                    Gestion.update(contrat, "contrat");
+                }
+                break;
+            case CONTACT_ASSOCIE:
+                ContactAssocie contactAssocie = new ContactAssocie(inputs);
+                if(isNew) {
+                    Gestion.insert(contactAssocie, "contact_associe");
+                } else {
+                    Gestion.update(contactAssocie, "contact_associe");
+                }
         }
     }
 

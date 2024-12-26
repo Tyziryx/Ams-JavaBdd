@@ -15,15 +15,15 @@ public class Contrat implements IData {
     int id_fournisseur;
     int id_produit;
     int quantite_min;
-    Date date_debut;
-    Date date_fin;
+    java.sql.Date date_debut;
+    java.sql.Date date_fin;
     float prix_produit;
 
     // LinkedHashMap pour garder l'ordre des colonnes
     private LinkedHashMap<String, FieldType> map;
     private String values;
 
-    public Contrat(int id_fournisseur ,int id_produit, int quantite_min, Date date_debut, Date date_fin, float prix_produit) {
+    public Contrat(int id_fournisseur , int id_produit, int quantite_min, java.sql.Date date_debut, java.sql.Date date_fin, float prix_produit) {
         this.id_fournisseur = id_fournisseur;
         this.id_produit = id_produit;
         this.quantite_min = quantite_min;
@@ -61,7 +61,7 @@ public class Contrat implements IData {
         return date_debut;
     }
 
-    public void setDate_debut(Date date_debut) {
+    public void setDate_debut(java.sql.Date date_debut) {
         this.date_debut = date_debut;
     }
 
@@ -69,7 +69,7 @@ public class Contrat implements IData {
         return date_fin;
     }
 
-    public void setDate_fin(Date date_fin) {
+    public void setDate_fin(java.sql.Date date_fin) {
         this.date_fin = date_fin;
     }
 
@@ -92,12 +92,12 @@ public class Contrat implements IData {
     @Override
     public void getStruct() {
         LinkedHashMap<String, FieldType> map = new LinkedHashMap<>();
-        map.put("id_fournisseur", FieldType.INT4);
         map.put("id_produit", FieldType.INT4);
         map.put("quantite_min", FieldType.INT4);
         map.put("date_debut", FieldType.DATE);
         map.put("date_fin", FieldType.DATE);
         map.put("prix_produit", FieldType.FLOAT8);
+        map.put("id_fournisseur", FieldType.INT4);
 
         this.map = map;
 
