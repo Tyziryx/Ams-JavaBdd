@@ -17,12 +17,13 @@ public class Gestion {
     /**
      * Retourne la structure d’une table sous la forme <nom de la colonne, type>
      *
-     * @param table
+     * @param tableType
      * @param display
      * @return HashMap<String, fieldType>
      * @throws SQLException
      */
-    public static LinkedHashMap<String, FieldType> structTable(String table, boolean display) throws SQLException {
+    public static LinkedHashMap<String, FieldType> structTable(Tables tableType, boolean display) throws SQLException {
+        String table = tableType.toString().toLowerCase();
         LinkedHashMap<String, FieldType> map = new LinkedHashMap<>();
         Connexion cn = new Connexion();
         table = table.toLowerCase();
@@ -114,7 +115,7 @@ public class Gestion {
      * @param table
      * @throws SQLException
      */
-    public static void insert(IData data, String table) throws SQLException {
+    public static void insert(IData data, Tables table) throws SQLException {
         HashMap<String, FieldType> structTable = structTable(table, false);
 
         data.getStruct();
@@ -130,7 +131,7 @@ public class Gestion {
         String values = " VALUES (";
 
         for (String key : structData.keySet()) {
-            System.out.println(key + " : " + structData.get(key));
+//            System.out.println(key + " : " + structData.get(key));
             query += key + ", ";
         }
 
@@ -144,7 +145,7 @@ public class Gestion {
         cn.disconnect();
     }
 
-    public static void update(IData data, String table) throws SQLException {
+    public static void update(IData data, Tables table) throws SQLException {
         HashMap<String, FieldType> structTable = structTable(table, false);
 
         data.getStruct();
@@ -154,20 +155,41 @@ public class Gestion {
             throw new SQLException("Data and table structure do not match");
         }
 
+        String[] colonnes = structTable.keySet().toArray(new String[0]);
+        String[] valeurs = data.getValues().split(", ");
+
         Connexion cn = new Connexion();
         cn.connect();
         String query = "UPDATE " + table + " SET ";
-        String values = " WHERE ";
+        String where = " WHERE ";
 
-        for (String key : structData.keySet()) {
-            query += key + " = " + structData.get(key) + ", ";
+        for(int i = 0; i < colonnes.length; i++) {
+            query += colonnes[i] + " = " + valeurs[i] + ", ";
         }
 
         query = query.substring(0, query.length() - 2);
-        values += data.getValues();
-        query += values;
-//        System.out.println(query);
+        switch (table) {
+            case PRODUIT:
+                where += "id_produit = " + valeurs[0];
+                break;
+            case FOURNISSEUR:
+                where += "siret = " + valeurs[1];
+                break;
+            case PRIX_FOURNISSEUR:
+                where += "id_fournisseur = " + valeurs[0] + " AND id_produit = " + valeurs[1];
+                break;
+            case CONTRAT:
+                where += "id_fournisseur = " + valeurs[0] + " AND id_produit = " + valeurs[1];
+                break;
+            case VENTE:
+                where += "numero_ticket = " + valeurs[0] + " AND id_produit = " + valeurs[1] + " AND num_lot = " + valeurs[2];
+                break;
+        }
+        where += colonnes[0] + " = " + valeurs[0];
 
+        query += where;
+//        System.out.println(query);
+        System.out.println(query);
         PreparedStatement ps = cn.getConn().prepareStatement(query);
         ps.executeUpdate();
         cn.disconnect();
