@@ -3,6 +3,7 @@ package main.java.ui.pages;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.TableRow;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import main.java.data.entities.Fournisseur;
@@ -14,12 +15,16 @@ import main.java.util.Colonne;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.concurrent.ForkJoinPool;
 
 public class PageFournisseurs extends Page {
+    private final BorderPane page;
     public Modal modal;
 
-    public PageFournisseurs(double spacing) throws SQLException {
+    public PageFournisseurs(double spacing , BorderPane page) throws SQLException {
         super(spacing, "Fournisseurs");
+        this.page = page;
+
         ArrayList<Colonne> tableContentFournisseurs = new ArrayList<Colonne>() {
             {
                 add(new Colonne("nom_societe", "Nom société", 150));
@@ -45,9 +50,8 @@ public class PageFournisseurs extends Page {
         tables.getChildren().addAll(tableFournisseurs, tableContrats);
 
         ObservableList<Node> components = this.getChildren();
-        components.addAll(title, tables);
-
-        modal = new Modal(10, "Informations sur le fournisseur");
+        components.addAll(title, tables );
+        tableFournisseurs.getStyleClass().add("fournisseurs");
 
         // Ajouter un gestionnaire d'événements pour le tableau des fournisseurs
         tableFournisseurs.getTable().setRowFactory(tv -> {
@@ -56,14 +60,18 @@ public class PageFournisseurs extends Page {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     System.out.println("Double click");
                     Fournisseur fournisseur = (Fournisseur)row.getItem();
-                    showModalWithData(fournisseur);
-                }
+                    try {
+                        modal = new Modal(20, "Fournisseur", fournisseur);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    modal.affiche(page);                }
             });
             return row;
         });}
 
-    private void showModalWithData(Fournisseur fournisseur) {
-    }
+
+
 
 
 }

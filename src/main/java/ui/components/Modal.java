@@ -1,46 +1,76 @@
 package main.java.ui.components;
 
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Box;
+import javafx.stage.Stage;
 import main.java.data.entities.Fournisseur;
 import main.java.ui.pages.Page;
+import main.java.util.Colonne;
 
 import java.sql.SQLException;
+import java.text.Format;
+import java.util.ArrayList;
 
 public class Modal extends Page {
 
-    private VBox contentBox; // Conteneur pour afficher les données dynamiques
+    private HBox contentBox; // Conteneur pour afficher les données dynamiques
+    private VBox infoFournisseurs; // Conteneur pour les boutons
+    private Table contactAssocies;
 
-    public Modal(double spacing, String title) throws SQLException {
+    public Modal(double spacing, String title , Fournisseur fournisseur) throws SQLException {
+
         super(spacing, title);
+        infoFournisseurs = new VBox();
+        contentBox = new HBox();
+        Label nomSociete = new Label("Noms sociétés : " + fournisseur.getNom_societe());
+        Label siret = new Label("Siret : " + fournisseur.getSiret());
+        Label adresse = new Label("Adresse : " + fournisseur.getAdresse());
+        Label mail = new Label("Mail : " + fournisseur.getEmail());
+        infoFournisseurs.getChildren().addAll(nomSociete, siret, adresse, mail);
+        contentBox.getChildren().add(infoFournisseurs);
 
-        // Initialisation d'un VBox pour afficher les informations
-        contentBox = new VBox(10);
-        contentBox.setStyle("-fx-padding: 20; -fx-alignment: center;");
-        this.getChildren().add(contentBox); // Ajouter le conteneur à la page
+
+
+
+        // Création du tableau des contacts associés
+        contactAssocies = new Table("SELECT * FROM contact_associe WHERE contact_associe.siret  = " + fournisseur.getSiret(), "Contacts associés", new ArrayList<Colonne>() {
+            {
+                add(new Colonne("nom", "Nom", 100));
+                add(new Colonne("prenom", "Prénom", 100));
+                add(new Colonne("fonction", "Fonction", 100));
+                add(new Colonne("email", "Email", 100));
+                add(new Colonne("telephone", "Téléphone", 100));
+            }
+        }, true);
+
+contentBox.getChildren().add(contactAssocies);
+
+
+this.getChildren().add(contentBox);
+
+
+
+
+
+
+
     }
 
-    /**
-     * Met à jour les données affichées dans la modale pour un fournisseur donné.
-     */
-    public void setFournisseurData(String nomSociete, String siret, String adresse, String email) {
-        // Effacer les anciennes données
-        contentBox.getChildren().clear();
 
-        // Ajouter les nouvelles informations sous forme de labels
-        Label nameLabel = new Label("Nom société : " + nomSociete);
-        Label siretLabel = new Label("Siret : " + siret);
-        Label adresseLabel = new Label("Adresse : " + adresse);
-        Label emailLabel = new Label("Email : " + email);
 
-        contentBox.getChildren().addAll(nameLabel, siretLabel, adresseLabel, emailLabel);
-    }
+
 
     /**
      * Affiche la modale.
      */
-    public void open() {
-        this.setVisible(true);
+    public void affiche(BorderPane page) {
+
+        // Afficher la modale
+        page.setCenter(this);
     }
 
     /**

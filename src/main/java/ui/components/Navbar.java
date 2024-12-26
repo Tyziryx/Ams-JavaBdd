@@ -35,7 +35,7 @@ public class Navbar extends VBox {
 
         Map<String, Page> addButtonList = new LinkedHashMap<String, Page>() {{
             put("Accueil", new PagePrincipale(20));
-            put("Fournisseurs", new PageFournisseurs(20));
+            put("Fournisseurs", new PageFournisseurs(20 , page));
             put("Achats", new PageAchats(20));
             put("Ventes", new PageVentes(20));
             put("Stock", new PageStock(20));

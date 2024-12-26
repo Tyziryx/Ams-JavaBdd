@@ -17,6 +17,7 @@
     -fx-background-color: -background-maincolor;
 }
 
+
 /*
 #######################
 ######## NAVBAR #######
@@ -165,6 +166,10 @@
     -fx-background-insets: 0;
     -fx-padding: 0;
     -fx-shape: null;
+}
+
+.fournisseurs .table-view .cell:hover {
+    -fx-background-color: -background-maincolor;
 }
 
 /*
