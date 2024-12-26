@@ -6,7 +6,6 @@ import main.java.data.entities.*;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -278,4 +277,16 @@ public class Gestion {
         Date date = java.sql.Date.valueOf(localDate);
         return java.sql.Date.valueOf(localDate);
     }
+
+//fonction qui permet de joindre deux tables
+/* static void joinTables(String table1, String table2, String joinCondition) throws SQLException {
+    Connexion cn = new Connexion();
+    cn.connect();
+    String query = "SELECT * FROM " + table1 + " JOIN " + table2 + " ON " + joinCondition;
+    Statement stmt = cn.getConn().createStatement();
+    ResultSet rs = stmt.executeQuery(query);
+    cn.disconnect();
+}
+*/
+
 }

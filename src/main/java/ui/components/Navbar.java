@@ -23,7 +23,7 @@ public class Navbar extends VBox {
 
     private BorderPane page;
 
-    public Navbar(BorderPane page) throws SQLException, IOException {
+    public Navbar(BorderPane page) throws Exception {
         this.page = page;
         this.setSpacing(10);
         VBox vBox = new VBox();
@@ -34,7 +34,7 @@ public class Navbar extends VBox {
         vBox.prefHeightProperty().bind(page.heightProperty());
 
         Map<String, Page> addButtonList = new LinkedHashMap<String, Page>() {{
-            put("Accueil", new PagePrincipale(20));
+            put("Accueil", new PagePrincipale(page,20));
             put("Fournisseurs", new PageFournisseurs(page, 20));
             put("Achats", new PageAchats(page, 20));
             put("Ventes", new PageVentes(20));

@@ -22,7 +22,7 @@ public class App extends Application {
         Navbar navbar = new Navbar(page);
         page.setLeft(navbar);
 
-        PagePrincipale pagePrincipale = new PagePrincipale(20);
+        PagePrincipale pagePrincipale = new PagePrincipale(page, 20);
         pagePrincipale.getStyleClass().add("content");
         page.setCenter(pagePrincipale);
 

@@ -30,7 +30,7 @@ public class ModalEdit extends Modal {
         super(page, spacing, title);
 
         VBox form = new VBox();
-        HashMap<String, FieldType> data = Gestion.structTable(tableType.toString(), false);
+        HashMap<String, FieldType> data = Gestion.structTable(tableType, false);
         Object[] inputs = new Object[10];
         int i = 0;
         for (String key : data.keySet()) {
@@ -103,17 +103,17 @@ public class ModalEdit extends Modal {
                 }
                 Contrat contrat = new Contrat(inputs);
                 if(isNew) {
-                    Gestion.insert(contrat, "contrat");
+                    Gestion.insert(contrat, Tables.CONTRAT);
                 } else {
-                    Gestion.update(contrat, "contrat");
+                    Gestion.update(contrat, Tables.CONTRAT);
                 }
                 break;
             case CONTACT_ASSOCIE:
                 ContactAssocie contactAssocie = new ContactAssocie(inputs);
                 if(isNew) {
-                    Gestion.insert(contactAssocie, "contact_associe");
+                    Gestion.insert(contactAssocie, Tables.CONTACT_ASSOCIE);
                 } else {
-                    Gestion.update(contactAssocie, "contact_associe");
+                    Gestion.update(contactAssocie, Tables.CONTACT_ASSOCIE);
                 }
         }
     }
