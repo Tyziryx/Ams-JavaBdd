@@ -20,7 +20,10 @@ public class Modal extends Page {
         super(spacing, title);
         this.page = page;
         this.contentBox = new HBox();
-    }
+        contentBox.getStyleClass().add("modal-content-box");
+
+
+        }
 
 
     public void affiche() {

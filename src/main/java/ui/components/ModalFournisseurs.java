@@ -21,11 +21,16 @@ public class ModalFournisseurs extends Modal {
         super(page, spacing, title);
         this.page = page;
         infoFournisseurs = new VBox();
-        Label nomSociete = new Label("Noms sociétés : " + fournisseur.getNom_societe());
+        Label nomSociete = new Label("Nom société : " + fournisseur.getNom_societe());
         Label siret = new Label("Siret : " + fournisseur.getSiret());
         Label adresse = new Label("Adresse : " + fournisseur.getAdresse());
         Label mail = new Label("Mail : " + fournisseur.getEmail());
         infoFournisseurs.getChildren().addAll(nomSociete, siret, adresse, mail);
+        nomSociete.getStyleClass().add("label-title");
+        siret.getStyleClass().add("label");
+        adresse.getStyleClass().add("label");
+        mail.getStyleClass().add("label");
+        infoFournisseurs.getStyleClass().add("info-fournisseurs");
         contentBox.getChildren().add(infoFournisseurs);
 
 
@@ -40,7 +45,9 @@ public class ModalFournisseurs extends Modal {
             }
         }, true, true);
 
+
         contentBox.getChildren().add(contactAssocies);
+        contentBox.getStyleClass().add("content-box");
 
 //        this.getChildren().add(contentBox);
 
