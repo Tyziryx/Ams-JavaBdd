@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 import main.java.data.entities.*;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -210,5 +212,14 @@ public class Gestion {
                 break;
         }
         return FXCollections.observableArrayList(items);
+    }
+
+    /**
+     * Cette méthode permet de convertir une LocalDate en Date
+     * @param localDate
+     * @return
+     */
+    public static java.sql.Date localDateToSqlDate(LocalDate localDate) {
+        return java.sql.Date.valueOf(localDate);
     }
 }

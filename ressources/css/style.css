@@ -180,7 +180,7 @@
     -fx-background-color: -background-secondcolor;
     -fx-border-radius: 1em;
     -fx-background-radius: 1em;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 2);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.01), 20, 0, 0, 0);
     -fx-spacing: 15px;
 
 }
@@ -191,7 +191,6 @@
     -fx-font-weight: bold;
     -fx-padding: 0 0 10px 0;
     -fx-alignment: center;
-
 }
 
 .info-fournisseurs .label {
@@ -202,11 +201,19 @@
     -fx-line-spacing: 5px;
 
 }
-
+/*
+#######################
+####### Modal #########
+#######################
+ */
 
 .content-box {
     -fx-spacing: 20px; /* Espacement entre les deux blocs principaux */
     -fx-padding: 30px; /* Espacement autour du contenu global */
+}
+.modal-box {
+    -fx-padding: 30px;
+    -fx-spacing: 20px;
 }
 
 

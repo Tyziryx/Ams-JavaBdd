@@ -1,7 +1,11 @@
 package main.java.data.entities;
 
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import main.java.data.sql.FieldType;
+import main.java.data.sql.Gestion;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -26,6 +30,15 @@ public class Contrat implements IData {
         this.date_debut = date_debut;
         this.date_fin = date_fin;
         this.prix_produit = prix_produit;
+    }
+
+    public Contrat(Object[] objects) {
+        this.id_produit = Integer.parseInt(((TextField) objects[0]).getText());
+        this.quantite_min = Integer.parseInt(((TextField) objects[1]).getText());
+        this.date_debut = Gestion.localDateToSqlDate(((DatePicker) objects[2]).getValue());
+        this.date_fin = Gestion.localDateToSqlDate(((DatePicker) objects[3]).getValue());
+        this.prix_produit = Float.parseFloat(((TextField) objects[4]).getText());
+        this.id_fournisseur = Integer.parseInt(((TextField) objects[5]).getText());
     }
 
     public int getId_produit() {
@@ -104,8 +117,8 @@ public class Contrat implements IData {
     public String getValues() {
         String res = String.format(
                 Locale.US, // par ce que sinon le float est écrit avec une virgule
-                "%d, %d, '%s', '%s', '%s', %f",
-                this.id_produit, this.quantite_min, this.date_debut, this.date_fin, this.prix_produit
+                "%d, %d, '%s', '%s', %f, %d",
+                this.id_produit, this.quantite_min, this.date_debut, this.date_fin, this.prix_produit, this.id_fournisseur
         );
         return res;
     }
