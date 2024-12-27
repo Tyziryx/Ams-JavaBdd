@@ -18,7 +18,7 @@ import java.net.URL;
 public class App extends Application {
 
     private static final String WINDOW_TITLE = "Ma Supérette du Net";
-    private static final double WINDOW_WIDTH = 1080;
+    private static final double WINDOW_WIDTH = 1300;
     private static final double WINDOW_HEIGHT = 800;
 
     @Override
