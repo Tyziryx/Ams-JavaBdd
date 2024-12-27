@@ -30,12 +30,13 @@ public class PagePrincipale extends Page {
 
         LinkedHashMap<String, Integer> dataJour = loadDataJour();
         if (dataJour.isEmpty()) {
-            components.add(new Label("Aucune donnée disponible."));
+            components.add(new Label("Aucune donnée disponible JOUR."));
+            System.out.println(dataJour);
             return;
         }
         LinkedHashMap<String, Integer> dataMois = loadDataMois();
         if (dataMois.isEmpty()) {
-            components.add(new Label("Aucune donnée disponible."));
+            components.add(new Label("Aucune donnée disponible MOIS."));
             return;
         }
 
@@ -62,7 +63,7 @@ public class PagePrincipale extends Page {
                 "FROM vente " +
                 "JOIN produit ON vente.id_produit = produit.id_produit " +
                 "JOIN prix_fournisseur ON vente.id_produit = prix_fournisseur.id_produit " +
-                " WHERE vente.date_vente >= CURRENT_DATE\n" +
+                " WHERE vente.date_vente >= CURRENT_DATE" +
                 "  AND vente.date_vente < CURRENT_DATE + INTERVAL '1 day'" +
                 "GROUP BY produit.nom ORDER BY benef DESC LIMIT 10";
         try (ResultSet rs = Gestion.execute(query)) {
@@ -108,7 +109,7 @@ public class PagePrincipale extends Page {
         data.forEach((nom, benef) -> {
             double percentage = (benef / total) * 100;
             benefListe.add((int) percentage);
-            nomListe.add(nom);
+            nomListe.add(nom  +  " - " +  benef +"€");
         });
 
         PieChart pieChart = new PieChart();
