@@ -26,7 +26,7 @@ import static javafx.scene.input.KeyEvent.KEY_RELEASED;
 
 public class ModalCommandeAEffectuer extends Modal {
     Table oldTable;
-    public ModalCommandeAEffectuer(BorderPane page, Page oldPage, double spacing, String title, ObservableList<String> items, Table oldTable) throws SQLException {
+    public ModalCommandeAEffectuer(BorderPane page, Page oldPage, Table oldTable, double spacing, String title, ObservableList<String> items) throws SQLException {
         super(page, oldPage, spacing, title);
         this.oldTable = oldTable;
         VBox form = new VBox();
