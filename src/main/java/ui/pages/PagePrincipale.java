@@ -125,8 +125,6 @@ public class PagePrincipale extends Page {
     private HBox CreateBarChart(BorderPane page) throws Exception {
 
         // Définir les axes
-        CategoryAxis axeX = new CategoryAxis();
-        axeX.setCategories(FXCollections.observableArrayList("Bénéfices", "Coûts", "CA"));
         CategoryAxis axeXJour = new CategoryAxis();
         axeXJour.setCategories(FXCollections.observableArrayList("Bénéfices", "Coûts", "CA"));
 
