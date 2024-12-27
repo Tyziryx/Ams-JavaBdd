@@ -192,6 +192,45 @@
     -fx-padding: 0 0 10px 0;
     -fx-alignment: center;
 }
+.data0 {
+    -fx-pie-color: "f9d900"; // Default gold
+}
+
+.data1 {
+    -fx-pie-color: "a9e200"; // Default lime green
+}
+
+.data2 {
+    -fx-pie-color: "22bad9"; // Default sky blue
+}
+
+.data3 {
+    -fx-pie-color: "0181e2"; // Default azure
+}
+
+.data4 {
+    -fx-pie-color: "2f357f"; // Default indigo
+}
+
+.data5 {
+    -fx-pie-color: "860061"; // Default purple
+}
+
+.data6 {
+    -fx-pie-color: "c62b00"; // Default rust
+}
+
+.data7 {
+    -fx-pie-color: "ff5700"; // Default orange
+}
+
+.data8 {
+    -fx-pie-color: "e6007e"; // Default magenta
+}
+
+.data9 {
+    -fx-pie-color: "008080"; // Default teal
+}
 
 .info-fournisseurs .label {
     -fx-font-size: 15px;

@@ -3,6 +3,7 @@ package main.java.data.sql;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import main.java.data.entities.*;
+import main.java.ui.components.Table;
 
 import java.sql.*;
 import java.sql.Date;
@@ -135,7 +136,7 @@ public class Gestion {
         query = query.substring(0, query.length() - 2) + ")";
         values += data.getValues() + ")";
         query += values;
-        System.out.println(query);
+//        System.out.println(query);
 
         PreparedStatement ps = cn.getConn().prepareStatement(query);
         ps.executeUpdate();
@@ -154,7 +155,6 @@ public class Gestion {
 
         String[] colonnes = structTable.keySet().toArray(new String[0]);
         String[] valeurs = data.getValues().split(", ");
-
 
         Connexion cn = new Connexion();
         cn.connect();
@@ -363,14 +363,23 @@ public class Gestion {
     }
 
 //fonction qui permet de joindre deux tables
-/* static void joinTables(String table1, String table2, String joinCondition) throws SQLException {
+ /* public static Object[] joinTables(Tables table1, Tables table2, String joinCondition1 , String joinCondition2) throws SQLException {
     Connexion cn = new Connexion();
     cn.connect();
-    String query = "SELECT * FROM " + table1 + " JOIN " + table2 + " ON " + joinCondition;
+    String query = "SELECT * FROM " + table1 + " JOIN " + table2 + " ON " + table1 + "." + joinCondition1 + " = " + table2 + "." +  joinCondition2;
     Statement stmt = cn.getConn().createStatement();
     ResultSet rs = stmt.executeQuery(query);
     cn.disconnect();
-}
-*/
+
+     Object[] inputs = new Object[rs.getMetaData().getColumnCount()];
+     for (int i = 0; i <= rs.getMetaData().getColumnCount(); i++) {
+         inputs[i] = rs.getObject(i);
+         System.out.println(inputs[i]);
+     }
+     return inputs ;
+ }
+ */
+
+
 
 }
