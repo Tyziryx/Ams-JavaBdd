@@ -30,11 +30,10 @@ public class PageStock extends Page {
         ArrayList<Colonne> tableContent = new ArrayList<Colonne>() {
             {
                 add(new Colonne("id_produit", "ID Produit", 100));
-                add(new Colonne("nom", "Nom", 165));
-                add(new Colonne("description", "Description", 400));
+                add(new Colonne("quantite", "Quantité", 400));
             }
         };
-        Table table = new Table(this, Tables.PRODUIT, tableContent, true);
+        Table table = new Table(this,Tables.LOT_DE_PRODUIT, tableContent, true);
 
         components.addAll(title, table);
     }

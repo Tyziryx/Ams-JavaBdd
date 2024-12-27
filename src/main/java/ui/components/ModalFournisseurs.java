@@ -1,5 +1,6 @@
 package main.java.ui.components;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -24,6 +25,15 @@ public class ModalFournisseurs extends Modal {
         super(page, oldPage, spacing, title);
         this.page = page;
         box.getStyleClass().add("modal-box");
+        Button topLeftButton = new Button("⬅ Revenir en arrière");
+        topLeftButton.getStyleClass().add("button");
+
+        box.getChildren().add(topLeftButton);
+
+        topLeftButton.setOnAction(e -> {
+            page.setCenter(oldPage);
+        });
+
         infoFournisseurs = new VBox();
         Label nomSociete = new Label("Nom société : " + fournisseur.getNom_societe());
         Label siret = new Label("Siret : " + fournisseur.getSiret());

@@ -92,6 +92,15 @@
     -fx-text-fill: -text-fill;
     -fx-font-weight: bold;
 }
+.modal-content-box {
+    -fx-spacing: 20px;
+    -fx-padding: 30px;
+    -fx-background-insets: 20px;
+    -fx-background-radius: 1em;
+    -fx-border-insets: 20px;
+
+}
+
 
 
 /*
@@ -235,6 +244,17 @@
     -fx-pie-color: "008080"; // Default teal
 }
 
+
+.form {
+    -fx-background-color: -background-secondcolor;
+    -fx-padding: 20px;
+    -fx-border-radius: 1em;
+    -fx-background-radius: 1em;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.01), 20, 0, 0, 0);
+    -fx-spacing: 15px;
+   -fx-background-insets: 10px;
+}
+
 .info-fournisseurs .label {
     -fx-font-size: 15px;
     -fx-text-fill:  #2c3e50;;
@@ -251,13 +271,36 @@
 
 .content-box {
     -fx-spacing: 20px; /* Espacement entre les deux blocs principaux */
-    -fx-padding: 30px; /* Espacement autour du contenu global */
+    -fx-padding: 20px; /* Espacement autour du contenu global */
+    -fx-alignment: center-left;
+
 }
 .modal-box {
     -fx-padding: 30px;
     -fx-spacing: 20px;
 }
+.top-left-button {
+    -fx-background-color: -background-secondcolor;
+    -fx-text-fill: -text-secondfill;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 10px 10px 20px; /* Adjust the left padding to move the button to the right */
+    -fx-pref-width: 220px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-alignment: center-left;
+    -fx-translate-x: 20px;
+}
 
+.button{
+    -fx-background-color: -background-secondcolor;
+    -fx-text-fill: -text-secondfill;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 10px 10px 20px; /* Adjust the left padding to move the button to the right */
+    -fx-pref-width: 220px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-alignment: center-left;
+}
 
 /*
 #######################
