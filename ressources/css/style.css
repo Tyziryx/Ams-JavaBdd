@@ -174,7 +174,7 @@
 .fournisseurs .table-view .row:hover .cell {
     -fx-background-color: -background-maincolor;
 }
-.commandes .table-view .row:hover .cell {
+.hoverable .table-view .row:hover .cell {
     -fx-background-color: -background-maincolor;
 }
 

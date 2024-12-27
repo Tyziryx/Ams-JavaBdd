@@ -9,5 +9,6 @@ public enum Tables {
     PRIX_FOURNISSEUR,
     PRIX_VENTE,
     VENTE,
+    COMMANDE_A_EFFECTUER,
     UNDEFINED
 }
