@@ -34,6 +34,12 @@ public class ContactAssocie implements IData {
         this.fonction = ((TextField)objects[3]).getText();
         this.email = ((TextField)objects[4]).getText();
         this.telephone = ((TextField)objects[5]).getText();
+
+        this.nom = this.nom.replaceAll("'", "''");
+        this.prenom = this.prenom.replaceAll("'", "''");
+        this.fonction = this.fonction.replaceAll("'", "''");
+        this.email = this.email.replaceAll("'", "''");
+        this.telephone = this.telephone.replaceAll("'", "''");
     }
 
     @Override

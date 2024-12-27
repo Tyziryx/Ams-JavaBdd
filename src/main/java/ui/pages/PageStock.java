@@ -34,7 +34,7 @@ public class PageStock extends Page {
                 add(new Colonne("description", "Description", 400));
             }
         };
-        Table table = new Table(Tables.PRODUIT, tableContent, true);
+        Table table = new Table(this, Tables.PRODUIT, tableContent, true);
 
         components.addAll(title, table);
     }

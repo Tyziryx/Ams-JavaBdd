@@ -15,15 +15,15 @@ public class Modal extends Page {
 
     HBox contentBox; // Conteneur pour afficher les données dynamiques
     BorderPane page;
+    Page oldPage;
 
-    public Modal(BorderPane page, double spacing, String title) {
+    public Modal(BorderPane page, Page oldPage, double spacing, String title) {
         super(spacing, title);
         this.page = page;
+        this.oldPage = oldPage;
         this.contentBox = new HBox();
         contentBox.getStyleClass().add("modal-content-box");
-
-
-        }
+    }
 
 
     public void affiche() {
@@ -32,6 +32,7 @@ public class Modal extends Page {
     }
 
     public void fermer() {
-//        this.setVisible(false);
+        this.getChildren().remove(contentBox);
+        page.setCenter(oldPage);
     }
 }

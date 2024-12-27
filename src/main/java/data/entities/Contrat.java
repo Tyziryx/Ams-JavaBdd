@@ -6,10 +6,7 @@ import main.java.data.sql.FieldType;
 import main.java.data.sql.Gestion;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Locale;
+import java.util.*;
 
 public class Contrat implements IData {
     int id_fournisseur;
@@ -18,6 +15,7 @@ public class Contrat implements IData {
     java.sql.Date date_debut;
     java.sql.Date date_fin;
     float prix_produit;
+    UUID id_contrat;
 
     // LinkedHashMap pour garder l'ordre des colonnes
     private LinkedHashMap<String, FieldType> map;
@@ -31,8 +29,18 @@ public class Contrat implements IData {
         this.date_fin = date_fin;
         this.prix_produit = prix_produit;
     }
+    public Contrat(UUID id_contrat ,int id_fournisseur , int id_produit, int quantite_min, java.sql.Date date_debut, java.sql.Date date_fin, float prix_produit) {
+        this.id_contrat = id_contrat;
+        this.id_fournisseur = id_fournisseur;
+        this.id_produit = id_produit;
+        this.quantite_min = quantite_min;
+        this.date_debut = date_debut;
+        this.date_fin = date_fin;
+        this.prix_produit = prix_produit;
+    }
 
     public Contrat(Object[] objects) {
+        this.id_contrat = (UUID) objects[6];
         this.id_produit = Integer.parseInt(((TextField) objects[0]).getText());
         this.quantite_min = Integer.parseInt(((TextField) objects[1]).getText());
         this.date_debut = Gestion.localDateToSqlDate(((DatePicker) objects[2]).getValue());
@@ -98,6 +106,7 @@ public class Contrat implements IData {
         map.put("date_fin", FieldType.DATE);
         map.put("prix_produit", FieldType.FLOAT8);
         map.put("id_fournisseur", FieldType.INT4);
+        map.put("id_contrat", FieldType.UUID);
 
         this.map = map;
 
@@ -117,8 +126,8 @@ public class Contrat implements IData {
     public String getValues() {
         String res = String.format(
                 Locale.US, // par ce que sinon le float est écrit avec une virgule
-                "%d, %d, '%s', '%s', %f, %d",
-                this.id_produit, this.quantite_min, this.date_debut, this.date_fin, this.prix_produit, this.id_fournisseur
+                "%d, %d, '%s', '%s', %f, %d, '%s'",
+                this.id_produit, this.quantite_min, this.date_debut, this.date_fin, this.prix_produit, this.id_fournisseur, this.id_contrat
         );
         return res;
     }

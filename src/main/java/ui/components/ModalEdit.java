@@ -18,16 +18,15 @@ import main.java.data.entities.IData;
 import main.java.data.sql.FieldType;
 import main.java.data.sql.Gestion;
 import main.java.data.sql.Tables;
+import main.java.ui.pages.Page;
+
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class ModalEdit extends Modal {
-    public ModalEdit(BorderPane page, double spacing, String title, Tables tableType, ObservableList items, boolean isNew) throws SQLException {
-        super(page, spacing, title);
+    public ModalEdit(BorderPane page, Page oldPage, double spacing, String title, Tables tableType, ObservableList items, boolean isNew) throws SQLException {
+        super(page, oldPage, spacing, title);
 
         VBox form = new VBox();
         HashMap<String, FieldType> data = Gestion.structTable(tableType, false);
@@ -35,25 +34,33 @@ public class ModalEdit extends Modal {
         int i = 0;
         for (String key : data.keySet()) {
             String item = "";
-            if(!isNew) item = (String) items.get(i);
+            item = (String) items.get(i);
             FieldType type = data.get(key);
             Label label = new Label(key);
-            if (type == FieldType.VARCHAR || type == FieldType.INT4 || type == FieldType.FLOAT8 || type == FieldType.NUMERIC) {
-                TextField textField = new TextField();
-                textField.setPromptText(key);
-                if(!isNew) textField.setText(item);
-                form.getChildren().add(label);
-                form.getChildren().add(textField);
-                inputs[i] = textField;
-            } else if (type == FieldType.DATE) {
+            if (type == FieldType.DATE) {
                 DatePicker datePicker = new DatePicker();
                 datePicker.setPromptText(key);
                 if(!isNew) datePicker.setValue(LocalDate.parse(item));
                 form.getChildren().add(label);
                 form.getChildren().add(datePicker);
                 inputs[i] = datePicker;
+            } else {
+                TextField textField = new TextField();
+                textField.setPromptText(key);
+                if(!isNew) textField.setText(item);
+                if(key.equals("id_contrat") && tableType == Tables.CONTRAT) {
+                    textField.setDisable(true);
+                    if(isNew) textField.setText(UUID.randomUUID().toString());
+                }
+                if(key.equals("siret") && tableType == Tables.CONTACT_ASSOCIE) {
+                    textField.setText(item);
+                    textField.setDisable(true);
+                }
+                form.getChildren().add(label);
+                form.getChildren().add(textField);
+                inputs[i] = textField;
             }
-            i++;
+                i++;
         }
         Button submit = new Button("Valider");
         form.getChildren().add(submit);
@@ -95,6 +102,12 @@ public class ModalEdit extends Modal {
 
         switch (tableType) {
             case CONTRAT:
+//                System.out.println(((TextField)inputs[6]).getText());
+                try {
+                    inputs[6] = UUID.fromString(((TextField)inputs[6]).getText());
+                } catch (ClassCastException e) {
+                    inputs[6] = UUID.randomUUID();
+                }
                 DatePicker dateDebut = (DatePicker) inputs[2];
                 DatePicker dateFin = (DatePicker) inputs[3];
                 if(dateDebut.getValue().isAfter(dateFin.getValue())) {
@@ -139,4 +152,8 @@ public class ModalEdit extends Modal {
         return true;
     }
 
+    public void fermer(Table table) throws SQLException {
+        super.fermer();
+        table.refreshDynamicTable();
+    }
 }

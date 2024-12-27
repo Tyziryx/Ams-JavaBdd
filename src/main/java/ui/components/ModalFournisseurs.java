@@ -12,6 +12,7 @@ import main.java.util.Colonne;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class ModalFournisseurs extends Modal {
 
@@ -19,8 +20,8 @@ public class ModalFournisseurs extends Modal {
     private VBox infoFournisseurs; // Conteneur pour les boutons
     private Table contactAssocies;
 
-    public ModalFournisseurs(BorderPane page, double spacing, String title, Fournisseur fournisseur) throws SQLException {
-        super(page, spacing, title);
+    public ModalFournisseurs(BorderPane page, Page oldPage, double spacing, String title, Fournisseur fournisseur) throws SQLException {
+        super(page, oldPage, spacing, title);
         this.page = page;
         box.getStyleClass().add("modal-box");
         infoFournisseurs = new VBox();
@@ -39,7 +40,7 @@ public class ModalFournisseurs extends Modal {
 
 
         // Création du tableau des contacts associés
-        contactAssocies = new Table(page, Tables.CONTACT_ASSOCIE, "SELECT * FROM contact_associe WHERE contact_associe.siret  = " + fournisseur.getSiret(), "Contacts associés", new ArrayList<Colonne>() {
+        contactAssocies = new Table(page, Tables.CONTACT_ASSOCIE, "SELECT * FROM contact_associe WHERE contact_associe.siret  = " + fournisseur.getSiret(), "Contacts associés", new LinkedList<Colonne>() {
             {
                 add(new Colonne("nom", "Nom", 100));
                 add(new Colonne("prenom", "Prénom", 100));

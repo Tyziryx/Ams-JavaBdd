@@ -10,19 +10,24 @@ import javafx.scene.layout.*;
 import main.java.data.entities.IData;
 import main.java.data.sql.Gestion;
 import main.java.data.sql.Tables;
+import main.java.ui.pages.Page;
 import main.java.util.Colonne;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Table extends VBox {
     private TableView<IData> table = new TableView<>();
     private TableView<ObservableList<String>> dynamicTable = new TableView<>();
+    String sql = "";
+    Page oldPage;
 
-    public Table(Tables type, ArrayList<Colonne> tableContent, boolean head) throws SQLException {
+    public Table(Page oldPage, Tables type, ArrayList<Colonne> tableContent, boolean head) throws SQLException {
         super();
         table.getStyleClass().add("table-view");
+        this.oldPage = oldPage;
 
         for (Colonne colonne : tableContent) {
             TableColumn<IData, String> column = new TableColumn<>(colonne.getTitre());
@@ -72,7 +77,7 @@ public class Table extends VBox {
         this.getChildren().addAll(table);
     }
 
-    public Table(BorderPane page, Tables type, String sql, String titre, ArrayList<Colonne> tableContent, boolean head, boolean editable) throws SQLException {
+    public Table(BorderPane page, Tables type, String sql, String titre, LinkedList<Colonne> tableContent, boolean head, boolean editable) throws SQLException {
         super();
         dynamicTable.getStyleClass().add("table-view");
 
@@ -154,7 +159,7 @@ public class Table extends VBox {
                 MenuItem menuItem3 = new MenuItem("Supprimer");
                 menuItem1.setOnAction((event) -> {
                     try {
-                        ModalEdit modalEdit = new ModalEdit(page, 20, "Modifier", type, null, true);
+                        ModalEdit modalEdit = new ModalEdit(page, oldPage, 20, "Modifier", type, item[0], true);
                         modalEdit.affiche();
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
@@ -162,8 +167,18 @@ public class Table extends VBox {
                 });
                 menuItem2.setOnAction((event) -> {
                     try {
-                        ModalEdit modalEdit = new ModalEdit(page, 20, "Modifier", type, item[0], false);
+                        ModalEdit modalEdit = new ModalEdit(page, oldPage, 20, "Modifier", type, item[0], false);
                         modalEdit.affiche();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+                menuItem3.setOnAction((event) -> {
+                    try {
+
+                        if(Gestion.delete(item[0], type)) {
+                            refreshDynamicTable(sql);
+                        }
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
@@ -189,6 +204,30 @@ public class Table extends VBox {
 
     public TableView.TableViewSelectionModel<IData> getSelectionModel() {
         return table.getSelectionModel();
+    }
+    public void refreshTable(Tables type) throws SQLException {
+        if(type == Tables.UNDEFINED) return;
+        if(table.getItems() == null) return;
+        ObservableList<IData> data = Gestion.getTable(type);
+        table.setItems(data);
+    }
+    public void refreshDynamicTable(String sql) throws SQLException {
+        ResultSet rs = Gestion.execute(sql);
+        int nbColonnes = rs.getMetaData().getColumnCount();
+        ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
+        while (rs.next()) {
+            ObservableList<String> row = FXCollections.observableArrayList();
+            for (int i = 1; i <= nbColonnes; i++) {
+                row.add(rs.getString(i));
+            }
+            data.add(row);
+        }
+        dynamicTable.setItems(data);
+    }
+    public void refreshDynamicTable() throws SQLException {
+        if(dynamicTable.getItems() == null) return;
+        if(sql.isEmpty()) return;
+        refreshDynamicTable(sql);
     }
 
 }

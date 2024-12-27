@@ -9,6 +9,7 @@ import main.java.util.Colonne;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class PageAchats extends Page {
     public PageAchats(BorderPane page, double spacing) throws SQLException {
@@ -16,7 +17,7 @@ public class PageAchats extends Page {
 
         ObservableList<Node> components = this.getChildren();
 
-        ArrayList<Colonne> colonnes = new ArrayList<Colonne>(){{
+        LinkedList<Colonne> colonnes = new LinkedList<Colonne>(){{
             add(new Colonne("Nom société", "nom_societe", 110));
             add(new Colonne("Siret", "siret", 85));
             add(new Colonne("Adresse", "adresse", 100));

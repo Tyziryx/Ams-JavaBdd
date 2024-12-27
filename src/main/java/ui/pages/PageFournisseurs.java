@@ -15,6 +15,7 @@ import main.java.util.Colonne;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class PageFournisseurs extends Page {
     private final BorderPane page;
@@ -30,11 +31,12 @@ public class PageFournisseurs extends Page {
                 add(new Colonne("siret", "Siret", 100));
             }
         };
-        Table tableFournisseurs = new Table(Tables.FOURNISSEUR, tableContentFournisseurs, true);
+        Table tableFournisseurs = new Table(this, Tables.FOURNISSEUR, tableContentFournisseurs, true);
 
 
-        ArrayList<Colonne> tableContentContrats = new ArrayList<Colonne>() {
+        LinkedList<Colonne> tableContentContrats = new LinkedList<Colonne>() {
             {
+                add(new Colonne("id_contrat", "ID", 50));
                 add(new Colonne("id_fournisseur", "Fournisseur", 110));
                 add(new Colonne("quantite_min", "Quantité min", 60));
                 add(new Colonne("date_fin", "Date de fin", 100));
@@ -62,7 +64,7 @@ public class PageFournisseurs extends Page {
                     System.out.println("Double click");
                     Fournisseur fournisseur = (Fournisseur)row.getItem();
                     try {
-                        modalFournisseurs = new ModalFournisseurs(page,20, "Fournisseur", fournisseur);
+                        modalFournisseurs = new ModalFournisseurs(page, this,20, "Fournisseur", fournisseur);
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }

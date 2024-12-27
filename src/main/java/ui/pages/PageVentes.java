@@ -25,7 +25,7 @@ public class PageVentes extends Page {
             add(new Colonne("quantite", "Quantite", 100));
         }};
 
-        Table table = new Table(Tables.VENTE, colonnes, true);
+        Table table = new Table(this, Tables.VENTE, colonnes, true);
 
         components.addAll(title, table);
 

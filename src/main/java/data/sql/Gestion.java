@@ -5,11 +5,9 @@ import javafx.collections.ObservableList;
 import main.java.data.entities.*;
 
 import java.sql.*;
+import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 public class Gestion {
 
@@ -130,14 +128,14 @@ public class Gestion {
         String values = " VALUES (";
 
         for (String key : structData.keySet()) {
-//            System.out.println(key + " : " + structData.get(key));
+//            System.out.println(key + " : " + structData.get(key));e
             query += key + ", ";
         }
 
         query = query.substring(0, query.length() - 2) + ")";
         values += data.getValues() + ")";
         query += values;
-//        System.out.println(query);
+        System.out.println(query);
 
         PreparedStatement ps = cn.getConn().prepareStatement(query);
         ps.executeUpdate();
@@ -157,6 +155,7 @@ public class Gestion {
         String[] colonnes = structTable.keySet().toArray(new String[0]);
         String[] valeurs = data.getValues().split(", ");
 
+
         Connexion cn = new Connexion();
         cn.connect();
         String query = "UPDATE " + table + " SET ";
@@ -175,23 +174,110 @@ public class Gestion {
                 where += "siret = " + valeurs[1];
                 break;
             case PRIX_FOURNISSEUR:
-                where += "id_fournisseur = " + valeurs[0] + " AND id_produit = " + valeurs[1];
+                where += "id_fournisseur = " + valeurs[5] + " AND id_produit = " + valeurs[0];
                 break;
             case CONTRAT:
-                where += "id_fournisseur = " + valeurs[0] + " AND id_produit = " + valeurs[1];
+                where += "id_contrat = '" + UUID.fromString(valeurs[6].replace("'", "")) + "'";
                 break;
             case VENTE:
                 where += "numero_ticket = " + valeurs[0] + " AND id_produit = " + valeurs[1] + " AND num_lot = " + valeurs[2];
                 break;
         }
-        where += colonnes[0] + " = " + valeurs[0];
-
         query += where;
+        System.out.println(query);
 //        System.out.println(query);
+        PreparedStatement ps = cn.getConn().prepareStatement(query);
+        ps.executeUpdate();
+        cn.disconnect();
+    }
+
+    public static boolean delete(ObservableList items, Tables table) throws SQLException {
+
+        switch (table) {
+            case PRODUIT:
+                int id_produit = (int) items.get(0);
+                int id_achat = (int) items.get(1);
+                String nom = (String) items.get(2);
+                String description = (String) items.get(3);
+                String categorie = (String) items.get(4);
+                Produit produit = new Produit(id_produit, id_achat, nom, description, categorie);
+                return delete(produit, table);
+            case FOURNISSEUR:
+                String nom_societe = (String) items.get(0);
+                int siret = (int) items.get(1);
+                String adresse = (String) items.get(2);
+                String email = (String) items.get(3);
+                Fournisseur fournisseur = new Fournisseur(nom_societe, siret, adresse, email);
+                return delete(fournisseur, table);
+            case PRIX_FOURNISSEUR:
+                int id_fournisseur = (int) items.get(0);
+                int id_produit2 = (int) items.get(1);
+                float prix = (float) items.get(2);
+                PrixFournisseur prixFournisseur = new PrixFournisseur(id_fournisseur, id_produit2, prix);
+                return delete(prixFournisseur, table);
+            case CONTRAT:
+                int id_produit3 = Integer.valueOf((String) items.get(0));
+                int quantite_min = Integer.valueOf((String) items.get(1));
+                Date date_debut = Date.valueOf((String) items.get(2));
+                Date date_fin = Date.valueOf((String) items.get(3));
+                float prix_produit = Float.valueOf((String) items.get(4));
+                int id_fournisseur2 = Integer.valueOf((String) items.get(5));
+                UUID id_contrat = UUID.fromString((String) items.get(6));
+                Contrat contrat = new Contrat(id_contrat, id_fournisseur2, id_produit3, quantite_min, date_debut, date_fin, prix_produit);
+                return delete(contrat, table);
+            case VENTE:
+                int numero_ticket = (int) items.get(0);
+                int id_produit4 = (int) items.get(1);
+                int num_lot = (int) items.get(2);
+                Date date_vente = (Date) items.get(3);
+                float prix_unite = (float) items.get(4);
+                int quantite = (int) items.get(5);
+                Vente vente = new Vente(numero_ticket, id_produit4, num_lot, date_vente, prix_unite, quantite);
+                return delete(vente, table);
+
+        }
+        return false;
+    }
+
+    public static boolean delete(IData data, Tables table) throws SQLException {
+        HashMap<String, FieldType> structTable = structTable(table, false);
+
+        data.getStruct();
+        HashMap<String, FieldType> structData = data.getMap();
+
+        if (!data.check(structTable)) {
+            throw new SQLException("Data and table structure do not match");
+        }
+
+        String[] colonnes = structTable.keySet().toArray(new String[0]);
+        String[] valeurs = data.getValues().split(", ");
+
+        Connexion cn = new Connexion();
+        cn.connect();
+        String query = "DELETE FROM " + table + " WHERE ";
+
+        switch (table) {
+            case PRODUIT:
+                query += "id_produit = " + valeurs[0];
+                break;
+            case FOURNISSEUR:
+                query += "siret = " + valeurs[1];
+                break;
+            case PRIX_FOURNISSEUR:
+                query += "id_fournisseur = " + valeurs[0] + " AND id_produit = " + valeurs[1];
+                break;
+            case CONTRAT:
+                query += "id_contrat = '" + UUID.fromString(valeurs[6].replace("'", "")) + "'";
+                break;
+            case VENTE:
+                query += "numero_ticket = " + valeurs[0] + " AND id_produit = " + valeurs[1] + " AND num_lot = " + valeurs[2];
+                break;
+        }
         System.out.println(query);
         PreparedStatement ps = cn.getConn().prepareStatement(query);
         ps.executeUpdate();
         cn.disconnect();
+        return true;
     }
 
 
@@ -204,7 +290,6 @@ public class Gestion {
     public static ObservableList<IData> getTable(Tables tables) throws SQLException {
         List<IData> items = new ArrayList<>();
         Gestion g = new Gestion();
-
         switch (tables) {
             case PRODUIT:
                 ResultSet rs = g.execute(Produit.getQuery());
@@ -257,9 +342,8 @@ public class Gestion {
                     int num_lot = rs5.getInt("num_lot");
                     Date vente = rs5.getDate("date_vente");
                     float prix_unite = rs5.getFloat("prix_unite");
-                    float prix_final = rs5.getFloat("prix_final");
                     int quantite = rs5.getInt("quantite");
-                    items.add(new Vente(numero_ticket, id_produit, num_lot, vente, prix_unite, prix_final, quantite));
+                    items.add(new Vente(numero_ticket, id_produit, num_lot, vente, prix_unite, quantite));
 
                 }
                 break;
