@@ -18,10 +18,8 @@ public class PageVentes extends Page {
         ArrayList<Colonne> colonnes = new ArrayList<Colonne>(){{
             add(new Colonne("numero_ticket", "Numero Ticket", 100));
             add(new Colonne("id_produit", "ID Produit", 100));
-            add(new Colonne("num_lot", "Numero Lot", 100));
             add(new Colonne("date_vente", "Date Vente", 100));
             add(new Colonne("prix_unite", "Prix Unite", 100));
-            add(new Colonne("prix_final", "Prix Final", 100));
             add(new Colonne("quantite", "Quantite", 100));
         }};
 

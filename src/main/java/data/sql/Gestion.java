@@ -228,11 +228,10 @@ public class Gestion {
             case VENTE:
                 int numero_ticket = (int) items.get(0);
                 int id_produit4 = (int) items.get(1);
-                int num_lot = (int) items.get(2);
                 Date date_vente = (Date) items.get(3);
                 float prix_unite = (float) items.get(4);
                 int quantite = (int) items.get(5);
-                Vente vente = new Vente(numero_ticket, id_produit4, num_lot, date_vente, prix_unite, quantite);
+                Vente vente = new Vente(numero_ticket, id_produit4, date_vente, prix_unite, quantite);
                 return delete(vente, table);
 
         }
@@ -339,11 +338,10 @@ public class Gestion {
                 while (rs5.next()) {
                     int numero_ticket = rs5.getInt("numero_ticket");
                     int id_produit = rs5.getInt("id_produit");
-                    int num_lot = rs5.getInt("num_lot");
                     Date vente = rs5.getDate("date_vente");
                     float prix_unite = rs5.getFloat("prix_unite");
                     int quantite = rs5.getInt("quantite");
-                    items.add(new Vente(numero_ticket, id_produit, num_lot, vente, prix_unite, quantite));
+                    items.add(new Vente(numero_ticket, id_produit, vente, prix_unite, quantite));
 
                 }
                 break;

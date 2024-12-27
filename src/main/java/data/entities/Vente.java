@@ -5,28 +5,38 @@ import main.java.data.sql.FieldType;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.UUID;
 
 public class Vente implements IData {
 
     int numero_ticket;
     int id_produit;
-    int num_lot;
     Date date_vente;
     float prix_unite;
     int quantite;
+    UUID id_lot_de_produit;
 
     // LinkedHashMap pour garder l'ordre des colonnes
     private LinkedHashMap<String, FieldType> map;
     private String values;
 
-    public Vente(int numero_ticket, int id_produit, int num_lot, Date vente, float prix_unite, int quantite) {
+    public Vente(int numero_ticket, int id_produit, Date vente, float prix_unite, int quantite) {
         this.numero_ticket = numero_ticket;
         this.id_produit = id_produit;
-        this.num_lot = num_lot;
         this.date_vente = vente;
         this.prix_unite = prix_unite;
         this.quantite = quantite;
+        this.id_lot_de_produit = UUID.randomUUID();
     }
+    public Vente(int numero_ticket, int id_produit, Date vente, float prix_unite, int quantite, UUID id_lot_de_produit) {
+        this.numero_ticket = numero_ticket;
+        this.id_produit = id_produit;
+        this.date_vente = vente;
+        this.prix_unite = prix_unite;
+        this.quantite = quantite;
+        this.id_lot_de_produit = id_lot_de_produit;
+    }
+
 
     public int getNumero_ticket() {
         return numero_ticket;
@@ -42,14 +52,6 @@ public class Vente implements IData {
 
     public void setId_produit(int id_produit) {
         this.id_produit = id_produit;
-    }
-
-    public int getNum_lot() {
-        return num_lot;
-    }
-
-    public void setNum_lot(int num_lot) {
-        this.num_lot = num_lot;
     }
 
     public Date getDate_vente() {
@@ -76,15 +78,23 @@ public class Vente implements IData {
         this.quantite = quantite;
     }
 
+    public UUID getId_lot_de_produit() {
+        return id_lot_de_produit;
+    }
+
+    public void setId_lot_de_produit(UUID id_lot_de_produit) {
+        this.id_lot_de_produit = id_lot_de_produit;
+    }
+
     @Override
     public void getStruct() {
         LinkedHashMap<String, FieldType> map = new LinkedHashMap<>();
         map.put("numero_ticket", FieldType.INT4);
         map.put("id_produit", FieldType.INT4);
-        map.put("num_lot", FieldType.INT4);
         map.put("date_vente", FieldType.DATE);
         map.put("prix_unite", FieldType.FLOAT8);
         map.put("quantite", FieldType.INT4);
+        map.put("id_lot_de_produit", FieldType.UUID);
 
         this.map = map;
     }
@@ -106,7 +116,7 @@ public class Vente implements IData {
 
     @Override
     public String toString() {
-        return numero_ticket + " " + id_produit + " " + num_lot + " " + date_vente + " " + prix_unite + " " + quantite;
+        return numero_ticket + " " + id_produit + " " + date_vente + " " + prix_unite + " " + quantite + " " + id_lot_de_produit;
     }
 
     public void setValues(String values) {
@@ -141,7 +151,7 @@ public class Vente implements IData {
     }
 
     public static String getQuery() {
-        return "SELECT numero_ticket, id_produit, num_lot, date_vente, prix_unite, quantite FROM vente";
+        return "SELECT numero_ticket, id_produit, date_vente, prix_unite, quantite FROM vente";
     }
 
 
