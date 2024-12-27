@@ -34,7 +34,7 @@ public class CommandeAEffectuer implements IData {
 
         StringBuilder values = new StringBuilder();
         values.append("'").append(this.id_commande).append("', ");
-        values.append(this.id_produit).append(", ");
+        values.append(this.id_produit);
         this.values = values.toString();
     }
 

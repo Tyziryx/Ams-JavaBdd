@@ -35,7 +35,6 @@ public class PagePrincipale extends Page {
     public PagePrincipale(BorderPane page, double spacing) throws Exception {
         super(spacing, "Accueil");
         this.page = page;
-
         ObservableList<Node> components = this.getChildren();
         components.addAll(title);
 
@@ -163,6 +162,8 @@ ArrayList<Integer> benefListe = new ArrayList<>();
         barChart.getData().addAll(series1);
 
         return barChart;
+
+
     }
 
 
