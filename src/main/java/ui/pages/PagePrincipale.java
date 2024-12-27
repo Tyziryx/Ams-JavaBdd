@@ -31,10 +31,14 @@ import java.util.stream.IntStream;
 
 public class PagePrincipale extends Page {
     private final BorderPane page;
+    VBox vbox = new VBox();
 
     public PagePrincipale(BorderPane page, double spacing) throws Exception {
         super(spacing, "Accueil");
         this.page = page;
+
+
+
 
         ObservableList<Node> components = this.getChildren();
         components.addAll(title);
@@ -52,12 +56,21 @@ public class PagePrincipale extends Page {
 
         PieChart pieChartJour = createPieChart(dataJour);
         PieChart pieChartMois = createPieChart(dataMois);
+        HBox piechartHbox = new HBox();
+        piechartHbox.getChildren().add(pieChartJour);
+        piechartHbox.getChildren().add(pieChartMois);
+        vbox.getChildren().add(piechartHbox);
 
-        BarChart barChart = CreateBarChart(page);
-        HBox hBox = new HBox(pieChartJour);
-        hBox.getChildren().add(pieChartMois);
-        hBox.getChildren().add(barChart);
-        components.add(hBox);
+
+        HBox barChart = CreateBarChart(page);
+        vbox.getChildren().add(barChart);
+
+
+        components.add(vbox);
+
+
+
+
     }
 
     private LinkedHashMap<String, Integer> loadDataJour() throws Exception {
@@ -124,46 +137,112 @@ ArrayList<Integer> benefListe = new ArrayList<>();
         pieChart.setLegendVisible(true);
 
 
+
         pieChart.getData().addAll(
                 IntStream.range(0,nomListe.size()).mapToObj(i -> new PieChart.Data(nomListe.get(i), benefListe.get(i))).collect(Collectors.toList()));
         return pieChart;
     }
 
-    private BarChart<String, Number> CreateBarChart(BorderPane page) throws Exception {
+    private HBox CreateBarChart(BorderPane page) throws Exception {
+
         // Définir les axes
-        CategoryAxis axeX = new CategoryAxis();
-        axeX.setCategories(FXCollections.observableArrayList("Bénéfices", "Coûts", "CA"));
+        CategoryAxis axeXJour = new CategoryAxis();
+        axeXJour.setCategories(FXCollections.observableArrayList("Bénéfices", "Coûts", "CA"));
 
-        NumberAxis axeY = new NumberAxis();
-        axeY.setLabel("Montant (€)");
+        NumberAxis axeYJour = new NumberAxis();
+        axeYJour.setLabel("Montant (€)");
 
-        // Créer le graphique
-        BarChart<String, Number> barChart = new BarChart<>(axeX, axeY);
-        barChart.setTitle("Analyse des ventes");
+        CategoryAxis axeXMois = new CategoryAxis();
+        axeXJour.setCategories(FXCollections.observableArrayList("Bénéfices", "Coûts", "CA"));
+
+
+        NumberAxis axeYMois = new NumberAxis();
+        axeYJour.setLabel("Montant (€)");
+
+
+        // Créer le BarChart
+        BarChart<String, Number> barChartJour = new BarChart<>(axeXJour, axeYJour);
+        barChartJour.setTitle("Analyse des ventes du jour");
+
+        BarChart<String, Number> barChartMois = new BarChart<>(axeXMois, axeYMois);
+        barChartMois.setTitle("Analyse des ventes du mois");
 
         // Charger les données
         LinkedHashMap<String, Integer> dataJour = loadDataJour();
+        LinkedHashMap<String, Integer> dataMois = loadDataMois();
 
-        // Vérifier que les données sont bien présentes
-        if (dataJour == null) {
-            throw new Exception("Les données journalières ou mensuelles n'ont pas pu être chargées.");
+        // Vérification des données
+        if (dataJour == null || dataJour.isEmpty()) {
+            throw new Exception("Les données du jour n'ont pas pu être chargées.");
         }
 
-        // Créer les séries pour le jour
-        XYChart.Series<String, Number> series1 = new XYChart.Series<>();
-        series1.setName("Jour");
-        series1.getData().add(new XYChart.Data<>("Bénéfices", dataJour.getOrDefault("benef", 0)));
-        series1.getData().add(new XYChart.Data<>("Coûts", dataJour.getOrDefault("prix_fournisseur.prix", 0)));
-        series1.getData().add(new XYChart.Data<>("CA",
-                dataJour.getOrDefault("benef", 0) + dataJour.getOrDefault("prix_fournisseur.prix", 0)));
+        // Extraire les bénéfices, coûts et CA
+        int totalBeneficesJour = dataJour.values().stream().mapToInt(Integer::intValue).sum();
+        int totalCoutsJour = calculateTotalCoutsJour(); // Méthode à définir pour récupérer les coûts
+        int totalCAJour = totalBeneficesJour + totalCoutsJour;
 
-        // Créer les séries pour le mois
 
-        // Ajouter les séries au graphique
-        barChart.getData().addAll(series1);
 
-        return barChart;
+
+        // Créer les séries pour le graphique
+        XYChart.Series<String, Number> seriesJour = new XYChart.Series<>();
+        seriesJour.setName("Données du jour");
+
+        seriesJour.getData().add(new XYChart.Data<>("Bénéfices", totalBeneficesJour));
+        seriesJour.getData().add(new XYChart.Data<>("Coûts", totalCoutsJour));
+        seriesJour.getData().add(new XYChart.Data<>("CA", totalCAJour));
+
+
+        XYChart.Series<String, Number> seriesMois = new XYChart.Series<>();
+        seriesMois.setName("Données du mois");
+
+        int totalBeneficesMois = dataMois.values().stream().mapToInt(Integer::intValue).sum();
+        int totalCoutsMois = calculateTotalCoutsMois(); // Méthode à définir pour récupérer les coûts
+        int totalCAMois = totalBeneficesMois + totalCoutsMois;
+
+        seriesMois.getData().add(new XYChart.Data<>("Bénéfices", totalBeneficesMois));
+        seriesMois.getData().add(new XYChart.Data<>("Coûts", totalCoutsMois));
+        seriesMois.getData().add(new XYChart.Data<>("CA", totalCAMois));
+
+        // Ajouter les données au BarChart
+        barChartJour.getData().add(seriesJour);
+        barChartMois.getData().add(seriesMois);
+        HBox hbox= new HBox();
+        hbox.getChildren().add(barChartJour);
+        hbox.getChildren().add(barChartMois);
+        return hbox;
     }
+
+    // Exemple de méthode pour calculer les coûts totaux
+    private int calculateTotalCoutsJour() throws Exception {
+        String query = "SELECT SUM(prix_fournisseur.prix * vente.quantite) AS total_couts " +
+                "FROM vente " +
+                "JOIN prix_fournisseur ON vente.id_produit = prix_fournisseur.id_produit " +
+                "WHERE vente.date_vente >= CURRENT_DATE " +
+                "  AND vente.date_vente < CURRENT_DATE + INTERVAL '1 day'";
+        try (ResultSet rs = Gestion.execute(query)) {
+            if (rs.next()) {
+                return rs.getInt("total_couts");
+            }
+        }
+        return 0;
+    }
+
+    private int calculateTotalCoutsMois() throws Exception {
+        String query = "SELECT SUM(prix_fournisseur.prix * vente.quantite) AS total_couts " +
+                "FROM vente " +
+                "JOIN prix_fournisseur ON vente.id_produit = prix_fournisseur.id_produit " +
+                "WHERE vente.date_vente >= CURRENT_DATE - INTERVAL '1 month'";
+        try (ResultSet rs = Gestion.execute(query)) {
+            if (rs.next()) {
+                return rs.getInt("total_couts");
+            }
+        }
+        return 0;
+    }
+
+
+
 
 
 

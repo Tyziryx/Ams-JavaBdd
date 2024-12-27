@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import main.java.data.entities.LotDeProduit;
@@ -79,8 +80,18 @@ public class ModalCommandeAEffectuer extends Modal {
             }
         });
 
+        Button button = new Button("⬅ Revenir en arrière");
+        button.getStyleClass().add("top-left-button");
+       button.setOnAction(e -> {
+            page.setCenter(oldPage);
+        });
+        VBox contentVBox = new VBox();
+        contentVBox.getChildren().add(button);
+        HBox contentHbox = new HBox();
         form.getChildren().addAll(fournisseurLabel, fournisseur, produitNomLabel, produitNom, produitLabel, produit, quantiteLabel, quantite, prixLabel, prix, prixTotalLabel, prixTotal, commander, actiontarget);
-        contentBox.getChildren().add(form);
+        form.getStyleClass().add("form");
+        contentHbox.getChildren().add(form);
+        contentHbox.getStyleClass().add("content-box");
 
         commander.setOnAction(e -> {
             try {
@@ -129,8 +140,11 @@ public class ModalCommandeAEffectuer extends Modal {
 
         Table table = new Table(page, this, Tables.FOURNISSEUR, "SELECT siret, fournisseur.nom_societe, prix_fournisseur.id_produit, prix_fournisseur.prix FROM prix_fournisseur JOIN fournisseur ON prix_fournisseur.id_fournisseur = fournisseur.siret WHERE id_produit = " + Integer.valueOf(items.get(1)), "Commander", colonnes, true, false);
         table.getStyleClass().add("hoverable");
-        contentBox.getChildren().add(table);
 
+        contentHbox.getChildren().add(table);
+        contentVBox.getChildren().add(contentHbox);
+        contentBox.getChildren().add(contentVBox);
+        contentBox.getStyleClass().add("content-box");
         table.getDynamicTable().setRowFactory(tv -> {
             TableRow<ObservableList<String>> row = new TableRow<>();
             row.getStyleClass().add("row");

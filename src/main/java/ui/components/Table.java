@@ -153,6 +153,7 @@ public class Table extends VBox {
 //                    item[0] = row.getItem();
 //                    contextMenu.show(page, event.getScreenX(), event.getScreenY());
 //                });
+
                 row.setContextMenu(contextMenu);
                 MenuItem menuItem1 = new MenuItem("Ajouter");
                 MenuItem menuItem2 = new MenuItem("Modifier");
