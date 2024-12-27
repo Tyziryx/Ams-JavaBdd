@@ -109,7 +109,7 @@ public class LotDeProduit implements IData {
         return true;
     }
 
-    public String getQuery() {
+    public static String getQuery() {
         return "SELECT id_produit, quantite, date_achat, date_peremption, prix_achat, prix_unitaire, id_fournisseur, id_lot_de_produit FROM lot_de_produit";
     }
 }

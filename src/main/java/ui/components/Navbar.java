@@ -35,7 +35,7 @@ public class Navbar extends VBox {
             put("Fournisseurs", new PageFournisseurs(page, 20));
             put("Commandes", new PageCommandes(page, 20));
             put("Ventes", new PageVentes(20));
-            put("Stock", new PageStock(20));
+            put("Stock", new PageStock(page, 20));
         }};
         HashSet<Button> buttonList = new HashSet<>();
 

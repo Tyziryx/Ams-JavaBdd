@@ -46,6 +46,7 @@ public class Table extends VBox {
             searchBar.setMaxWidth(200);
 
             ObservableList<IData> data = Gestion.getTable(type);
+            System.out.println(data);
 
             FilteredList<IData> filteredData = new FilteredList<>(data, p -> true);
 
@@ -70,7 +71,7 @@ public class Table extends VBox {
 
             this.getChildren().add(header);
         } else {
-            this.getChildren().add(table);
+            table.setItems(Gestion.getTable(type));
         }
         VBox.setVgrow(this, Priority.ALWAYS);
         this.getStyleClass().add("table-box");

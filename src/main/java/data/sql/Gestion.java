@@ -359,6 +359,21 @@ public class Gestion {
 
                 }
                 break;
+            case LOT_DE_PRODUIT:
+                ResultSet rs6 = g.execute(LotDeProduit.getQuery());
+                while (rs6.next()) {
+                    int id_produit = rs6.getInt("id_produit");
+                    int quantite = rs6.getInt("quantite");
+                    Date date_achat = rs6.getDate("date_achat");
+                    Date date_peremption = rs6.getDate("date_peremption");
+                    float prix_achat = rs6.getFloat("prix_achat");
+                    float prix_unitaire = rs6.getFloat("prix_unitaire");
+                    int id_fournisseur = rs6.getInt("id_fournisseur");
+                    UUID id_lot_de_produit = UUID.fromString(rs6.getString("id_lot_de_produit"));
+                    LotDeProduit lot = new LotDeProduit(id_produit, quantite, date_peremption, date_achat, prix_achat, prix_unitaire, id_fournisseur, id_lot_de_produit);
+                    items.add(lot);
+                }
+                break;
         }
         return FXCollections.observableArrayList(items);
     }
