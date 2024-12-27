@@ -138,7 +138,7 @@ public class Gestion {
         query = query.substring(0, query.length() - 2) + ")";
         values += data.getValues() + ")";
         query += values;
-        System.out.println(query);
+//        System.out.println(query);
 
         PreparedStatement ps = cn.getConn().prepareStatement(query);
         ps.executeUpdate();
@@ -163,7 +163,7 @@ public class Gestion {
         String query = "UPDATE " + table + " SET ";
         String where = " WHERE ";
 
-        for(int i = 0; i < colonnes.length; i++) {
+        for (int i = 0; i < colonnes.length; i++) {
             query += colonnes[i] + " = " + valeurs[i] + ", ";
         }
 
@@ -186,7 +186,6 @@ public class Gestion {
                 break;
         }
         query += where;
-        System.out.println(query);
 //        System.out.println(query);
         PreparedStatement ps = cn.getConn().prepareStatement(query);
         ps.executeUpdate();
@@ -273,8 +272,21 @@ public class Gestion {
             case VENTE:
                 query += "numero_ticket = " + valeurs[0] + " AND id_produit = " + valeurs[1] + " AND num_lot = " + valeurs[2];
                 break;
+            case COMMANDE_A_EFFECTUER:
+                query += "id_commande = " + valeurs[0];
+                break;
         }
-        System.out.println(query);
+//        System.out.println(query);
+        PreparedStatement ps = cn.getConn().prepareStatement(query);
+        ps.executeUpdate();
+        cn.disconnect();
+        return true;
+    }
+
+    public static boolean deleteAll(Tables table) throws SQLException {
+        Connexion cn = new Connexion();
+        cn.connect();
+        String query = "DELETE FROM " + table;
         PreparedStatement ps = cn.getConn().prepareStatement(query);
         ps.executeUpdate();
         cn.disconnect();
@@ -362,6 +374,24 @@ public class Gestion {
         return java.sql.Date.valueOf(localDate);
     }
 
+    public static void updateCommandeAEffectuer() {
+        try {
+            Gestion.deleteAll(Tables.COMMANDE_A_EFFECTUER);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String query = "SELECT produit.id_produit, produit.nom, quantite FROM lot_de_produit JOIN produit ON produit.id_produit = lot_de_produit.id_produit WHERE lot_de_produit.quantite < 10 GROUP BY produit.id_produit, quantite;";
+        try {
+            ResultSet rs = Gestion.execute(query);
+            while (rs.next()) {
+                int id_produit = rs.getInt("id_produit");
+                Gestion.insert(new CommandeAEffectuer(id_produit), Tables.COMMANDE_A_EFFECTUER);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 //fonction qui permet de joindre deux tables
  /* public static Object[] joinTables(Tables table1, Tables table2, String joinCondition1 , String joinCondition2) throws SQLException {
     Connexion cn = new Connexion();
@@ -381,5 +411,4 @@ public class Gestion {
  */
 
 
-
-}
+    }

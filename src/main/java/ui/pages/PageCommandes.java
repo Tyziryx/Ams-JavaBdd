@@ -54,7 +54,7 @@ public class PageCommandes extends Page {
                     ModalCommander modal;
                     ObservableList<String> items = row.getItem();
                     try {
-                        modal = new ModalCommander(page, this,20, "Commander", items);
+                        modal = new ModalCommander(page, this, tableCommander,20, "Commander", items);
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
@@ -72,7 +72,7 @@ public class PageCommandes extends Page {
                     ModalCommandeAEffectuer modal;
                     ObservableList<String> items = row.getItem();
                     try {
-                        modal = new ModalCommandeAEffectuer(page, this,20, "Commander", items);
+                        modal = new ModalCommandeAEffectuer(page, this, tableCommandesAEffectuer,20, "Commander", items);
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }

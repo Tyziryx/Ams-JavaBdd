@@ -9,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import main.java.data.entities.CommandeAEffectuer;
 import main.java.data.entities.LotDeProduit;
 import main.java.data.sql.Gestion;
 import main.java.data.sql.Tables;
@@ -20,14 +21,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.LinkedList;
+import java.util.UUID;
 
 import static javafx.scene.input.KeyEvent.KEY_RELEASED;
 
 public class ModalCommandeAEffectuer extends Modal {
-
-    public ModalCommandeAEffectuer(BorderPane page, Page oldPage, double spacing, String title, ObservableList<String> items) throws SQLException {
+    Table oldTable;
+    public ModalCommandeAEffectuer(BorderPane page, Page oldPage, Table oldTable, double spacing, String title, ObservableList<String> items) throws SQLException {
         super(page, oldPage, spacing, title);
-
+        this.oldTable = oldTable;
         VBox form = new VBox();
 
         Label fournisseurLabel = new Label("Fournisseur");
@@ -45,7 +47,7 @@ public class ModalCommandeAEffectuer extends Modal {
         Label prixLabel = new Label("Prix a l'unité");
         prixLabel.getStyleClass().add("label");
         TextField prix = new TextField();
-        prix.setText(null);
+        prix.setText("0");
         prix.setDisable(true);
 
         Label prixTotalLabel = new Label("Prix total");
@@ -121,6 +123,9 @@ public class ModalCommandeAEffectuer extends Modal {
 
                 LotDeProduit lot = new LotDeProduit(id_produit, quantiteInt, date_achat, date_peremption, prixAchat, prixUnite, id_fournisseur);
                 Gestion.insert(lot, Tables.LOT_DE_PRODUIT);
+                CommandeAEffectuer commandeAEffectuer = new CommandeAEffectuer(UUID.fromString(items.get(0)), id_fournisseur);
+                Gestion.delete(commandeAEffectuer, Tables.COMMANDE_A_EFFECTUER);
+                fermer(oldTable);
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
@@ -208,4 +213,9 @@ public class ModalCommandeAEffectuer extends Modal {
         actionTarget.setText(msg);
     }
 
+    public void fermer(Table table) throws SQLException {
+        super.fermer();
+        table.refreshDynamicTable();
+        page.setCenter(oldPage);
+    }
 }

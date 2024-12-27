@@ -21,49 +21,42 @@ import java.time.LocalDate;
 import static javafx.scene.input.KeyEvent.KEY_RELEASED;
 
 public class ModalCommander extends Modal {
-
-    public ModalCommander(BorderPane page, Page oldPage, double spacing, String title, ObservableList<String> items) throws SQLException {
+    Table oldTable;
+    public ModalCommander(BorderPane page, Page oldPage, Table oldTable, double spacing, String title, ObservableList<String> items) throws SQLException {
         super(page, oldPage, spacing, title);
-
+        this.oldTable = oldTable;
         VBox form = new VBox();
 
         Label fournisseurLabel = new Label("Fournisseur");
         fournisseurLabel.getStyleClass().add("label");
         TextField fournisseur = new TextField();
+        fournisseur.setText(items.get(0).toString());
         fournisseur.setDisable(true);
-
         Label produitNomLabel = new Label("Nom du produit");
         produitNomLabel.getStyleClass().add("label");
         TextField produitNom = new TextField();
         produitNom.setText(getProduitNom(items.get(1).toString()));
         produitNom.setDisable(true);
-
         Label produitLabel = new Label("Produit");
         produitLabel.getStyleClass().add("label");
         TextField produit = new TextField();
         produit.setText(items.get(1).toString());
         produit.setDisable(true);
-
-
         Label quantiteLabel = new Label("Quantite");
         quantiteLabel.getStyleClass().add("label");
         TextField quantite = new TextField();
         quantite.setText("1");
-
         Label prixLabel = new Label("Prix a l'unité");
         prixLabel.getStyleClass().add("label");
         TextField prix = new TextField();
+        prix.setText(items.get(2).toString());
         prix.setDisable(true);
-
         Button commander = new Button("Commander");
         commander.getStyleClass().add("button");
-
         final javafx.scene.text.Text actiontarget = new Text();
         actiontarget.getStyleClass().add("erreur-form");
-
         form.getChildren().addAll(fournisseurLabel, fournisseur, produitNomLabel, produitNom, produitLabel, produit, quantiteLabel, quantite, prixLabel, prix, commander, actiontarget);
         contentBox.getChildren().add(form);
-
         commander.setOnAction(e -> {
             try {
                 int id_produit = Integer.valueOf(items.get(1));
@@ -84,12 +77,12 @@ public class ModalCommander extends Modal {
                     default:
                         date_peremption = Date.valueOf(LocalDate.now().plusDays(365));
                 }
-                float prixUnite = Float.valueOf(prix.getText());
+                float prixUnite = Float.valueOf(items.get(2));
                 float prixAchat = prixUnite * quantiteInt;
-                int id_fournisseur = Integer.valueOf(fournisseur.getText());
-
+                int id_fournisseur = Integer.valueOf(items.get(0));
                 LotDeProduit lot = new LotDeProduit(id_produit, quantiteInt, date_achat, date_peremption, prixAchat, prixUnite, id_fournisseur);
                 Gestion.insert(lot, Tables.LOT_DE_PRODUIT);
+                fermer(oldTable);
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
@@ -129,6 +122,12 @@ public class ModalCommander extends Modal {
 
     private void showError(Text actionTarget, String msg) {
         actionTarget.setText(msg);
+    }
+
+    public void fermer(Table table) throws SQLException {
+        super.fermer();
+        table.refreshDynamicTable();
+        page.setCenter(oldPage);
     }
 
 }
