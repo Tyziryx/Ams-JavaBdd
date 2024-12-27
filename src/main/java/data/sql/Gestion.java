@@ -3,13 +3,12 @@ package main.java.data.sql;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import main.java.data.entities.*;
+import main.java.ui.components.Table;
 
 import java.sql.*;
+import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 public class Gestion {
 
@@ -257,9 +256,8 @@ public class Gestion {
                     int num_lot = rs5.getInt("num_lot");
                     Date vente = rs5.getDate("date_vente");
                     float prix_unite = rs5.getFloat("prix_unite");
-                    float prix_final = rs5.getFloat("prix_final");
                     int quantite = rs5.getInt("quantite");
-                    items.add(new Vente(numero_ticket, id_produit, num_lot, vente, prix_unite, prix_final, quantite));
+                    items.add(new Vente(numero_ticket, id_produit, num_lot, vente, prix_unite,  quantite));
 
                 }
                 break;
@@ -278,15 +276,30 @@ public class Gestion {
         return java.sql.Date.valueOf(localDate);
     }
 
+
+
+
+
+
+
 //fonction qui permet de joindre deux tables
-/* static void joinTables(String table1, String table2, String joinCondition) throws SQLException {
+ /* public static Object[] joinTables(Tables table1, Tables table2, String joinCondition1 , String joinCondition2) throws SQLException {
     Connexion cn = new Connexion();
     cn.connect();
-    String query = "SELECT * FROM " + table1 + " JOIN " + table2 + " ON " + joinCondition;
+    String query = "SELECT * FROM " + table1 + " JOIN " + table2 + " ON " + table1 + "." + joinCondition1 + " = " + table2 + "." +  joinCondition2;
     Statement stmt = cn.getConn().createStatement();
     ResultSet rs = stmt.executeQuery(query);
     cn.disconnect();
-}
-*/
+
+     Object[] inputs = new Object[rs.getMetaData().getColumnCount()];
+     for (int i = 0; i <= rs.getMetaData().getColumnCount(); i++) {
+         inputs[i] = rs.getObject(i);
+         System.out.println(inputs[i]);
+     }
+     return inputs ;
+ }
+ */
+
+
 
 }

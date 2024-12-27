@@ -13,20 +13,18 @@ public class Vente implements IData {
     int num_lot;
     Date date_vente;
     float prix_unite;
-    float prix_final;
     int quantite;
 
     // LinkedHashMap pour garder l'ordre des colonnes
     private LinkedHashMap<String, FieldType> map;
     private String values;
 
-    public Vente(int numero_ticket, int id_produit, int num_lot, Date vente, float prix_unite, float prix_final, int quantite) {
+    public Vente(int numero_ticket, int id_produit, int num_lot, Date vente, float prix_unite,  int quantite) {
         this.numero_ticket = numero_ticket;
         this.id_produit = id_produit;
         this.num_lot = num_lot;
         this.date_vente = vente;
         this.prix_unite = prix_unite;
-        this.prix_final = prix_final;
         this.quantite = quantite;
     }
 
@@ -70,13 +68,7 @@ public class Vente implements IData {
         this.prix_unite = prix_unite;
     }
 
-    public float getPrix_final() {
-        return prix_final;
-    }
 
-    public void setPrix_final(float prix_final) {
-        this.prix_final = prix_final;
-    }
 
     public int getQuantite() {
         return quantite;
@@ -94,7 +86,6 @@ public class Vente implements IData {
         map.put("num_lot", FieldType.INT4);
         map.put("date_vente", FieldType.DATE);
         map.put("prix_unite", FieldType.FLOAT8);
-        map.put("prix_final", FieldType.FLOAT8);
         map.put("quantite", FieldType.INT4);
 
         this.map = map;
@@ -117,7 +108,7 @@ public class Vente implements IData {
 
     @Override
     public String toString() {
-        return numero_ticket + " " + id_produit + " " + num_lot + " " + date_vente + " " + prix_unite + " " + prix_final + " " + quantite;
+        return numero_ticket + " " + id_produit + " " + num_lot + " " + date_vente + " " + prix_unite + " " + quantite;
     }
 
     public void setValues(String values) {
@@ -152,7 +143,7 @@ public class Vente implements IData {
     }
 
     public static String getQuery() {
-        return "SELECT numero_ticket, id_produit, num_lot, date_vente, prix_unite, prix_final, quantite FROM vente";
+        return "SELECT numero_ticket, id_produit, num_lot, date_vente, prix_unite, quantite FROM vente";
     }
 
 
