@@ -131,4 +131,10 @@ public class ModalCommander extends Modal {
         actionTarget.setText(msg);
     }
 
+    public void fermer(Table table) throws SQLException {
+        super.fermer();
+        table.refreshDynamicTable();
+        page.setCenter(oldPage);
+    }
+
 }

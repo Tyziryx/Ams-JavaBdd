@@ -72,7 +72,7 @@ public class PageCommandes extends Page {
                     ModalCommandeAEffectuer modal;
                     ObservableList<String> items = row.getItem();
                     try {
-                        modal = new ModalCommandeAEffectuer(page, this,20, "Commander", items);
+                        modal = new ModalCommandeAEffectuer(page, this,20, "Commander", items, tableCommandesAEffectuer);
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }

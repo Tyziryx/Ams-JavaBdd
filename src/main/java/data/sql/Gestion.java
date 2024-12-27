@@ -273,6 +273,9 @@ public class Gestion {
             case VENTE:
                 query += "numero_ticket = " + valeurs[0] + " AND id_produit = " + valeurs[1] + " AND num_lot = " + valeurs[2];
                 break;
+            case COMMANDE_A_EFFECTUER:
+                query += "id_commande = " + valeurs[0];
+                break;
         }
         System.out.println(query);
         PreparedStatement ps = cn.getConn().prepareStatement(query);
