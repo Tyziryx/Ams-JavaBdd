@@ -186,6 +186,11 @@
 .hoverable .table-view .row:hover .cell {
     -fx-background-color: -background-maincolor;
 }
+.hoverable{
+    -fx-padding: 30px;
+    -fx-background-insets: 10px;
+
+}
 
 .info-fournisseurs {
     -fx-padding: 20px 25px;
@@ -272,7 +277,6 @@
 .content-box {
     -fx-spacing: 20px; /* Espacement entre les deux blocs principaux */
     -fx-padding: 20px; /* Espacement autour du contenu global */
-    -fx-alignment: center-left;
 
 }
 .modal-box {
@@ -288,7 +292,7 @@
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
     -fx-alignment: center-left;
-    -fx-translate-x: 20px;
+    -fx-translate-x: 28px;
 }
 
 .button{
