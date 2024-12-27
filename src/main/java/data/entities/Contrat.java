@@ -118,8 +118,6 @@ public class Contrat implements IData {
             values.append(key);
         }
         this.values = values.toString();
-
-
     }
 
     @Override

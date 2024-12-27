@@ -115,12 +115,15 @@ public class Gestion {
      */
     public static void insert(IData data, Tables table) throws SQLException {
         HashMap<String, FieldType> structTable = structTable(table, false);
+        System.out.println(data);
 
         data.getStruct();
         HashMap<String, FieldType> structData = data.getMap();
+        System.out.println(structData);
 
         if (!data.check(structTable)) {
-            throw new SQLException("Data and table structure do not match");
+            System.out.println(data.getValues());
+            throw new SQLException("Les données et la structure ne correspondent pas");
         }
 
         Connexion cn = new Connexion();
@@ -129,14 +132,13 @@ public class Gestion {
         String values = " VALUES (";
 
         for (String key : structData.keySet()) {
-//            System.out.println(key + " : " + structData.get(key));e
             query += key + ", ";
         }
 
         query = query.substring(0, query.length() - 2) + ")";
         values += data.getValues() + ")";
         query += values;
-//        System.out.println(query);
+        System.out.println(query);
 
         PreparedStatement ps = cn.getConn().prepareStatement(query);
         ps.executeUpdate();

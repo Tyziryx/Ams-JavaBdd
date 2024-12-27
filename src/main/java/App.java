@@ -14,7 +14,7 @@ public class App extends Application {
 
     private static final String WINDOW_TITLE = "Ma Supérette du Net";
     private static final double WINDOW_WIDTH = 1080;
-    private static final double WINDOW_HEIGHT = 720;
+    private static final double WINDOW_HEIGHT = 800;
 
     @Override
     public void start(Stage ps) throws Exception {
