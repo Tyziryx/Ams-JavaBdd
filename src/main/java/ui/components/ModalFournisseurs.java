@@ -40,7 +40,7 @@ public class ModalFournisseurs extends Modal {
 
 
         // Création du tableau des contacts associés
-        contactAssocies = new Table(page, Tables.CONTACT_ASSOCIE, "SELECT * FROM contact_associe WHERE contact_associe.siret  = " + fournisseur.getSiret(), "Contacts associés", new LinkedList<Colonne>() {
+        contactAssocies = new Table(page, this.oldPage, Tables.CONTACT_ASSOCIE, "SELECT * FROM contact_associe WHERE contact_associe.siret  = " + fournisseur.getSiret(), "Contacts associés", new LinkedList<Colonne>() {
             {
                 add(new Colonne("nom", "Nom", 100));
                 add(new Colonne("prenom", "Prénom", 100));

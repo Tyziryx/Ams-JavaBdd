@@ -77,8 +77,10 @@ public class Table extends VBox {
         this.getChildren().addAll(table);
     }
 
-    public Table(BorderPane page, Tables type, String sql, String titre, LinkedList<Colonne> tableContent, boolean head, boolean editable) throws SQLException {
+    public Table(BorderPane page, Page oldPage, Tables type, String sql, String titre, LinkedList<Colonne> tableContent, boolean head, boolean editable) throws SQLException {
         super();
+        this.oldPage = oldPage;
+        this.sql = sql;
         dynamicTable.getStyleClass().add("table-view");
 
         ResultSet rs = Gestion.execute(sql);
@@ -141,25 +143,23 @@ public class Table extends VBox {
         } else {
             this.getChildren().add(dynamicTable);
         }
-
-
-
         dynamicTable.setRowFactory(tv -> {
             TableRow<ObservableList<String>> row = new TableRow<>();
             row.getStyleClass().add("row");
             if(editable && type != Tables.UNDEFINED) {
                 ContextMenu contextMenu = new ContextMenu();
                 ObservableList<String>[] item = new ObservableList[]{row.getItem()};
-                row.setOnContextMenuRequested(event -> {
-                    item[0] = row.getItem();
-                    contextMenu.show(page, event.getScreenX(), event.getScreenY());
-                });
+//                row.setOnContextMenuRequested(event -> {
+//                    item[0] = row.getItem();
+//                    contextMenu.show(page, event.getScreenX(), event.getScreenY());
+//                });
+                row.setContextMenu(contextMenu);
                 MenuItem menuItem1 = new MenuItem("Ajouter");
                 MenuItem menuItem2 = new MenuItem("Modifier");
                 MenuItem menuItem3 = new MenuItem("Supprimer");
                 menuItem1.setOnAction((event) -> {
                     try {
-                        ModalEdit modalEdit = new ModalEdit(page, oldPage, 20, "Modifier", type, item[0], true);
+                        ModalEdit modalEdit = new ModalEdit(page, oldPage, this , 20, "Modifier", type, item[0], true);
                         modalEdit.affiche();
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
@@ -167,7 +167,7 @@ public class Table extends VBox {
                 });
                 menuItem2.setOnAction((event) -> {
                     try {
-                        ModalEdit modalEdit = new ModalEdit(page, oldPage, 20, "Modifier", type, item[0], false);
+                        ModalEdit modalEdit = new ModalEdit(page, oldPage, this , 20, "Modifier", type, item[0], false);
                         modalEdit.affiche();
                     } catch (SQLException e) {
                         throw new RuntimeException(e);

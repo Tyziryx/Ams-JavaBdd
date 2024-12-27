@@ -25,7 +25,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class ModalEdit extends Modal {
-    public ModalEdit(BorderPane page, Page oldPage, double spacing, String title, Tables tableType, ObservableList items, boolean isNew) throws SQLException {
+    public ModalEdit(BorderPane page, Page oldPage, Table table, double spacing, String title, Tables tableType, ObservableList items, boolean isNew) throws SQLException {
         super(page, oldPage, spacing, title);
 
         VBox form = new VBox();
@@ -71,7 +71,7 @@ public class ModalEdit extends Modal {
         this.contentBox.getChildren().add(form);
         submit.setOnAction(e -> {
             try {
-                submit(isNew, inputs, actiontarget, tableType);
+                submit(isNew, inputs, actiontarget, tableType, table);
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
@@ -79,7 +79,7 @@ public class ModalEdit extends Modal {
         page.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
             if (ev.getCode() == KeyCode.ENTER) {
                 try {
-                    submit(isNew, inputs, actiontarget, tableType);
+                    submit(isNew, inputs, actiontarget, tableType, table);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
@@ -87,7 +87,7 @@ public class ModalEdit extends Modal {
         });
     }
 
-    private void submit(boolean isNew, Object[] inputs, Text actionTarget, Tables tableType) throws SQLException {
+    private void submit(boolean isNew, Object[] inputs, Text actionTarget, Tables tableType, Table table) throws SQLException {
         for(int j = 0; j < inputs.length; j++) {
             if(!isValid(inputs[j], actionTarget)) return;
             if (inputs[j] instanceof TextField) {
@@ -129,6 +129,7 @@ public class ModalEdit extends Modal {
                     Gestion.update(contactAssocie, Tables.CONTACT_ASSOCIE);
                 }
         }
+        fermer(table);
     }
 
     private void showError(Text actionTarget, String msg) {
@@ -155,5 +156,6 @@ public class ModalEdit extends Modal {
     public void fermer(Table table) throws SQLException {
         super.fermer();
         table.refreshDynamicTable();
+        page.setCenter(oldPage);
     }
 }

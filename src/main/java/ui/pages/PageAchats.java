@@ -23,7 +23,7 @@ public class PageAchats extends Page {
             add(new Colonne("Adresse", "adresse", 100));
             add(new Colonne("Email", "email", 100));
         }};
-        Table table = new Table(page, Tables.UNDEFINED, "SELECT * FROM fournisseur", "Fournisseurs", colonnes, true, false);
+        Table table = new Table(page, this, Tables.UNDEFINED, "SELECT * FROM fournisseur", "Fournisseurs", colonnes, true, false);
 
         components.addAll(title, table);
 

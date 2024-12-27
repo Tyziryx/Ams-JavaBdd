@@ -44,7 +44,7 @@ public class PageFournisseurs extends Page {
                 add(new Colonne("nom", "Produit", 100));
             }
         };
-        Table tableContrats = new Table(page, Tables.CONTRAT,"SELECT * FROM contrat JOIN produit ON contrat.id_produit = produit.id_produit ", "Contrats", tableContentContrats, true, true);
+        Table tableContrats = new Table(page, this, Tables.CONTRAT,"SELECT * FROM contrat JOIN produit ON contrat.id_produit = produit.id_produit ", "Contrats", tableContentContrats, true, true);
         tableFournisseurs.getTable().getStyleClass().add("table-view");
         HBox tables = new HBox();
         HBox.setHgrow(tableContrats, Priority.ALWAYS);
