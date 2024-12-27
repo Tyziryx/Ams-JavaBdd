@@ -10,11 +10,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import main.java.ui.pages.*;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -36,7 +33,7 @@ public class Navbar extends VBox {
         Map<String, Page> addButtonList = new LinkedHashMap<String, Page>() {{
             put("Accueil", new PagePrincipale(page,20));
             put("Fournisseurs", new PageFournisseurs(page, 20));
-            put("Achats", new PageAchats(page, 20));
+            put("Commandes", new PageCommandes(page, 20));
             put("Ventes", new PageVentes(20));
             put("Stock", new PageStock(20));
         }};
@@ -60,7 +57,7 @@ public class Navbar extends VBox {
                  icon = new Image("icons/"+name.toLowerCase()+".png");
             }
             catch (Exception e) {
-                 icon = new Image("icons/accueilgris.png");
+                 icon = new Image("icons/unknow.png");
             }
             ImageView iconView = new ImageView(icon);
             iconView.getStyleClass().add("icon-image");
