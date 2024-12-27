@@ -39,35 +39,71 @@ public class PagePrincipale extends Page {
         ObservableList<Node> components = this.getChildren();
         components.addAll(title);
 
-        LinkedHashMap<String, Integer> data = loadData();
-        if (data.isEmpty()) {
+        LinkedHashMap<String, Integer> dataJour = loadDataJour();
+        if (dataJour.isEmpty()) {
+            components.add(new Label("Aucune donnée disponible."));
+            return;
+        }
+        LinkedHashMap<String, Integer> dataMois = loadDataMois();
+        if (dataMois.isEmpty()) {
             components.add(new Label("Aucune donnée disponible."));
             return;
         }
 
-        PieChart pieChart = createPieChart(data);
+        PieChart pieChartJour = createPieChart(dataJour);
+        PieChart pieChartMois = createPieChart(dataMois);
 
-        HBox hBox = new HBox(pieChart);
+        BarChart barChart = CreateBarChart(page);
+        HBox hBox = new HBox(pieChartJour);
+        hBox.getChildren().add(pieChartMois);
+        hBox.getChildren().add(barChart);
         components.add(hBox);
     }
 
-    private LinkedHashMap<String, Integer> loadData() throws Exception {
-        LinkedHashMap<String, Integer> data = new LinkedHashMap<>();
+    private LinkedHashMap<String, Integer> loadDataJour() throws Exception {
+        LinkedHashMap<String, Integer> dataJour = new LinkedHashMap<>();
         String query = "SELECT produit.nom, SUM((vente.prix_unite - prix_fournisseur.prix) * vente.quantite) AS benef " +
                 "FROM vente " +
                 "JOIN produit ON vente.id_produit = produit.id_produit " +
                 "JOIN prix_fournisseur ON vente.id_produit = prix_fournisseur.id_produit " +
+              " WHERE vente.date_vente >= CURRENT_DATE\n" +
+                "  AND vente.date_vente < CURRENT_DATE + INTERVAL '1 day'" +
                 "GROUP BY produit.nom ORDER BY benef DESC LIMIT 10";
+        try (ResultSet rs = Gestion.execute(query)) {
+            while (rs.next()) {
+
+                String nom = rs.getString("nom");
+                int benef = rs.getInt("benef");
+               // java.sql.Timestamp dateVente = rs.getTimestamp("date_vente");
+                if (nom != null) {
+                    dataJour.put(nom, benef);
+                }
+               // System.out.println(dateVente);
+            }
+        }
+        return dataJour;
+    }
+
+    private LinkedHashMap<String, Integer> loadDataMois() throws Exception {
+        LinkedHashMap<String, Integer> dataMois = new LinkedHashMap<>();
+        String query = "SELECT produit.nom, SUM((vente.prix_unite - prix_fournisseur.prix) * vente.quantite) AS benef\n" +
+                "FROM vente\n" +
+                "JOIN produit ON vente.id_produit = produit.id_produit\n" +
+                "JOIN prix_fournisseur ON vente.id_produit = prix_fournisseur.id_produit\n" +
+                "WHERE vente.date_vente >= CURRENT_DATE - INTERVAL '1 month' " +
+                "GROUP BY produit.nom\n" +
+                "ORDER BY benef DESC\n" +
+                "LIMIT 10;";
         try (ResultSet rs = Gestion.execute(query)) {
             while (rs.next()) {
                 String nom = rs.getString("nom");
                 int benef = rs.getInt("benef");
                 if (nom != null) {
-                    data.put(nom, benef);
+                    dataMois.put(nom, benef);
                 }
             }
         }
-        return data;
+        return dataMois;
     }
 
     private PieChart createPieChart(LinkedHashMap<String, Integer> data) {
@@ -81,7 +117,7 @@ ArrayList<Integer> benefListe = new ArrayList<>();
          nomListe.add(nom);
         });
 
-        PieChart pieChart = new PieChart(pieChartData);
+        PieChart pieChart = new PieChart();
         pieChart.getStylesheets().add("css/style.css");
         pieChart.setTitle("Ventes par produit");
         pieChart.setLabelsVisible(false);
@@ -89,9 +125,50 @@ ArrayList<Integer> benefListe = new ArrayList<>();
 
 
         pieChart.getData().addAll(
-                IntStream.range(0, 10).mapToObj(i -> new PieChart.Data(nomListe.get(i), benefListe.get(i))).collect(Collectors.toList()));
+                IntStream.range(0,nomListe.size()).mapToObj(i -> new PieChart.Data(nomListe.get(i), benefListe.get(i))).collect(Collectors.toList()));
         return pieChart;
     }
+
+    private BarChart<String, Number> CreateBarChart(BorderPane page) throws Exception {
+        // Définir les axes
+        CategoryAxis axeX = new CategoryAxis();
+        axeX.setCategories(FXCollections.observableArrayList("Bénéfices", "Coûts", "CA"));
+
+        NumberAxis axeY = new NumberAxis();
+        axeY.setLabel("Montant (€)");
+
+        // Créer le graphique
+        BarChart<String, Number> barChart = new BarChart<>(axeX, axeY);
+        barChart.setTitle("Analyse des ventes");
+
+        // Charger les données
+        LinkedHashMap<String, Integer> dataJour = loadDataJour();
+
+        // Vérifier que les données sont bien présentes
+        if (dataJour == null) {
+            throw new Exception("Les données journalières ou mensuelles n'ont pas pu être chargées.");
+        }
+
+        // Créer les séries pour le jour
+        XYChart.Series<String, Number> series1 = new XYChart.Series<>();
+        series1.setName("Jour");
+        series1.getData().add(new XYChart.Data<>("Bénéfices", dataJour.getOrDefault("benef", 0)));
+        series1.getData().add(new XYChart.Data<>("Coûts", dataJour.getOrDefault("prix_fournisseur.prix", 0)));
+        series1.getData().add(new XYChart.Data<>("CA",
+                dataJour.getOrDefault("benef", 0) + dataJour.getOrDefault("prix_fournisseur.prix", 0)));
+
+        // Créer les séries pour le mois
+
+        // Ajouter les séries au graphique
+        barChart.getData().addAll(series1);
+
+        return barChart;
+    }
+
+
+
+
+
 
   /*  private void applyStyles(PieChart pieChart, LinkedHashMap<String, Integer> data) {
         // Liste des couleurs à appliquer
