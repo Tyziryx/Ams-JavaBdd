@@ -167,6 +167,7 @@ public class Table extends VBox {
                 });
                 menuItem2.setOnAction((event) -> {
                     ObservableList<String> item = row.getItem();
+                    if(item == null) return;
                     try {
                         ModalEdit modalEdit = new ModalEdit(page, oldPage, this, 20, "Modifier", type, item, false);
                         modalEdit.affiche();
@@ -176,6 +177,7 @@ public class Table extends VBox {
                 });
                 menuItem3.setOnAction((event) -> {
                     ObservableList<String> item = row.getItem();
+                    if(item == null) return;
                     try {
                         if (Gestion.delete(item, type)) {
                             refreshDynamicTable(sql);

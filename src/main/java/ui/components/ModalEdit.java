@@ -34,7 +34,7 @@ public class ModalEdit extends Modal {
         int i = 0;
         for (String key : data.keySet()) {
             String item = "";
-            item = (String) items.get(i);
+            if(items != null) item = (String) items.get(i);
             FieldType type = data.get(key);
             Label label = new Label(key);
             if (type == FieldType.DATE) {
