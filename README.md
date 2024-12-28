@@ -12,11 +12,11 @@ Ce projet propose l'informatisation d'une supérette pour la gestion des fournis
 ## Fonctionnalités
 
 - **Tableaux de bord** :
-    - Affichage du top 10 des produits vendu du jour, et par mois dans deux graphiques camambert.
+    - Affichage du top 10 des produits vendu du jour, et par mois dans deux graphiques camembert.
     - Affichage des résultats du jour et du mois sous forme d'un graphique en barre. en affichant les bénéfices, les couts et le CA sur les produits.
 - **Gestion des fournisseurs** : 
-    - Affichage des fournisseurs, il faut double cliquer sur une ligne pour afficher les détails et les contacts associés. 
-    - Il y a aussi un affichage pour contrats avec la possibilité d'ajouter, modifier, et suprimer des contrats facilement avec un clique droit.
+    - Affichage des fournisseurs, il faut double cliquer sur une ligne pour afficher les détails et les contacts associés. Il est aussi possible d'ajouter, modifier, supprimer des fournisseurs avec un clique droit.
+    - Il y a aussi un affichage pour contrats avec la possibilité d'ajouter, modifier, et supprimer des contrats facilement avec un clique droit.
 - **Gestion des commandes** : 
     - Affichage des produits en quantité limité, c'est a dire les produits ayant moins de 10 en stock. On peut les recommender en double cliquant dessus et ça affiche un formulaire de commande. 
     - Il y a aussi un affichage des produits disponibles chez les différents fournisseurs. On peut les commander en double cliquant dessus.

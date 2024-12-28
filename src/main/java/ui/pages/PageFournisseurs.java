@@ -33,13 +33,13 @@ public class PageFournisseurs extends Page {
         super(spacing, "Fournisseurs");
         this.page = page;
 
-        ArrayList<Colonne> tableContentFournisseurs = new ArrayList<Colonne>() {
+        LinkedList<Colonne> tableContentFournisseurs = new LinkedList<Colonne>() {
             {
                 add(new Colonne("nom_societe", "Nom société", 150));
                 add(new Colonne("siret", "Siret", 100));
             }
         };
-        Table tableFournisseurs = new Table(this, Tables.FOURNISSEUR, tableContentFournisseurs, true);
+        Table tableFournisseurs = new Table(page, this, Tables.FOURNISSEUR, "SELECT * FROM fournisseur", "Fournisseurs" , tableContentFournisseurs, true, true);
 
 
         LinkedList<Colonne> tableContentContrats = new LinkedList<Colonne>() {
