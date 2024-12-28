@@ -53,8 +53,8 @@ public class PageStock extends Page {
 
 
         Table tableProduit = new Table(page, this, Tables.UNDEFINED, "SELECT lot_de_produit.id_produit, produit.nom,  quantite ,lot_de_produit.date_peremption  FROM lot_de_produit JOIN produit ON lot_de_produit.id_produit = produit.id_produit WHERE date_peremption <= CURRENT_DATE + INTERVAL '30 days'", "Produit Périmés", tableContentProduit, true, false);
-        System.out.println("ici la table : ");
-        System.out.println(tableProduit.getDynamicTable().getItems());
+//        System.out.println("ici la table : ");
+//        System.out.println(tableProduit.getDynamicTable().getItems());
         components.addAll(title, table);
 
         components.addAll(tableProduit);

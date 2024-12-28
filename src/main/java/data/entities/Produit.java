@@ -8,7 +8,7 @@ import java.util.Locale;
 
 public class Produit implements IData {
     int id_produit;
-    int id_achat;
+    int id_achat; // A supprimer
     String nom;
     String description;
     String categorie;
