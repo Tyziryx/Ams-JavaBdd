@@ -46,7 +46,6 @@ public class Table extends VBox {
             searchBar.setMaxWidth(200);
 
             ObservableList<IData> data = Gestion.getTable(type);
-            System.out.println(data);
 
             FilteredList<IData> filteredData = new FilteredList<>(data, p -> true);
 
@@ -67,7 +66,7 @@ public class Table extends VBox {
 
             HBox header = new HBox();
             header.getStyleClass().add("table-header");
-            header.getChildren().addAll(tableTitle, spacer,  searchBar);
+            header.getChildren().addAll(tableTitle, spacer, searchBar);
 
             this.getChildren().add(header);
         } else {
@@ -147,21 +146,20 @@ public class Table extends VBox {
         dynamicTable.setRowFactory(tv -> {
             TableRow<ObservableList<String>> row = new TableRow<>();
             row.getStyleClass().add("row");
-            if(editable && type != Tables.UNDEFINED) {
+            if (editable && type != Tables.UNDEFINED) {
                 ContextMenu contextMenu = new ContextMenu();
                 ObservableList<String>[] item = new ObservableList[]{row.getItem()};
 //                row.setOnContextMenuRequested(event -> {
 //                    item[0] = row.getItem();
 //                    contextMenu.show(page, event.getScreenX(), event.getScreenY());
 //                });
-
                 row.setContextMenu(contextMenu);
                 MenuItem menuItem1 = new MenuItem("Ajouter");
                 MenuItem menuItem2 = new MenuItem("Modifier");
                 MenuItem menuItem3 = new MenuItem("Supprimer");
                 menuItem1.setOnAction((event) -> {
                     try {
-                        ModalEdit modalEdit = new ModalEdit(page, oldPage, this , 20, "Modifier", type, item[0], true);
+                        ModalEdit modalEdit = new ModalEdit(page, oldPage, this, 20, "Modifier", type, item[0], true);
                         modalEdit.affiche();
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
@@ -169,7 +167,7 @@ public class Table extends VBox {
                 });
                 menuItem2.setOnAction((event) -> {
                     try {
-                        ModalEdit modalEdit = new ModalEdit(page, oldPage, this , 20, "Modifier", type, item[0], false);
+                        ModalEdit modalEdit = new ModalEdit(page, oldPage, this, 20, "Modifier", type, item[0], false);
                         modalEdit.affiche();
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
@@ -178,14 +176,14 @@ public class Table extends VBox {
                 menuItem3.setOnAction((event) -> {
                     try {
 
-                        if(Gestion.delete(item[0], type)) {
+                        if (Gestion.delete(item[0], type)) {
                             refreshDynamicTable(sql);
                         }
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
                 });
-                contextMenu.getItems().addAll(menuItem1,menuItem2,menuItem3);
+                contextMenu.getItems().addAll(menuItem1, menuItem2, menuItem3);
             }
             return row;
         });
@@ -207,12 +205,14 @@ public class Table extends VBox {
     public TableView.TableViewSelectionModel<IData> getSelectionModel() {
         return table.getSelectionModel();
     }
+
     public void refreshTable(Tables type) throws SQLException {
-        if(type == Tables.UNDEFINED) return;
-        if(table.getItems() == null) return;
+        if (type == Tables.UNDEFINED) return;
+        if (table.getItems() == null) return;
         ObservableList<IData> data = Gestion.getTable(type);
         table.setItems(data);
     }
+
     public void refreshDynamicTable(String sql) throws SQLException {
         ResultSet rs = Gestion.execute(sql);
         int nbColonnes = rs.getMetaData().getColumnCount();
@@ -226,9 +226,10 @@ public class Table extends VBox {
         }
         dynamicTable.setItems(data);
     }
+
     public void refreshDynamicTable() throws SQLException {
-        if(dynamicTable.getItems() == null) return;
-        if(sql.isEmpty()) return;
+        if (dynamicTable.getItems() == null) return;
+        if (sql.isEmpty()) return;
         refreshDynamicTable(sql);
     }
 

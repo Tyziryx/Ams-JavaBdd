@@ -50,7 +50,6 @@ public class PageCommandes extends Page {
             row.getStyleClass().add("row");
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
-                    System.out.println("Double click");
                     ModalCommander modal;
                     ObservableList<String> items = row.getItem();
                     try {
@@ -68,7 +67,6 @@ public class PageCommandes extends Page {
             row.getStyleClass().add("row");
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
-                    System.out.println("Double click");
                     ModalCommandeAEffectuer modal;
                     ObservableList<String> items = row.getItem();
                     try {

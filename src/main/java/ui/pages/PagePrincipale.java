@@ -31,7 +31,6 @@ public class PagePrincipale extends Page {
         LinkedHashMap<String, Integer> dataJour = loadDataJour();
         if (dataJour.isEmpty()) {
             components.add(new Label("Aucune donnée disponible JOUR."));
-            System.out.println(dataJour);
             return;
         }
         LinkedHashMap<String, Integer> dataMois = loadDataMois();

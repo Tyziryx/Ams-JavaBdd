@@ -61,7 +61,6 @@ public class PageFournisseurs extends Page {
             row.getStyleClass().add("row");
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
-                    System.out.println("Double click");
                     Fournisseur fournisseur = (Fournisseur)row.getItem();
                     try {
                         modalFournisseurs = new ModalFournisseurs(page, this,20, "Fournisseur", fournisseur);

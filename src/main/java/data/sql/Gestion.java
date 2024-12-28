@@ -115,14 +115,11 @@ public class Gestion {
      */
     public static void insert(IData data, Tables table) throws SQLException {
         HashMap<String, FieldType> structTable = structTable(table, false);
-        System.out.println(data);
 
         data.getStruct();
         HashMap<String, FieldType> structData = data.getMap();
-        System.out.println(structData);
 
         if (!data.check(structTable)) {
-            System.out.println(data.getValues());
             throw new SQLException("Les données et la structure ne correspondent pas");
         }
 
