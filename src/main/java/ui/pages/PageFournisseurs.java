@@ -70,7 +70,8 @@ public class PageFournisseurs extends Page {
                     modalFournisseurs.affiche();                }
             });
             return row;
-        });}
+        });
+    }
 
 
 

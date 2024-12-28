@@ -148,7 +148,6 @@ public class Table extends VBox {
             row.getStyleClass().add("row");
             if (editable && type != Tables.UNDEFINED) {
                 ContextMenu contextMenu = new ContextMenu();
-                ObservableList<String>[] item = new ObservableList[]{row.getItem()};
 //                row.setOnContextMenuRequested(event -> {
 //                    item[0] = row.getItem();
 //                    contextMenu.show(page, event.getScreenX(), event.getScreenY());
@@ -158,25 +157,27 @@ public class Table extends VBox {
                 MenuItem menuItem2 = new MenuItem("Modifier");
                 MenuItem menuItem3 = new MenuItem("Supprimer");
                 menuItem1.setOnAction((event) -> {
+                    ObservableList<String> item = row.getItem();
                     try {
-                        ModalEdit modalEdit = new ModalEdit(page, oldPage, this, 20, "Modifier", type, item[0], true);
+                        ModalEdit modalEdit = new ModalEdit(page, oldPage, this, 20, "Modifier", type, item, true);
                         modalEdit.affiche();
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
                 });
                 menuItem2.setOnAction((event) -> {
+                    ObservableList<String> item = row.getItem();
                     try {
-                        ModalEdit modalEdit = new ModalEdit(page, oldPage, this, 20, "Modifier", type, item[0], false);
+                        ModalEdit modalEdit = new ModalEdit(page, oldPage, this, 20, "Modifier", type, item, false);
                         modalEdit.affiche();
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
                 });
                 menuItem3.setOnAction((event) -> {
+                    ObservableList<String> item = row.getItem();
                     try {
-
-                        if (Gestion.delete(item[0], type)) {
+                        if (Gestion.delete(item, type)) {
                             refreshDynamicTable(sql);
                         }
                     } catch (SQLException e) {

@@ -67,6 +67,7 @@ public class PageCommandes extends Page {
             row.getStyleClass().add("row");
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
+//                    System.out.println(row.getItem());
                     ModalCommandeAEffectuer modal;
                     ObservableList<String> items = row.getItem();
                     try {
