@@ -77,6 +77,12 @@ public class ModalCommander extends Modal {
                     showError(actiontarget, "La quantité ne peut pas être vide");
                     return;
                 }
+                try {
+                    Integer.parseInt(quantite.getText());
+                } catch (NumberFormatException ex) {
+                    showError(actiontarget, "La quantité doit être un nombre");
+                    return;
+                }
                 int quantiteInt = Integer.valueOf(quantite.getText());
                 if (quantiteInt <= 0) {
                     showError(actiontarget, "La quantité doit être supérieure à 0");

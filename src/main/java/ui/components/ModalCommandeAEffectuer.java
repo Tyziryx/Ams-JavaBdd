@@ -103,6 +103,12 @@ public class ModalCommandeAEffectuer extends Modal {
                     showError(actiontarget, "Veuillez remplir tous les champs");
                     return;
                 }
+                try {
+                    Integer.valueOf(quantite.getText());
+                } catch (NumberFormatException ex) {
+                    showError(actiontarget, "La quantité doit etre un nombre");
+                    return;
+                }
                 int quantiteInt = Integer.valueOf(quantite.getText());
                 if (quantiteInt <= 0) {
                     showError(actiontarget, "La quantité doit être supérieure à 0");
@@ -120,13 +126,19 @@ public class ModalCommandeAEffectuer extends Modal {
                     default:
                         date_peremption = Date.valueOf(LocalDate.now().plusDays(365));
                 }
-
+                try {
+                    Float.parseFloat(prix.getText());
+                } catch (NumberFormatException ex) {
+                    showError(actiontarget, "Le prix doit etre un nombre !");
+                    return;
+                }
                 float prixUnite = Float.valueOf(prix.getText());
                 float prixAchat = prixUnite * quantiteInt;
                 if (fournisseur.getText().isEmpty()) {
                     showError(actiontarget, "Veuillez remplir tous les champs");
                     return;
                 }
+
                 int id_fournisseur = Integer.valueOf(fournisseur.getText());
 
                 LotDeProduit lot = new LotDeProduit(id_produit, quantiteInt, date_achat, date_peremption, prixAchat, prixUnite, id_fournisseur);

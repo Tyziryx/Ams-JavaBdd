@@ -109,7 +109,26 @@ public class ModalEditContrat extends Modal {
                     showError(actiontarget, "Veuillez remplir tous les champs");
                     return;
                 }
+                try {
+                    Integer.parseInt(quantite.getText());
+                } catch (NumberFormatException ex) {
+                    showError(actiontarget, "La quantité doit être un nombre");
+                    return;
+                }
+                try {
+                    Float.parseFloat(prix.getText());
+                } catch (NumberFormatException ex) {
+                    showError(actiontarget, "Le prix doit être un nombre");
+                    return;
+                }
+                try {
+                    Integer.parseInt(fournisseur.getText());
+                } catch (NumberFormatException ex) {
+                    showError(actiontarget, "La quantité doit être un nombre");
+                    return;
+                }
                 int id_fournisseur = Integer.valueOf(fournisseur.getText());
+
                 int id_produit = Integer.valueOf(produit.getText());
                 int quantiteInt = Integer.valueOf(quantite.getText());
                 float prixFloat = Float.valueOf(prix.getText());
