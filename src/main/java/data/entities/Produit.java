@@ -8,7 +8,6 @@ import java.util.Locale;
 
 public class Produit implements IData {
     int id_produit;
-    int id_achat; // A supprimer
     String nom;
     String description;
     String categorie;
@@ -17,9 +16,8 @@ public class Produit implements IData {
     private LinkedHashMap<String, FieldType> map;
     private String values;
 
-    public Produit(int id_produit, int id_achat, String nom, String description, String categorie) {
+    public Produit(int id_produit, String nom, String description, String categorie) {
         this.id_produit = id_produit;
-        this.id_achat = id_achat;
         this.nom = nom.replaceAll("'", "''");
         this.description = description.replaceAll("'", "''");
         this.categorie = categorie.replaceAll("'", "''");
@@ -31,14 +29,6 @@ public class Produit implements IData {
 
     public void setId_produit(int id_produit) {
         this.id_produit = id_produit;
-    }
-
-    public int getId_achat() {
-        return id_achat;
-    }
-
-    public void setId_achat(int id_achat) {
-        this.id_achat = id_achat;
     }
 
     public String getNom() {
@@ -69,7 +59,6 @@ public class Produit implements IData {
     public void getStruct() {
         LinkedHashMap<String, FieldType> map = new LinkedHashMap<>();
         map.put("id_produit", FieldType.INT4);
-        map.put("id_achat", FieldType.INT4);
         map.put("nom", FieldType.VARCHAR);
         map.put("description", FieldType.VARCHAR);
         map.put("categorie", FieldType.VARCHAR);
@@ -93,8 +82,8 @@ public class Produit implements IData {
     public String getValues() {
         String res = String.format(
                 Locale.US, // par ce que sinon le float est écrit avec une virgule
-                "%d, %d, '%s', '%s', '%s', %f",
-                this.id_produit, this.id_achat, this.nom, this.description, this.categorie
+                "%d, '%s', '%s', '%s', %f",
+                this.id_produit, this.nom, this.description, this.categorie
         );
         return res;
     }
@@ -103,7 +92,6 @@ public class Produit implements IData {
     public String toString() {
         return "Produit{" +
                 "id_produit=" + id_produit +
-                ", id_achat=" + id_achat +
                 ", nom='" + nom + '\'' +
                 ", description='" + description + '\'' +
                 ", categorie='" + categorie + '\'' +
@@ -130,6 +118,6 @@ public class Produit implements IData {
     }
 
     public static String getQuery() {
-        return "SELECT id_produit, id_achat, nom, description, categorie FROM produit;";
+        return "SELECT id_produit, nom, description, categorie FROM produit;";
     }
 }

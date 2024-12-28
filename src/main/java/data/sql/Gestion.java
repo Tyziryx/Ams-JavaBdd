@@ -194,11 +194,10 @@ public class Gestion {
         switch (table) {
             case PRODUIT:
                 int id_produit = (int) items.get(0);
-                int id_achat = (int) items.get(1);
-                String nom = (String) items.get(2);
-                String description = (String) items.get(3);
-                String categorie = (String) items.get(4);
-                Produit produit = new Produit(id_produit, id_achat, nom, description, categorie);
+                String nom = (String) items.get(1);
+                String description = (String) items.get(2);
+                String categorie = (String) items.get(3);
+                Produit produit = new Produit(id_produit, nom, description, categorie);
                 return delete(produit, table);
             case FOURNISSEUR:
                 String nom_societe = (String) items.get(1);
@@ -305,11 +304,10 @@ public class Gestion {
                 ResultSet rs = g.execute(Produit.getQuery());
                 while (rs.next()) {
                     int id = rs.getInt("id_produit");
-                    int id_achat = rs.getInt("id_achat");
                     String nom = rs.getString("nom");
                     String desc = rs.getString("description");
                     String categorie = rs.getString("categorie");
-                    items.add(new Produit(id, id_achat, nom, desc, categorie));
+                    items.add(new Produit(id, nom, desc, categorie));
                 }
                 break;
             case FOURNISSEUR:
