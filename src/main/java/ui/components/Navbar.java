@@ -11,11 +11,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import main.java.ui.pages.*;
+import Exception.IconException;
 
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 public class Navbar extends VBox {
 
     private BorderPane page;
@@ -31,7 +31,7 @@ public class Navbar extends VBox {
         vBox.prefHeightProperty().bind(page.heightProperty());
 
         Map<String, Page> addButtonList = new LinkedHashMap<String, Page>() {{
-            put("Accueil", new PagePrincipale(page,20));
+            put("Accueil", new PagePrincipale(page, 20));
             put("Fournisseurs", new PageFournisseurs(page, 20));
             put("Commandes", new PageCommandes(page, 20));
             put("Ventes", new PageVentes(20));
@@ -47,22 +47,21 @@ public class Navbar extends VBox {
             // Creation et setup du boutton
             Button button = new Button();
             button.getStyleClass().add("navbar-button"); // Classe générale du bouton
-            if (name.equals("Accueil")) { button.getStyleClass().add("active"); }
+            if (name.equals("Accueil")) {
+                button.getStyleClass().add("active");
+            }
             HBox hBox = new HBox(10); // Espacement entre icône et texte
 
             // Création de l'icône SVG via la classe CSS
-
-            Image icon ;
+            Image icon;
             try {
-                 icon = new Image("icons/"+name.toLowerCase()+".png");
-            }
-            catch (Exception e) {
-                 icon = new Image("icons/unknow.png");
+                icon = loadIcon(name);
+            } catch (IconException e) {
+                icon = new Image("icons/unknow.png");
             }
             ImageView iconView = new ImageView(icon);
             iconView.getStyleClass().add("icon-image");
 
-          //  iconView.getStyleClass().add(name + "-button"); // Ajout de la classe CSS
             iconView.setFitWidth(18);
             iconView.setFitHeight(18);
             // Taille de l'icône
@@ -78,7 +77,6 @@ public class Navbar extends VBox {
             button.setGraphic(hBox);
             button.getStyleClass().add("hbox");
 
-
             // Ajout de la fonction qui permet de switch de page
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
@@ -92,13 +90,19 @@ public class Navbar extends VBox {
                 }
             });
 
-
-
             // Ajout du bouton a la navbar
             buttonList.add(button);
             vBox.getChildren().add(button);
         }
 
         this.getChildren().add(vBox);
+    }
+
+    private Image loadIcon(String name) throws IconException {
+        try {
+            return new Image("icons/" + name.toLowerCase() + ".png");
+        } catch (Exception e) {
+            throw new IconException("Chargement icone impossible" + name, e);
+        }
     }
 }
