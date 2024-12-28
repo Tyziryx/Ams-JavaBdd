@@ -39,7 +39,7 @@ public class PageFournisseurs extends Page {
                 add(new Colonne("siret", "Siret", 100));
             }
         };
-        Table tableFournisseurs = new Table(page, this, Tables.FOURNISSEUR, "SELECT * FROM fournisseur", "Fournisseurs" , tableContentFournisseurs, true, true);
+        Table tableFournisseurs = new Table(page, this, Tables.FOURNISSEUR, "SELECT siret, nom_societe, adresse, email FROM fournisseur", "Fournisseurs" , tableContentFournisseurs, true, true);
 
 
         LinkedList<Colonne> tableContentContrats = new LinkedList<Colonne>() {

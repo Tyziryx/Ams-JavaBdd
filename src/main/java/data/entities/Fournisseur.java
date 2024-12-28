@@ -1,5 +1,6 @@
 package main.java.data.entities;
 
+import javafx.scene.control.TextField;
 import main.java.data.sql.FieldType;
 
 import java.util.HashMap;
@@ -22,25 +23,29 @@ public class Fournisseur implements IData {
         this.email = email;
     }
 
+    public Fournisseur(Object[] inputs) {
+        this.nom_societe = ((TextField) inputs[1]).getText();
+        String input = ((TextField) inputs[0]).getText();
+        this.siret = Integer.parseInt(input);
+        this.adresse = ((TextField) inputs[2]).getText();
+        this.email = ((TextField) inputs[3]).getText();
+    }
+
     @Override
     public void getStruct() {
         LinkedHashMap<String, FieldType> map = new LinkedHashMap<>();
-        map.put("id_produit", FieldType.INT4);
-        map.put("id_achat", FieldType.INT4);
-        map.put("nom", FieldType.VARCHAR);
-        map.put("description", FieldType.VARCHAR);
-        map.put("categorie", FieldType.VARCHAR);
-        map.put("prix_vente", FieldType.FLOAT8);
+        map.put("siret", FieldType.INT4);
+        map.put("nom_societe", FieldType.VARCHAR);
+        map.put("adresse", FieldType.VARCHAR);
+        map.put("email", FieldType.VARCHAR);
 
         this.map = map;
 
         StringBuilder values = new StringBuilder();
-        for (String key : map.keySet()) {
-            if (values.length() > 0) {
-                values.append(", ");
-            }
-            values.append(key);
-        }
+        values.append("'"+this.nom_societe+"'").append(", ");
+        values.append(this.siret).append(", ");
+        values.append("'"+this.adresse+"'").append(", ");
+        values.append("'"+this.email+"'");
         this.values = values.toString();
     }
 
@@ -84,8 +89,8 @@ public class Fournisseur implements IData {
     public String getValues() {
         String res = String.format(
                 Locale.US, // par ce que sinon le float est écrit avec une virgule
-                "%d, %d, '%s', '%s', '%s'",
-                this.nom_societe, this.siret, this.adresse, this.email
+                "%d, '%s', '%s', '%s'",
+                this.siret, this.nom_societe, this.adresse, this.email
         );
         return res;
     }

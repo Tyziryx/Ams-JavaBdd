@@ -14,6 +14,7 @@ import javafx.scene.text.Text;
 import main.java.Test;
 import main.java.data.entities.ContactAssocie;
 import main.java.data.entities.Contrat;
+import main.java.data.entities.Fournisseur;
 import main.java.data.entities.IData;
 import main.java.data.sql.FieldType;
 import main.java.data.sql.Gestion;
@@ -54,6 +55,9 @@ public class ModalEdit extends Modal {
                 }
                 if(key.equals("siret") && tableType == Tables.CONTACT_ASSOCIE) {
                     textField.setText(item);
+                    textField.setDisable(true);
+                }
+                if (!isNew && key.equals("siret") && tableType == Tables.FOURNISSEUR) {
                     textField.setDisable(true);
                 }
                 form.getChildren().add(label);
@@ -127,6 +131,14 @@ public class ModalEdit extends Modal {
                     Gestion.insert(contactAssocie, Tables.CONTACT_ASSOCIE);
                 } else {
                     Gestion.update(contactAssocie, Tables.CONTACT_ASSOCIE);
+                }
+                break;
+            case FOURNISSEUR:
+                Fournisseur fournisseur = new Fournisseur(inputs);
+                if(isNew) {
+                    Gestion.insert(fournisseur, Tables.FOURNISSEUR);
+                } else {
+                    Gestion.update(fournisseur, Tables.FOURNISSEUR);
                 }
         }
         fermer(table);
