@@ -52,11 +52,24 @@ public class ModalCommander extends Modal {
         prix.setText(items.get(2).toString());
         prix.setDisable(true);
         Button commander = new Button("Commander");
-        commander.getStyleClass().add("button");
+        commander.getStyleClass().add("buttoncommander");
         final javafx.scene.text.Text actiontarget = new Text();
         actiontarget.getStyleClass().add("erreur-form");
         form.getChildren().addAll(fournisseurLabel, fournisseur, produitNomLabel, produitNom, produitLabel, produit, quantiteLabel, quantite, prixLabel, prix, commander, actiontarget);
-        contentBox.getChildren().add(form);
+        Button button = new Button("⬅ Revenir en arrière");
+        button.getStyleClass().add("button-top");
+        button.setOnAction(e -> {
+            page.setCenter(oldPage);
+        });
+
+        VBox Box = new VBox();
+        Box.getChildren().add(button);
+
+        Box.getChildren().add(form);
+        contentBox.getChildren().add(Box);
+        Box.getStyleClass().add("content-box");
+        //contentBox.getChildren().add(form);
+        form.getStyleClass().add("form");
         commander.setOnAction(e -> {
             try {
                 int id_produit = Integer.valueOf(items.get(1));
