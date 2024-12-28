@@ -1,5 +1,6 @@
 package main.java.ui.components;
 
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -21,8 +22,10 @@ public class ModalFournisseurs extends Modal {
     private VBox infoFournisseurs; // Conteneur pour les boutons
     private Table contactAssocies;
 
-    public ModalFournisseurs(BorderPane page, Page oldPage, double spacing, String title, Fournisseur fournisseur) throws SQLException {
+    public ModalFournisseurs(BorderPane page, Page oldPage, double spacing, String title, ObservableList<String> items) throws SQLException {
         super(page, oldPage, spacing, title);
+
+        Fournisseur fournisseur = new Fournisseur(items.get(1), Integer.parseInt(items.get(0)), items.get(2), items.get(3));
         this.page = page;
         box.getStyleClass().add("modal-box");
         Button topLeftButton = new Button("⬅ Revenir en arrière");

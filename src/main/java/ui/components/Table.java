@@ -7,6 +7,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
+import main.java.data.entities.Fournisseur;
 import main.java.data.entities.IData;
 import main.java.data.sql.Gestion;
 import main.java.data.sql.Tables;
@@ -152,7 +153,21 @@ public class Table extends VBox {
 //                    item[0] = row.getItem();
 //                    contextMenu.show(page, event.getScreenX(), event.getScreenY());
 //                });
+
                 row.setContextMenu(contextMenu);
+                row.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
+                    if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                        System.out.println("double clicked");
+                        ObservableList<String> fournisseur = row.getItem();
+                        ModalFournisseurs modalFournisseurs;
+                        try {
+                            modalFournisseurs = new ModalFournisseurs(page, oldPage, 20, "Fournisseur", fournisseur);
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+                        modalFournisseurs.affiche();
+                    }
+                });
                 MenuItem menuItem1 = new MenuItem("Ajouter");
                 MenuItem menuItem2 = new MenuItem("Modifier");
                 MenuItem menuItem3 = new MenuItem("Supprimer");
