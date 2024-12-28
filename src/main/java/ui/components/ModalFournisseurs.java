@@ -64,8 +64,12 @@ public class ModalFournisseurs extends Modal {
             }
         }, true, true);
 
+        VBox contacts = new VBox();
+        Label contactDesc = new Label("Clique droit pour supprimer,modifier les contacts, ou pour en ajouter un nouveau");
+        contactDesc.getStyleClass().add("desc");
 
-        box.getChildren().add(contactAssocies);
+        contacts.getChildren().addAll(contactAssocies, contactDesc);
+        box.getChildren().add(contacts);
         contentBox.getStyleClass().add("content-box");
         contentBox.getChildren().add(box);
         contactAssocies.prefWidthProperty().bind(contentBox.widthProperty());

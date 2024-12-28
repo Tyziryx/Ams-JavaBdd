@@ -57,7 +57,7 @@ public class PageFournisseurs extends Page {
 
         HBox tables = new HBox();
         HBox.setHgrow(tableContrats, Priority.ALWAYS);
-        Label descFournisseur = new Label("Double-cliquez sur un fournisseur pour afficher les détails");
+        Label descFournisseur = new Label("Double-cliquez sur un fournisseur pour afficher les détails. Ou clique droit pour ajouter, modifier ou supprimer des fournisseurs");
         descFournisseur.getStyleClass().add("desc");
         VBox fournisseurs = new VBox();
         fournisseurs.getChildren().addAll(tableFournisseurs, descFournisseur);
