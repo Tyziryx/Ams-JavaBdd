@@ -33,8 +33,7 @@ public class PageStock extends Page {
             {
                 add(new Colonne("id_produit", "ID Produit", 100));
                 add(new Colonne("nom", "Nom", 200));
-
-                add(new Colonne("quantite", "Quantité", 100));
+                add(new Colonne("sum", "Quantité", 100));
             }
         };
 
@@ -49,7 +48,7 @@ public class PageStock extends Page {
         };
 
 //        Table table = new Table(this,Tables.LOT_DE_PRODUIT, tableContent, true);
-        Table table = new Table(page, this, Tables.UNDEFINED, "SELECT lot_de_produit.id_produit,  produit.nom,quantite  FROM lot_de_produit JOIN produit ON lot_de_produit.id_produit = produit.id_produit", "Stock", tableContent, true, false);
+        Table table = new Table(page, this, Tables.UNDEFINED, "SELECT lot_de_produit.id_produit, produit.nom, SUM(quantite) FROM lot_de_produit JOIN produit ON lot_de_produit.id_produit = produit.id_produit GROUP BY lot_de_produit.id_produit, produit.nom;", "Stock", tableContent, true, false);
 
 
 
