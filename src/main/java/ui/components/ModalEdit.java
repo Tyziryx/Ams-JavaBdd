@@ -74,6 +74,10 @@ public class ModalEdit extends Modal {
         form.getStyleClass().add("form");
         Button button = new Button("⬅ Revenir en arrière");
         button.getStyleClass().add("button-top");
+        button.setOnAction(e -> {
+            page.setCenter(oldPage);
+        });
+
         VBox Box = new VBox();
         Box.getChildren().add(button);
 

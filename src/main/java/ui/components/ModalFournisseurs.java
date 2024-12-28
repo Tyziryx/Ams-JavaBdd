@@ -74,4 +74,5 @@ public class ModalFournisseurs extends Modal {
 //        this.getChildren().add(contentBox);
 
     }
+
 }

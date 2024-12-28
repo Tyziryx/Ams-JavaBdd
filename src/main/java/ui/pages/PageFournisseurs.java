@@ -73,25 +73,6 @@ public class PageFournisseurs extends Page {
         components.addAll(title, tables);
         tableFournisseurs.getStyleClass().add("fournisseurs");
 
-        tableFournisseurs.getTable().setRowFactory(tv -> {
-            TableRow<IData> row = new TableRow<>();
-            row.getStyleClass().add("row");
-            row.setOnMouseClicked(event -> {
-//                System.out.println("clicked");
-//                if (event.getClickCount() == 2 && (!row.isEmpty())) {
-//                    System.out.println("double clicked");
-//                    Fournisseur fournisseur = (Fournisseur) row.getItem();
-//                    try {
-//                        modalFournisseurs = new ModalFournisseurs(page, this, 20, "Fournisseur", fournisseur);
-//                    } catch (SQLException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                    modalFournisseurs.affiche();
-//                }
-            });
-            return row;
-        });
-
         tableContrats.getDynamicTable().setRowFactory(tv -> {
             TableRow<ObservableList<String>> row = new TableRow<>();
             row.getStyleClass().add("row");
