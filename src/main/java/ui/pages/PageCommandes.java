@@ -2,6 +2,7 @@ package main.java.ui.pages;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableRow;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -20,12 +21,12 @@ import java.util.LinkedList;
 
 public class PageCommandes extends Page {
     public PageCommandes(BorderPane page, double spacing) throws SQLException {
-        super(spacing, "Achats");
+        super(spacing, "Commandes");
 
         ObservableList<Node> components = this.getChildren();
 
         LinkedList<Colonne> colonnes = new LinkedList<Colonne>(){{
-            add(new Colonne("nom", "Produit", 85));
+            add(new Colonne("nom", "Produit", 200));
             add(new Colonne("id_produit", "ID Produit", 85));
         }};
         Table tableCommandesAEffectuer = new Table(page, this, Tables.COMMANDE_A_EFFECTUER, "SELECT com.id_commande, com.id_produit, produit.nom FROM commande_a_effectuer as com JOIN produit ON produit.id_produit = com.id_produit", "Commandes à effectuer", colonnes, true, false);
@@ -42,7 +43,16 @@ public class PageCommandes extends Page {
         tableCommandesAEffectuer.getStyleClass().add("hoverable");
 
         VBox content = new VBox();
-        content.getChildren().addAll(tableCommandesAEffectuer, tableCommander);
+        VBox commandes = new VBox();
+        VBox commander = new VBox();
+        Label commandesDesc = new Label("Double clique sur les lignes pour commander les items en faible quantitée.");
+        Label commanderDesc = new Label("Double clique sur le produit que vous voulez commander");
+        commandesDesc.getStyleClass().add("desc");
+        commanderDesc.getStyleClass().add("desc");
+
+        commandes.getChildren().addAll(tableCommandesAEffectuer, commandesDesc);
+        commander.getChildren().addAll(tableCommander, commanderDesc);
+        content.getChildren().addAll(commandes, commander);
         components.addAll(title, content);
 
         tableCommander.getDynamicTable().setRowFactory(tv -> {

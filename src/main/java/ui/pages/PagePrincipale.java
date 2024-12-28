@@ -40,7 +40,9 @@ public class PagePrincipale extends Page {
         }
 
         PieChart pieChartJour = createPieChart(dataJour);
+        pieChartJour.setTitle("Top 10 du jour");
         PieChart pieChartMois = createPieChart(dataMois);
+        pieChartMois.setTitle("Top 10 du mois");
         HBox piechartHbox = new HBox();
         piechartHbox.getChildren().add(pieChartJour);
         piechartHbox.getChildren().add(pieChartMois);
@@ -113,7 +115,7 @@ public class PagePrincipale extends Page {
 
         PieChart pieChart = new PieChart();
         pieChart.getStylesheets().add("css/style.css");
-        pieChart.setTitle("Ventes par produit");
+//        pieChart.setTitle("Ventes par produit");
         pieChart.setLabelsVisible(false);
         pieChart.setLegendVisible(true);
 

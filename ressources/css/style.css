@@ -97,7 +97,7 @@
     -fx-font-size: 14px;
     -fx-text-fill: -text-secondfill;
     -fx-font-weight: 500;
-    -fx-padding: 10px 25px 0 25px;
+    -fx-padding: 10px 25px 35px 25px;
 }
 
 
@@ -207,6 +207,12 @@
     -fx-padding: 0 0 10px 0;
     -fx-alignment: center;
 }
+
+/*
+####################
+#### Graphiques ####
+####################
+ */
 .data0 {
     -fx-pie-color: "f9d900"; // Default gold
 }

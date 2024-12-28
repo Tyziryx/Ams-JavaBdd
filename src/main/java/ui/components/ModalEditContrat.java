@@ -143,11 +143,12 @@ public class ModalEditContrat extends Modal {
                 add(new Colonne("siret", "Siret", 100));
                 add(new Colonne("nom_societe", "Nom fournisseur", 100));
                 add(new Colonne("id_produit", "Produit", 100));
+                add(new Colonne("nom", "Nom produit", 100));
                 add(new Colonne("prix", "Prix", 100));
             }
         };
 
-        Table table = new Table(page, this, Tables.FOURNISSEUR, "SELECT siret, fournisseur.nom_societe, prix_fournisseur.id_produit, prix_fournisseur.prix FROM prix_fournisseur JOIN fournisseur ON prix_fournisseur.id_fournisseur = fournisseur.siret" , "Commander", colonnes, true, false);
+        Table table = new Table(page, this, Tables.FOURNISSEUR, "SELECT siret, fournisseur.nom_societe, prix_fournisseur.id_produit, prix_fournisseur.prix, produit.nom FROM prix_fournisseur JOIN fournisseur ON prix_fournisseur.id_fournisseur = fournisseur.siret JOIN produit ON produit.id_produit = prix_fournisseur.id_produit" , "Commander", colonnes, true, false);
         table.getStyleClass().add("hoverable");
 
         contentHbox.getChildren().add(table);
