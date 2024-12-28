@@ -309,6 +309,16 @@
     -fx-background-radius: 5px;
     -fx-alignment: center-left;
 }
+.button-menu{
+    -fx-background-color: -background-secondcolor;
+    -fx-text-fill: -text-secondfill;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 10px 10px 20px; /* Adjust the left padding to move the button to the right */
+    -fx-pref-width: 110px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-alignment: center-left;
+}
 
 .button-top{
     -fx-background-color: -background-secondcolor;

@@ -45,6 +45,7 @@ public class ModalFournisseurs extends Modal {
         adresse.getStyleClass().add("label");
         mail.getStyleClass().add("label");
         infoFournisseurs.getStyleClass().add("info-fournisseurs");
+
         box.getChildren().add(infoFournisseurs);
 
 

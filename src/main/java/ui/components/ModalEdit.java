@@ -71,8 +71,15 @@ public class ModalEdit extends Modal {
         final Text actiontarget = new Text();
         actiontarget.getStyleClass().add("erreur-form");
         form.getChildren().add(actiontarget);
+        form.getStyleClass().add("form");
+        Button button = new Button("⬅ Revenir en arrière");
+        button.getStyleClass().add("button-top");
+        VBox Box = new VBox();
+        Box.getChildren().add(button);
 
-        this.contentBox.getChildren().add(form);
+        Box.getChildren().add(form);
+        contentBox.getChildren().add(Box);
+
         submit.setOnAction(e -> {
             try {
                 submit(isNew, inputs, actiontarget, tableType, table);
@@ -80,6 +87,7 @@ public class ModalEdit extends Modal {
                 throw new RuntimeException(ex);
             }
         });
+        submit.getStyleClass().add("buttoncommander");
         page.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
             if (ev.getCode() == KeyCode.ENTER) {
                 try {

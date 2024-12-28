@@ -187,6 +187,7 @@ public class Table extends VBox {
                     }
                 });
                 contextMenu.getItems().addAll(menuItem1, menuItem2, menuItem3);
+                contextMenu.getStyleClass().add("button-menu");
             }
             return row;
         });
