@@ -67,7 +67,7 @@ public class ModalCommandeAEffectuer extends Modal {
         quantite.setText("1");
 
         Button commander = new Button("Commander");
-        commander.getStyleClass().add("button");
+        commander.getStyleClass().add("buttoncommander");
 
         final Text actiontarget = new Text();
         actiontarget.getStyleClass().add("erreur-form");

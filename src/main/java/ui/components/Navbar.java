@@ -92,6 +92,8 @@ public class Navbar extends VBox {
                 }
             });
 
+
+
             // Ajout du bouton a la navbar
             buttonList.add(button);
             vBox.getChildren().add(button);

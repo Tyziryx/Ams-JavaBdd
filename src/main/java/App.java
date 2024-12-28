@@ -1,6 +1,7 @@
 package main.java;
 
 import javafx.concurrent.Task;
+import javafx.scene.control.Button;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Spinner;
 import javafx.scene.image.Image;
@@ -41,6 +42,7 @@ public class App extends Application {
         PagePrincipale pagePrincipale = new PagePrincipale(page, 20);
         pagePrincipale.getStyleClass().add("content");
         page.setCenter(pagePrincipale);
+
 
         Scene scene = new Scene(page, WINDOW_WIDTH, WINDOW_HEIGHT);
         URL url = getClass().getResource("/css/style.css");

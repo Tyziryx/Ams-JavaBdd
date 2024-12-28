@@ -32,13 +32,33 @@ public class PageStock extends Page {
         LinkedList<Colonne> tableContent = new LinkedList<Colonne>() {
             {
                 add(new Colonne("id_produit", "ID Produit", 100));
-                add(new Colonne("quantite", "Quantité", 400));
+                add(new Colonne("nom", "Nom", 200));
+
+                add(new Colonne("quantite", "Quantité", 100));
             }
         };
-//        Table table = new Table(this,Tables.LOT_DE_PRODUIT, tableContent, true);
-        Table table = new Table(page, this, Tables.LOT_DE_PRODUIT, "SELECT id_produit, quantite FROM lot_de_produit", "Stock", tableContent, true, false);
 
+        LinkedList<Colonne> tableContentProduit = new LinkedList<Colonne>() {
+            {
+                add(new Colonne("id_produit", "ID Produit", 100));
+                add(new Colonne("nom", "Nom", 100));
+                add(new Colonne("date_peremption", "Date_Peremption", 200));
+                add(new Colonne("quantite", "Quantité", 100));
+
+            }
+        };
+
+//        Table table = new Table(this,Tables.LOT_DE_PRODUIT, tableContent, true);
+        Table table = new Table(page, this, Tables.UNDEFINED, "SELECT lot_de_produit.id_produit,  produit.nom,quantite  FROM lot_de_produit JOIN produit ON lot_de_produit.id_produit = produit.id_produit", "Stock", tableContent, true, false);
+
+
+
+        Table tableProduit = new Table(page, this, Tables.UNDEFINED, "SELECT lot_de_produit.id_produit, produit.nom,  quantite ,lot_de_produit.date_peremption  FROM lot_de_produit JOIN produit ON lot_de_produit.id_produit = produit.id_produit WHERE date_peremption <= CURRENT_DATE + INTERVAL '30 days'", "Produit Périmés", tableContentProduit, true, false);
+        System.out.println("ici la table : ");
+        System.out.println(tableProduit.getDynamicTable().getItems());
         components.addAll(title, table);
+
+        components.addAll(tableProduit);
     }
 
 }

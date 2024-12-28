@@ -306,6 +306,24 @@
     -fx-alignment: center-left;
 }
 
+.button:hover , .top-left-button:hover {
+
+    -fx-opacity: 0.8;
+
+}
+
+.buttoncommander{
+    -fx-background-color: -background-maincolor;
+    -fx-text-fill: -text-secondfill;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 10px 10px 20px; /* Adjust the left padding to move the button to the right */
+    -fx-pref-width: 220px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-alignment: center-left;
+}
+
+
 /*
 #######################
 ####### Header ########
