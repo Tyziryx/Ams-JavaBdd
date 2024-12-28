@@ -42,6 +42,70 @@ public class LotDeProduit implements IData {
         this.id_lot_de_produit = id_lot_de_produit;
     }
 
+    public int getId_produit() {
+        return id_produit;
+    }
+
+    public void setId_produit(int id_produit) {
+        this.id_produit = id_produit;
+    }
+
+    public int getQuantite() {
+        return quantite;
+    }
+
+    public void setQuantite(int quantite) {
+        this.quantite = quantite;
+    }
+
+    public Date getDate_achat() {
+        return date_achat;
+    }
+
+    public void setDate_achat(Date date_achat) {
+        this.date_achat = date_achat;
+    }
+
+    public Date getDate_peremption() {
+        return date_peremption;
+    }
+
+    public void setDate_peremption(Date date_peremption) {
+        this.date_peremption = date_peremption;
+    }
+
+    public float getPrix_achat() {
+        return prix_achat;
+    }
+
+    public void setPrix_achat(float prix_achat) {
+        this.prix_achat = prix_achat;
+    }
+
+    public float getPrix_unitaire() {
+        return prix_unitaire;
+    }
+
+    public void setPrix_unitaire(float prix_unitaire) {
+        this.prix_unitaire = prix_unitaire;
+    }
+
+    public int getId_fournisseur() {
+        return id_fournisseur;
+    }
+
+    public void setId_fournisseur(int id_fournisseur) {
+        this.id_fournisseur = id_fournisseur;
+    }
+
+    public UUID getId_lot_de_produit() {
+        return id_lot_de_produit;
+    }
+
+    public void setId_lot_de_produit(UUID id_lot_de_produit) {
+        this.id_lot_de_produit = id_lot_de_produit;
+    }
+
     @Override
     public void getStruct() {
         LinkedHashMap<String, FieldType> map = new LinkedHashMap<>();

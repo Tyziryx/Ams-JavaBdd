@@ -60,6 +60,10 @@ public class ModalCommander extends Modal {
         commander.setOnAction(e -> {
             try {
                 int id_produit = Integer.valueOf(items.get(1));
+                if (quantite.getText().isEmpty()) {
+                    showError(actiontarget, "La quantité ne peut pas être vide");
+                    return;
+                }
                 int quantiteInt = Integer.valueOf(quantite.getText());
                 if (quantiteInt <= 0) {
                     showError(actiontarget, "La quantité doit être supérieure à 0");

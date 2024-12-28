@@ -98,13 +98,17 @@ public class ModalEditContrat extends Modal {
         VBox contentVBox = new VBox();
         contentVBox.getChildren().add(button);
         HBox contentHbox = new HBox();
-        form.getChildren().addAll(nomFournisseurLabel, nomFournisseur, fournisseurLabel, fournisseur, produitNomLabel, produitNom, produitLabel, produit, quantiteLabel, quantite, dateDebutLabel, dateDebut, dateFinLabel, dateFin, prixLabel, prix, commander, actiontarget);
+        form.getChildren().addAll(nomFournisseurLabel, nomFournisseur, produitNomLabel, produitNom, quantiteLabel, quantite, dateDebutLabel, dateDebut, dateFinLabel, dateFin, prixLabel, prix, commander, actiontarget);
         form.getStyleClass().add("form");
         contentHbox.getChildren().add(form);
         contentHbox.getStyleClass().add("content-box");
 
         commander.setOnAction(e -> {
             try {
+                if (fournisseur.getText().isEmpty() || produit.getText().isEmpty() || quantite.getText().isEmpty() || prix.getText().isEmpty() || dateDebut.getValue() == null || dateFin.getValue() == null) {
+                    showError(actiontarget, "Veuillez remplir tous les champs");
+                    return;
+                }
                 int id_fournisseur = Integer.valueOf(fournisseur.getText());
                 int id_produit = Integer.valueOf(produit.getText());
                 int quantiteInt = Integer.valueOf(quantite.getText());

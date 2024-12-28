@@ -5,6 +5,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import main.java.data.entities.Fournisseur;
+import main.java.data.entities.IData;
 import main.java.ui.pages.Page;
 import main.java.util.Colonne;
 
@@ -34,5 +35,17 @@ public class Modal extends Page {
     public void fermer() {
         this.getChildren().remove(contentBox);
         page.setCenter(oldPage);
+    }
+
+    boolean isValid(IData data) {
+        data.getStruct();
+        String[] values = data.getValues().split(",");
+        for (String value : values) {
+            System.out.println(value);
+            if (value.isEmpty() || value.equals("null") || value.equals("''")) {
+                return false;
+            }
+        }
+        return true;
     }
 }

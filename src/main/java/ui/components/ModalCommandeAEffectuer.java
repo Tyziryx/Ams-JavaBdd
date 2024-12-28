@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import main.java.data.entities.CommandeAEffectuer;
+import main.java.data.entities.IData;
 import main.java.data.entities.LotDeProduit;
 import main.java.data.sql.Gestion;
 import main.java.data.sql.Tables;
@@ -98,12 +99,15 @@ public class ModalCommandeAEffectuer extends Modal {
         commander.setOnAction(e -> {
             try {
                 int id_produit = Integer.valueOf(items.get(1));
+                if (quantite.getText().isEmpty()) {
+                    showError(actiontarget, "Veuillez remplir tous les champs");
+                    return;
+                }
                 int quantiteInt = Integer.valueOf(quantite.getText());
                 if (quantiteInt <= 0) {
                     showError(actiontarget, "La quantité doit être supérieure à 0");
                     return;
                 }
-
                 Date date_achat = Date.valueOf(LocalDate.now());
                 Date date_peremption;
                 switch (getProduitCategorie(items.get(1)).toLowerCase()) {
@@ -119,9 +123,17 @@ public class ModalCommandeAEffectuer extends Modal {
 
                 float prixUnite = Float.valueOf(prix.getText());
                 float prixAchat = prixUnite * quantiteInt;
+                if (fournisseur.getText().isEmpty()) {
+                    showError(actiontarget, "Veuillez remplir tous les champs");
+                    return;
+                }
                 int id_fournisseur = Integer.valueOf(fournisseur.getText());
 
                 LotDeProduit lot = new LotDeProduit(id_produit, quantiteInt, date_achat, date_peremption, prixAchat, prixUnite, id_fournisseur);
+                if(!isValid(lot)) {
+                    showError(actiontarget, "Veuillez remplir tous les champs");
+                    return;
+                }
                 Gestion.insert(lot, Tables.LOT_DE_PRODUIT);
                 CommandeAEffectuer commandeAEffectuer = new CommandeAEffectuer(UUID.fromString(items.get(0)), id_fournisseur);
                 Gestion.delete(commandeAEffectuer, Tables.COMMANDE_A_EFFECTUER);

@@ -3,11 +3,14 @@ package main.java.ui.pages;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableRow;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import main.java.data.entities.Fournisseur;
 import main.java.data.entities.IData;
 import main.java.data.sql.Gestion;
@@ -54,7 +57,17 @@ public class PageFournisseurs extends Page {
 
         HBox tables = new HBox();
         HBox.setHgrow(tableContrats, Priority.ALWAYS);
-        tables.getChildren().addAll(tableFournisseurs, tableContrats);
+        Label descFournisseur = new Label("Double-cliquez sur un fournisseur pour afficher les détails");
+        descFournisseur.getStyleClass().add("desc");
+        VBox fournisseurs = new VBox();
+        fournisseurs.getChildren().addAll(tableFournisseurs, descFournisseur);
+
+        Label descContrat = new Label("Clic droit sur un contrat pour modifier ou supprimer");
+        descContrat.getStyleClass().add("desc");
+        VBox contrats = new VBox();
+        contrats.getChildren().addAll(tableContrats, descContrat);
+
+        tables.getChildren().addAll(fournisseurs, contrats);
 
         ObservableList<Node> components = this.getChildren();
         components.addAll(title, tables);
