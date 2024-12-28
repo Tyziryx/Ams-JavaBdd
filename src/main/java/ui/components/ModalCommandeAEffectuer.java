@@ -132,7 +132,11 @@ public class ModalCommandeAEffectuer extends Modal {
         });
 
 
-        /* Table */
+        /*
+        ###################
+        ##### Tableaux ####
+        ###################
+         */
 
         LinkedList<Colonne> colonnes = new LinkedList<Colonne>(){
             {

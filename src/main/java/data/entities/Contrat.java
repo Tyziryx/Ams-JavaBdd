@@ -28,6 +28,7 @@ public class Contrat implements IData {
         this.date_debut = date_debut;
         this.date_fin = date_fin;
         this.prix_produit = prix_produit;
+        this.id_contrat = UUID.randomUUID();
     }
     public Contrat(UUID id_contrat ,int id_fournisseur , int id_produit, int quantite_min, java.sql.Date date_debut, java.sql.Date date_fin, float prix_produit) {
         this.id_contrat = id_contrat;

@@ -135,7 +135,7 @@ public class Gestion {
         query = query.substring(0, query.length() - 2) + ")";
         values += data.getValues() + ")";
         query += values;
-//        System.out.println(query);
+        System.out.println(query);
 
         PreparedStatement ps = cn.getConn().prepareStatement(query);
         ps.executeUpdate();

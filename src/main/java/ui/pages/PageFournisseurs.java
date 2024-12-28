@@ -2,13 +2,18 @@ package main.java.ui.pages;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableRow;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import main.java.data.entities.Fournisseur;
 import main.java.data.entities.IData;
+import main.java.data.sql.Gestion;
 import main.java.data.sql.Tables;
+import main.java.ui.components.ModalEdit;
+import main.java.ui.components.ModalEditContrat;
 import main.java.ui.components.ModalFournisseurs;
 import main.java.ui.components.Table;
 import main.java.util.Colonne;
@@ -44,16 +49,15 @@ public class PageFournisseurs extends Page {
                 add(new Colonne("nom", "Produit", 100));
             }
         };
-        Table tableContrats = new Table(page, this, Tables.CONTRAT,"SELECT * FROM contrat JOIN produit ON contrat.id_produit = produit.id_produit ", "Contrats", tableContentContrats, true, true);
+        Table tableContrats = new Table(page, this, Tables.CONTRAT, "SELECT * FROM contrat JOIN produit ON contrat.id_produit = produit.id_produit ", "Contrats", tableContentContrats, true, true);
         tableFournisseurs.getTable().getStyleClass().add("table-view");
+
         HBox tables = new HBox();
         HBox.setHgrow(tableContrats, Priority.ALWAYS);
         tables.getChildren().addAll(tableFournisseurs, tableContrats);
 
-
-
         ObservableList<Node> components = this.getChildren();
-        components.addAll(title, tables );
+        components.addAll(title, tables);
         tableFournisseurs.getStyleClass().add("fournisseurs");
 
         tableFournisseurs.getTable().setRowFactory(tv -> {
@@ -61,21 +65,67 @@ public class PageFournisseurs extends Page {
             row.getStyleClass().add("row");
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
-                    Fournisseur fournisseur = (Fournisseur)row.getItem();
+                    Fournisseur fournisseur = (Fournisseur) row.getItem();
                     try {
-                        modalFournisseurs = new ModalFournisseurs(page, this,20, "Fournisseur", fournisseur);
+                        modalFournisseurs = new ModalFournisseurs(page, this, 20, "Fournisseur", fournisseur);
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
-                    modalFournisseurs.affiche();                }
+                    modalFournisseurs.affiche();
+                }
             });
             return row;
         });
+
+        tableContrats.getDynamicTable().setRowFactory(tv -> {
+            TableRow<ObservableList<String>> row = new TableRow<>();
+            row.getStyleClass().add("row");
+            ContextMenu contextMenu = new ContextMenu();
+//                row.setOnContextMenuRequested(event -> {
+//                    item[0] = row.getItem();
+//                    contextMenu.show(page, event.getScreenX(), event.getScreenY());
+//                });
+            row.setContextMenu(contextMenu);
+            MenuItem menuItem1 = new MenuItem("Ajouter");
+            MenuItem menuItem2 = new MenuItem("Modifier");
+            MenuItem menuItem3 = new MenuItem("Supprimer");
+            menuItem1.setOnAction((event) -> {
+                ObservableList<String> item = row.getItem();
+//                if (item == null) return;
+                try {
+                    ModalEditContrat modalEdit = new ModalEditContrat(page, this, tableContrats, 20, "Modifier", item, true);
+                    modalEdit.affiche();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            menuItem2.setOnAction((event) -> {
+                ObservableList<String> item = row.getItem();
+                if (item == null) return;
+                try {
+                    System.out.println(item);
+                    ModalEditContrat modalEdit = new ModalEditContrat(page, this, tableContrats, 20, "Modifier", item, false);
+                    modalEdit.affiche();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            menuItem3.setOnAction((event) -> {
+                ObservableList<String> item = row.getItem();
+                if (item == null) return;
+                try {
+                    if (Gestion.delete(item, Tables.CONTRAT)) {
+                        tableContrats.refreshDynamicTable();
+                    }
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            contextMenu.getItems().addAll(menuItem1, menuItem2, menuItem3);
+
+            return row;
+        });
     }
-
-
-
-
 
 }
 
