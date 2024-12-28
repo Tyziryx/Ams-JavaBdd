@@ -170,7 +170,7 @@ public class Gestion {
                 where += "id_produit = " + valeurs[0];
                 break;
             case FOURNISSEUR:
-                where += "siret = " + valeurs[1];
+                where += "siret = " + valeurs[0];
                 break;
             case PRIX_FOURNISSEUR:
                 where += "id_fournisseur = " + valeurs[5] + " AND id_produit = " + valeurs[0];
@@ -183,7 +183,7 @@ public class Gestion {
                 break;
         }
         query += where;
-//        System.out.println(query);
+        System.out.println(query);
         PreparedStatement ps = cn.getConn().prepareStatement(query);
         ps.executeUpdate();
         cn.disconnect();
@@ -201,8 +201,8 @@ public class Gestion {
                 Produit produit = new Produit(id_produit, id_achat, nom, description, categorie);
                 return delete(produit, table);
             case FOURNISSEUR:
-                String nom_societe = (String) items.get(0);
-                int siret = (int) items.get(1);
+                String nom_societe = (String) items.get(1);
+                int siret = Integer.parseInt((String) items.get(0));
                 String adresse = (String) items.get(2);
                 String email = (String) items.get(3);
                 Fournisseur fournisseur = new Fournisseur(nom_societe, siret, adresse, email);
@@ -258,7 +258,7 @@ public class Gestion {
                 query += "id_produit = " + valeurs[0];
                 break;
             case FOURNISSEUR:
-                query += "siret = " + valeurs[1];
+                query += "siret = " + valeurs[0];
                 break;
             case PRIX_FOURNISSEUR:
                 query += "id_fournisseur = " + valeurs[0] + " AND id_produit = " + valeurs[1];
@@ -273,7 +273,7 @@ public class Gestion {
                 query += "id_commande = " + valeurs[0];
                 break;
         }
-//        System.out.println(query);
+        System.out.println(query);
         PreparedStatement ps = cn.getConn().prepareStatement(query);
         ps.executeUpdate();
         cn.disconnect();
