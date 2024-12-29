@@ -50,7 +50,7 @@ public class PagePrincipale extends Page {
             return;
         }
 
-        PieChart pieChartJour = createPieChart(dataJour);
+        PieChart pieChartJour = createPieChart(dataJour); // Création du graphique en camembert
         pieChartJour.setTitle("Top 10 du jour");
         PieChart pieChartMois = createPieChart(dataMois);
         pieChartMois.setTitle("Top 10 du mois");
