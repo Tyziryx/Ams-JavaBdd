@@ -33,8 +33,11 @@ public class Connexion {
                 e.printStackTrace();
                 // Faire uue autre exception
             }
+            Properties props = new Properties();
+            props.setProperty("user", id);
+            props.setProperty("password", mdp);
             Class.forName("org.postgresql.Driver");
-            cn = DriverManager.getConnection(url , id , mdp ) ;
+            cn = DriverManager.getConnection(url , props) ;
             st= cn.createStatement();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);

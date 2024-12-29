@@ -87,9 +87,8 @@ La base de données est modélisée en PostgreSQL et comprend les tables suivant
    ```
 2. Configurez la base de données PostgreSQL :  
 
-- Créez une base de données nommée `superette`.
-- Importez le schéma de la base de données depuis le fichier `schema.sql`.
-- Executer la commande: `CREATE EXTENSION IF NOT EXISTS "uuid-ossp";` pour activer l'extension uuid et pouvoir générer des UUID automatiquement.
+- Créez une base de données nommée `superette` (nom au choix).
+- Importez le schéma de la base de données depuis le fichier `schema.sql` et toutes les tables dans le dossier `/sql`.
 - Configurez les paramètres de connexion à la base de données dans le fichier `/resources/config.properties`.  
 - Mettre le dossier ressource en tant que fichier de ressource dans IntelliJ IDEA. (ressource root)
 - Compilez et exécutez l'application

@@ -1,30 +1,56 @@
 package main.java;
 
+import main.java.data.entities.Vente;
+import main.java.data.sql.Connexion;
 import main.java.data.sql.Gestion;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.Random;
+import java.util.UUID;
 
 public class Test {
     public static void main(String[] args) throws SQLException {
 
-        Gestion g = new Gestion();
-//        g.execute("CREATE TABLE produit (id_produit INT PRIMARY KEY, id_achat INT, nom VARCHAR(255), description VARCHAR(255), categorie VARCHAR(255), prix_vente FLOAT);");
+        Connexion connexion = new Connexion();
+        connexion.connect();
+        Connection conn = connexion.getConn();
 
-//        g.insert(new Produit(1, 1, "Fromage", "Fromage de chèvre", "nourriture", 3.5), "produit");
-//        g.insert(new Produit(2, 2, "Huile moteur", "Huile moteur 5W30", "automobile", 10.5), "produit");
-//        g.insert(new Produit(3, 3, "Crayon", "Crayon pour dessiner et écrire.", "fournitures", 2.5), "produit");
-//        g.insert(new Produit(4, 4, "Jambon", "Jambon supérieur 100% pur porc sans couenne", "nourriture", 4.5), "produit");
-//        g.insert(new Produit(5, 5, "Papier toilette", "Papier toilette trois couches", "fournitures", 1.5), "produit");
-//        g.insert(new Produit(6, 6, "Pneu", "Pneu 205/55 R16", "automobile", 50.5), "produit");
+        String insertSQL = "INSERT INTO vente (numero_ticket, id_produit, date_vente, prix_unite, quantite, id_lot_de_produit) VALUES (?, ?, ?, ?, ?, ?)";
+        Random random = new Random();
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = LocalDate.now().plusMonths(2);
 
-//        g.displayTable("produit");
-//        g.execute("DELETE FROM produit WHERE id_produit = 1;");
-//        g.displayTable("produit");
-//        g.execute("DROP TABLE produit;");
+        try (PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
+            for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
+                for (int i = 0; i < 12; i++) {
+                    int numeroTicket = random.nextInt(1000) + 1;
+                    int idProduit = random.nextInt(35) + 1;
+                    float prixUnite = random.nextFloat() * 100;
+                    int quantite = random.nextInt(10) + 1;
+                    UUID idLotDeProduit = UUID.randomUUID();
 
-        ResultSet rs = g.execute("SELECT * FROM produit;");
+                    Vente vente = new Vente(numeroTicket, idProduit, java.sql.Date.valueOf(date), prixUnite, quantite, idLotDeProduit);
 
+                    pstmt.setInt(1, vente.getNumero_ticket());
+                    pstmt.setInt(2, vente.getId_produit());
+                    pstmt.setDate(3, new java.sql.Date(vente.getDate_vente().getTime()));
+                    pstmt.setFloat(4, vente.getPrix_unite());
+                    pstmt.setInt(5, vente.getQuantite());
+                    pstmt.setObject(6, vente.getId_lot_de_produit());
+                    pstmt.addBatch();
+                }
+            }
+            pstmt.executeBatch();
+            System.out.println("Insertions completed successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            connexion.disconnect();
+        }
 
 
     }
