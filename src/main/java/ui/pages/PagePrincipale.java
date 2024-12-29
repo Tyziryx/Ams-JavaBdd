@@ -85,7 +85,7 @@ public class PagePrincipale extends Page {
         }
         return dataJour;
     }
-
+// charge les données du mois dans un LinkedHashMap grace a une requete SQL et renvoie le top 10 des produits
     private LinkedHashMap<String, Integer> loadDataMois() throws Exception {
         LinkedHashMap<String, Integer> dataMois = new LinkedHashMap<>();
         String query = "SELECT produit.nom, SUM((vente.prix_unite - prix_fournisseur.prix) * vente.quantite) AS benef\n" +

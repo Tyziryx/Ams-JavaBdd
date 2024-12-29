@@ -29,6 +29,15 @@ public class PageFournisseurs extends Page {
     private final BorderPane page;
     public ModalFournisseurs modalFournisseurs;
 
+    /**
+     * Classe affichant et gérant les fournisseurs et leurs contrats.
+     * Fonctions interactives : double-clic pour détails, clic droit pour gestion (ajout, modification, suppression).
+     * @param page
+     * @param spacing
+     * @throws SQLException
+     *
+     *
+     */
     public PageFournisseurs(BorderPane page, double spacing) throws SQLException {
         super(spacing, "Fournisseurs");
         this.page = page;
