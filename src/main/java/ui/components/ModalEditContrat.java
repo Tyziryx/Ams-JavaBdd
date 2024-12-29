@@ -25,6 +25,19 @@ import static javafx.scene.input.KeyEvent.KEY_RELEASED;
 
 public class ModalEditContrat extends Modal {
     Table oldTable;
+
+    /**
+     * Constructeur de la classe ModalEditContrat
+     * Permet de créer et modifier un contrat
+     * @param page
+     * @param oldPage
+     * @param oldTable
+     * @param spacing
+     * @param title
+     * @param items
+     * @param isNew
+     * @throws SQLException
+     */
     public ModalEditContrat(BorderPane page, Page oldPage, Table oldTable, double spacing, String title, ObservableList<String> items, boolean isNew) throws SQLException {
         super(page, oldPage, spacing, title);
         this.oldTable = oldTable;
@@ -156,7 +169,7 @@ public class ModalEditContrat extends Modal {
         ##### Tableaux ####
         ###################
          */
-
+        // Le tableau permet de sélectionner le produit/fournisseur facilement
         LinkedList<Colonne> colonnes = new LinkedList<Colonne>(){
             {
                 add(new Colonne("siret", "Siret", 100));
@@ -209,6 +222,12 @@ public class ModalEditContrat extends Modal {
         return nom;
     }
 
+    /**
+     * Permet de récupérer le nom d'un produit en fonction de son id
+     * @param id
+     * @return
+     * @throws SQLException
+     */
     private String getProduitNom(String id) throws SQLException {
         ResultSet rs;
         String nom = "";
@@ -238,10 +257,20 @@ public class ModalEditContrat extends Modal {
 //        return nom;
 //    }
 
+    /**
+     * Affiche une erreur sur le formulaire
+     * @param actionTarget
+     * @param msg
+     */
     private void showError(Text actionTarget, String msg) {
         actionTarget.setText(msg);
     }
 
+    /**
+     * Permet de fermer la fenêtre
+     * @param table
+     * @throws SQLException
+     */
     public void fermer(Table table) throws SQLException {
         super.fermer();
         table.refreshDynamicTable();

@@ -22,6 +22,18 @@ import static javafx.scene.input.KeyEvent.KEY_RELEASED;
 
 public class ModalCommander extends Modal {
     Table oldTable;
+
+    /**
+     * Constructeur de la classe ModalCommander
+     * Permet de commander un produit
+     * @param page
+     * @param oldPage
+     * @param oldTable
+     * @param spacing
+     * @param title
+     * @param items
+     * @throws SQLException
+     */
     public ModalCommander(BorderPane page, Page oldPage, Table oldTable, double spacing, String title, ObservableList<String> items) throws SQLException {
         super(page, oldPage, spacing, title);
         this.oldTable = oldTable;
@@ -113,6 +125,12 @@ public class ModalCommander extends Modal {
 
     }
 
+    /**
+     * Permet de récupérer le nom d'un produit en fonction de son id
+     * @param id
+     * @return
+     * @throws SQLException
+     */
     private String getProduitNom(String id) throws SQLException {
         ResultSet rs;
         String nom = "";
@@ -128,6 +146,12 @@ public class ModalCommander extends Modal {
         return nom;
     }
 
+    /**
+     * Permet de récupérer la catégorie d'un produit en fonction de son id
+     * @param id
+     * @return
+     * @throws SQLException
+     */
     private String getProduitCategorie(String id) throws SQLException {
         ResultSet rs;
         String nom = "";
@@ -143,10 +167,20 @@ public class ModalCommander extends Modal {
         return nom;
     }
 
+    /**
+     * Affiche une erreur sur le formulaire
+     * @param actionTarget
+     * @param msg
+     */
     private void showError(Text actionTarget, String msg) {
         actionTarget.setText(msg);
     }
 
+    /**
+     * Ferme le formulaire
+     * @param table
+     * @throws SQLException
+     */
     public void fermer(Table table) throws SQLException {
         super.fermer();
         table.refreshDynamicTable();

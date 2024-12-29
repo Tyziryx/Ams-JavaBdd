@@ -20,6 +20,11 @@ public class Navbar extends VBox {
 
     private BorderPane page;
 
+    /**
+     * Constructeur de la classe Navbar
+     * @param page
+     * @throws Exception
+     */
     public Navbar(BorderPane page) throws Exception {
         this.page = page;
         this.setSpacing(10);
@@ -98,6 +103,12 @@ public class Navbar extends VBox {
         this.getChildren().add(vBox);
     }
 
+    /**
+     * Charge l'icone en fonction du nom
+     * @param name
+     * @return
+     * @throws IconException
+     */
     private Image loadIcon(String name) throws IconException {
         try {
             return new Image("icons/" + name.toLowerCase() + ".png");
