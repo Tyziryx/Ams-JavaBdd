@@ -170,6 +170,8 @@ public class ModalCommandeAEffectuer extends Modal {
         ###################
         ##### Tableaux ####
         ###################
+
+        le tableau permet de selection un produit et un fournisseur facilement
          */
 
         LinkedList<Colonne> colonnes = new LinkedList<Colonne>(){

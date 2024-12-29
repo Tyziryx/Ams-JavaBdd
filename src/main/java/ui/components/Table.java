@@ -19,6 +19,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+
+/**
+ * Permet de créer un tableau en fonction de la table sql
+ *old page permet de revenir à la page précédente pour pouvoir y revenir quand on clique sur un bouton
+ */
 public class Table extends VBox {
     private TableView<IData> table = new TableView<>();
     private TableView<ObservableList<String>> dynamicTable = new TableView<>();
@@ -77,6 +82,19 @@ public class Table extends VBox {
         this.getStyleClass().add("table-box");
         this.getChildren().addAll(table);
     }
+
+    /**
+     * Permet de créer un tableau en fonction de la requette sql ( permet de faire des joins par exemple )
+     * @param page
+     * @param oldPage
+     * @param type
+     * @param sql
+     * @param titre
+     * @param tableContent
+     * @param head
+     * @param editable
+     * @throws SQLException
+     */
 
     public Table(BorderPane page, Page oldPage, Tables type, String sql, String titre, LinkedList<Colonne> tableContent, boolean head, boolean editable) throws SQLException {
         super();

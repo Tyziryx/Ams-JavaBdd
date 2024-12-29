@@ -17,6 +17,8 @@ import java.util.ArrayList;
  * permet d'affiche /  fermé une page et si elle est valide
 
  */
+
+
 public class Modal extends Page {
 
     HBox contentBox; // Conteneur pour afficher les données dynamiques
