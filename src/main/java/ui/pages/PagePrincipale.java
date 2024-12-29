@@ -64,7 +64,7 @@ public class PagePrincipale extends Page {
 
         components.add(vbox);
     }
-
+// charge les données du jour dans un LinkedHashMap grace a une requete SQL
     private LinkedHashMap<String, Integer> loadDataJour() throws Exception {
         LinkedHashMap<String, Integer> dataJour = new LinkedHashMap<>();
         String query = "SELECT produit.nom, SUM((vente.prix_unite - prix_fournisseur.prix) * vente.quantite) AS benef " +
@@ -107,7 +107,7 @@ public class PagePrincipale extends Page {
         }
         return dataMois;
     }
-
+//crée un graphique en camembert pour les benefices , couts et CA du jour et du mois
     private PieChart createPieChart(LinkedHashMap<String, Integer> data) {
         double total = data.values().stream().mapToDouble(Integer::doubleValue).sum();
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
@@ -128,7 +128,7 @@ public class PagePrincipale extends Page {
                 IntStream.range(0, nomListe.size()).mapToObj(i -> new PieChart.Data(nomListe.get(i), benefListe.get(i))).collect(Collectors.toList()));
         return pieChart;
     }
-
+    //cree un graphique en barre pour les benefices , couts et CA du jour et du mois
     private HBox CreateBarChart(BorderPane page) throws Exception {
         CategoryAxis axeXJour = new CategoryAxis();
         axeXJour.setCategories(FXCollections.observableArrayList("Bénéfices", "Coûts", "CA"));
@@ -184,7 +184,9 @@ public class PagePrincipale extends Page {
         hbox.getChildren().add(barChartMois);
         return hbox;
     }
-
+/*calcule le total des couts du jour grace a une requete SQL  , ou sa renvoie le prix fournisseur multiplié
+par la quantité , tout ça pour aujourd'hui
+ */
     private int calculateTotalCoutsJour() throws Exception {
         String query = "SELECT SUM(prix_fournisseur.prix * vente.quantite) AS total_couts " +
                 "FROM vente " +
@@ -198,7 +200,9 @@ public class PagePrincipale extends Page {
         }
         return 0;
     }
-
+    /*calcule le total des couts du jour grace a une requete SQL  , ou sa renvoie le prix fournisseur multiplié
+    par la quantité , tout ça pour le mois , donc ajourd'hui - 1 mois
+     */
     private int calculateTotalCoutsMois() throws Exception {
         String query = "SELECT SUM(prix_fournisseur.prix * vente.quantite) AS total_couts " +
                 "FROM vente " +
@@ -211,7 +215,7 @@ public class PagePrincipale extends Page {
         }
         return 0;
     }
-
+//affiche un message d'erreur si aucune donnée n'est disponible
     private void displayDefaultGraph() {
         System.out.println("Aucune donnée disponible. Affichage du graphe par défaut.");
     }
