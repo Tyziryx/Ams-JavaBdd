@@ -25,6 +25,12 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
 
+/**
+ * permet de créer une modal pour ajouter ou modifier des données
+
+
+ */
+
 public class ModalEdit extends Modal {
     public ModalEdit(BorderPane page, Page oldPage, Table table, double spacing, String title, Tables tableType, ObservableList items, boolean isNew) throws SQLException {
         super(page, oldPage, spacing, title);

@@ -35,8 +35,6 @@ public class PageFournisseurs extends Page {
      * @param page
      * @param spacing
      * @throws SQLException
-     *
-     *
      */
     public PageFournisseurs(BorderPane page, double spacing) throws SQLException {
         super(spacing, "Fournisseurs");

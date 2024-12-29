@@ -12,6 +12,11 @@ import main.java.util.Colonne;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Classe abstraite pour les modales
+ * permet d'affiche /  fermé une page et si elle est valide
+
+ */
 public class Modal extends Page {
 
     HBox contentBox; // Conteneur pour afficher les données dynamiques
