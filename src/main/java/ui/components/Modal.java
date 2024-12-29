@@ -35,7 +35,7 @@ public class Modal extends Page {
 
 
     public void affiche() {
-        this.getChildren().add(contentBox);
+//        this.getChildren().add(contentBox);
         page.setCenter(this);
     }
 
