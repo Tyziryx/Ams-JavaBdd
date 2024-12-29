@@ -9,7 +9,10 @@ public class Connexion {
     private Properties ids = new Properties();
     Connection cn = null ; Statement st = null ; ResultSet rs = null ;
 
-
+    /**
+     * Constructeur de la classe Connexion
+     * Il charge les identifiants de connexion à la base de données
+     */
     public Connexion() {
         URL path = getClass().getResource("/config.properties");
         try {
@@ -20,6 +23,9 @@ public class Connexion {
         }
     }
 
+    /**
+     * Méthode permettant de se connecter à la base de données
+     */
     public void connect(){
         try {
             String url = "";
@@ -43,6 +49,9 @@ public class Connexion {
             throw new RuntimeException(e);
         }
     }
+    /**
+     * Méthode permettant de se déconnecter de la base de données
+     */
     public void disconnect(){
         try {
             cn.close();
@@ -50,6 +59,11 @@ public class Connexion {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Méthode permettant d'exécuter une requête SQL
+     * @param sql : la requête SQL à exécuter
+     */
     public void query(String sql){
         try {
             rs = st.executeQuery(sql);
@@ -58,10 +72,19 @@ public class Connexion {
 
 }
     }
+
+    /**
+     * Permets de récupérer le résultat de la requête
+     * @return
+     */
     public ResultSet getResult(){
         return rs;
     }
 
+    /**
+     * Permets de récupérer la connexion
+     * @return
+     */
     public Connection getConn() {
         return cn;
     }
