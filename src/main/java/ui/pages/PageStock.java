@@ -25,6 +25,13 @@ import main.java.ui.components.Table;
 import main.java.util.Colonne;
 
 public class PageStock extends Page {
+    /**
+     * Constructeur de la classe PageStock
+     * Affiche le stock des produits et les produits périmés
+     * @param page
+     * @param spacing
+     * @throws SQLException
+     */
     public PageStock(BorderPane page, double spacing) throws SQLException {
         super(spacing, "Stock");
 

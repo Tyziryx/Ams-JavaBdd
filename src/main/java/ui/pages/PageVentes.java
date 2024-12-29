@@ -10,6 +10,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PageVentes extends Page {
+    /**
+     * Constructeur de la classe PageVentes
+     * Affiche l'historique des ventes
+     * @param spacing
+     * @throws SQLException
+     */
     public PageVentes(double spacing) throws SQLException {
         super(spacing, "Ventes");
 
