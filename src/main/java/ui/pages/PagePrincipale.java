@@ -2,6 +2,7 @@ package main.java.ui.pages;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.chart.*;
 import javafx.scene.control.Label;
@@ -26,7 +27,7 @@ public class PagePrincipale extends Page {
         ObservableList<Node> components = this.getChildren();
         components.addAll(title);
 
-        LinkedHashMap<String, Integer> dataJour;
+        LinkedHashMap<String, Integer> dataJour = null;
         try {
             dataJour = loadDataJour();
             if (dataJour.isEmpty()) {
@@ -34,8 +35,6 @@ public class PagePrincipale extends Page {
             }
         } catch (GrapheDataException e) {
             components.add(new Label(e.getMessage()));
-            displayDefaultGraph();
-            return;
         }
 
         LinkedHashMap<String, Integer> dataMois;
@@ -50,16 +49,23 @@ public class PagePrincipale extends Page {
             return;
         }
 
-        PieChart pieChartJour = createPieChart(dataJour);
-        pieChartJour.setTitle("Top 10 du jour");
+        HBox piechartHbox = new HBox(20); // Add spacing between pie charts
+        piechartHbox.setPadding(new Insets(10)); // Add padding around the HBox
+        if (dataJour != null && !dataJour.isEmpty()) {
+            PieChart pieChartJour = createPieChart(dataJour);
+            pieChartJour.setTitle("Top 10 du jour");
+            pieChartJour.setPrefSize(400, 400); // Set preferred size
+            piechartHbox.getChildren().add(pieChartJour);
+        }
+
         PieChart pieChartMois = createPieChart(dataMois);
         pieChartMois.setTitle("Top 10 du mois");
-        HBox piechartHbox = new HBox();
-        piechartHbox.getChildren().add(pieChartJour);
+        pieChartMois.setPrefSize(400, 400); // Set preferred size
         piechartHbox.getChildren().add(pieChartMois);
+
         vbox.getChildren().add(piechartHbox);
 
-        HBox barChart = CreateBarChart(page);
+        HBox barChart = CreateBarChart(page, dataJour, dataMois);
         vbox.getChildren().add(barChart);
 
         components.add(vbox);
@@ -129,7 +135,7 @@ public class PagePrincipale extends Page {
         return pieChart;
     }
 
-    private HBox CreateBarChart(BorderPane page) throws Exception {
+    private HBox CreateBarChart(BorderPane page, LinkedHashMap<String, Integer> dataJour, LinkedHashMap<String, Integer> dataMois) throws Exception {
         CategoryAxis axeXJour = new CategoryAxis();
         axeXJour.setCategories(FXCollections.observableArrayList("Bénéfices", "Coûts", "CA"));
 
@@ -148,40 +154,38 @@ public class PagePrincipale extends Page {
         BarChart<String, Number> barChartMois = new BarChart<>(axeXMois, axeYMois);
         barChartMois.setTitle("Analyse des ventes du mois");
 
-        LinkedHashMap<String, Integer> dataJour = loadDataJour();
-        LinkedHashMap<String, Integer> dataMois = loadDataMois();
+        HBox hbox = new HBox();
 
-        if (dataJour == null || dataJour.isEmpty()) {
-            throw new GrapheDataException("Les données du jour n'ont pas pu être chargées.");
+        if (dataJour != null && !dataJour.isEmpty()) {
+            int totalBeneficesJour = dataJour.values().stream().mapToInt(Integer::intValue).sum();
+            int totalCoutsJour = calculateTotalCoutsJour();
+            int totalCAJour = totalBeneficesJour + totalCoutsJour;
+
+            XYChart.Series<String, Number> seriesJour = new XYChart.Series<>();
+            seriesJour.setName("Données du jour");
+
+            seriesJour.getData().add(new XYChart.Data<>("Bénéfices", totalBeneficesJour));
+            seriesJour.getData().add(new XYChart.Data<>("Coûts", totalCoutsJour));
+            seriesJour.getData().add(new XYChart.Data<>("CA", totalCAJour));
+
+            barChartJour.getData().add(seriesJour);
+            hbox.getChildren().add(barChartJour);
         }
-
-        int totalBeneficesJour = dataJour.values().stream().mapToInt(Integer::intValue).sum();
-        int totalCoutsJour = calculateTotalCoutsJour();
-        int totalCAJour = totalBeneficesJour + totalCoutsJour;
-
-        XYChart.Series<String, Number> seriesJour = new XYChart.Series<>();
-        seriesJour.setName("Données du jour");
-
-        seriesJour.getData().add(new XYChart.Data<>("Bénéfices", totalBeneficesJour));
-        seriesJour.getData().add(new XYChart.Data<>("Coûts", totalCoutsJour));
-        seriesJour.getData().add(new XYChart.Data<>("CA", totalCAJour));
-
-        XYChart.Series<String, Number> seriesMois = new XYChart.Series<>();
-        seriesMois.setName("Données du mois");
 
         int totalBeneficesMois = dataMois.values().stream().mapToInt(Integer::intValue).sum();
         int totalCoutsMois = calculateTotalCoutsMois();
         int totalCAMois = totalBeneficesMois + totalCoutsMois;
 
+        XYChart.Series<String, Number> seriesMois = new XYChart.Series<>();
+        seriesMois.setName("Données du mois");
+
         seriesMois.getData().add(new XYChart.Data<>("Bénéfices", totalBeneficesMois));
         seriesMois.getData().add(new XYChart.Data<>("Coûts", totalCoutsMois));
         seriesMois.getData().add(new XYChart.Data<>("CA", totalCAMois));
 
-        barChartJour.getData().add(seriesJour);
         barChartMois.getData().add(seriesMois);
-        HBox hbox = new HBox();
-        hbox.getChildren().add(barChartJour);
         hbox.getChildren().add(barChartMois);
+
         return hbox;
     }
 
