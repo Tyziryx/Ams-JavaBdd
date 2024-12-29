@@ -1,5 +1,8 @@
 package main.java.util;
 
+/**
+ * Classe qui sert a stocker les informations d'une colonne pour créer un tableau
+ */
 public class Colonne {
     private String nom;
     private String titre;
