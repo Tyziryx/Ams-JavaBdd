@@ -26,6 +26,16 @@ import java.util.UUID;
 
 import static javafx.scene.input.KeyEvent.KEY_RELEASED;
 
+/**
+ * Classe permettant de commander un produit à un fournisseur.
+ *   - Affiche les informations du produit à commander
+ *   - Permet de choisir la quantité
+ - Permet de choisir le fournisseur
+   - Permet de commander
+     - Permet de revenir en arrière
+     - Affiche les fournisseurs disponibles
+ *
+ */
 public class ModalCommandeAEffectuer extends Modal {
     Table oldTable;
     public ModalCommandeAEffectuer(BorderPane page, Page oldPage, Table oldTable, double spacing, String title, ObservableList<String> items) throws SQLException {
