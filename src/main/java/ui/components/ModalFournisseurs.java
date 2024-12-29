@@ -75,7 +75,7 @@ public class ModalFournisseurs extends Modal {
         contactAssocies.prefWidthProperty().bind(contentBox.widthProperty());
         infoFournisseurs.prefWidthProperty().bind(contentBox.widthProperty());
 
-        this.getChildren().add(contentBox);
+//        this.getChildren().add(contentBox);
 
     }
 
