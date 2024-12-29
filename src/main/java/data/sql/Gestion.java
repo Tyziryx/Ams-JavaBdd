@@ -142,6 +142,12 @@ public class Gestion {
         cn.disconnect();
     }
 
+    /**
+     * Cette méthode permet de mettre à jour une table en particulier.
+     * @param data
+     * @param table
+     * @throws SQLException
+     */
     public static void update(IData data, Tables table) throws SQLException {
         HashMap<String, FieldType> structTable = structTable(table, false);
 
@@ -189,6 +195,13 @@ public class Gestion {
         cn.disconnect();
     }
 
+    /**
+     * Permet de suprimer des éléments d'une table depuis un tableau
+     * @param items
+     * @param table
+     * @return
+     * @throws SQLException
+     */
     public static boolean delete(ObservableList items, Tables table) throws SQLException {
 
         switch (table) {
@@ -235,6 +248,13 @@ public class Gestion {
         return false;
     }
 
+    /**
+     * Supprime un élément d'une table
+     * @param data
+     * @param table
+     * @return
+     * @throws SQLException
+     */
     public static boolean delete(IData data, Tables table) throws SQLException {
         HashMap<String, FieldType> structTable = structTable(table, false);
 
@@ -384,6 +404,9 @@ public class Gestion {
         return java.sql.Date.valueOf(localDate);
     }
 
+    /**
+     * Cette méthode permet de mettre à jour la table COMMANDE_A_EFFECTUER
+     */
     public static void updateCommandeAEffectuer() {
         try {
             Gestion.deleteAll(Tables.COMMANDE_A_EFFECTUER);

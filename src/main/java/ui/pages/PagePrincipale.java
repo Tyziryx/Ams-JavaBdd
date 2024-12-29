@@ -64,7 +64,12 @@ public class PagePrincipale extends Page {
 
         components.add(vbox);
     }
-// charge les données du jour dans un LinkedHashMap grace a une requete SQL
+
+    /**
+     * charge les données du jour dans un LinkedHashMap grace a une requete SQL
+     * @return
+     * @throws Exception
+     */
     private LinkedHashMap<String, Integer> loadDataJour() throws Exception {
         LinkedHashMap<String, Integer> dataJour = new LinkedHashMap<>();
         String query = "SELECT produit.nom, SUM((vente.prix_unite - prix_fournisseur.prix) * vente.quantite) AS benef " +
