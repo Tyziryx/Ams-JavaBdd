@@ -87,7 +87,7 @@ La base de données est modélisée en PostgreSQL et comprend les tables suivant
    ```
 2. Configurez la base de données PostgreSQL :  
 
-- Créez une base de données nommée `superette`.
+- Créez une base de données nommée `superette` (nom au choix).
 - Importez le schéma de la base de données depuis le fichier `schema.sql` et toutes les tables dans le dossier `/sql`.
 - Configurez les paramètres de connexion à la base de données dans le fichier `/resources/config.properties`.  
 - Mettre le dossier ressource en tant que fichier de ressource dans IntelliJ IDEA. (ressource root)
