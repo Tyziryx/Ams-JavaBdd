@@ -1,5 +1,6 @@
 package main.java.data.sql;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.Properties;
@@ -17,7 +18,8 @@ public class Connexion {
         URL path = getClass().getResource("/config.properties");
         try {
             ids.load(path.openStream());
-        } catch (Exception e) {
+        } catch (NullPointerException | IOException e) {
+            System.err.println("Erreur lors du chargement du fichier de configuration");
             e.printStackTrace();
             // faire une autre exception
         }
@@ -36,6 +38,7 @@ public class Connexion {
                 id = (String) ids.get("db.id");
                 mdp = (String) ids.get("db.mdp");
             } catch (NullPointerException e) {
+                System.err.println("Erreur lors de la récupération des identifiants de connexion");
                 e.printStackTrace();
                 // Faire uue autre exception
             }
@@ -56,6 +59,7 @@ public class Connexion {
         try {
             cn.close();
         } catch (SQLException e) {
+            System.err.println("Erreur lors de la déconnexion");
             e.printStackTrace();
         }
     }
@@ -68,6 +72,7 @@ public class Connexion {
         try {
             rs = st.executeQuery(sql);
         } catch (SQLException e) {
+            System.err.println("Erreur lors de l'exécution de la requête");
             e.printStackTrace();
 
 }
