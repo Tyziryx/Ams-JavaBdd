@@ -4,15 +4,8 @@ out/
 !**/src/test/**/out/
 
 ### Intellij ###
-*.iml
 *.ipr
 *.iws
-.idea/
-misc.xml
-Ams-JavaBdd.iml
-postgresql_42_7_4.xml
-
-
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
