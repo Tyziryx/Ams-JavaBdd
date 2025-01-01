@@ -90,11 +90,35 @@ La base de données est modélisée en PostgreSQL et comprend les tables suivant
 - Créez une base de données nommée `superette` (nom au choix).
 - Importez le schéma de la base de données depuis le fichier `schema.sql` et toutes les tables dans le dossier `/sql`.
 - Configurez les paramètres de connexion à la base de données dans le fichier `/resources/config.properties`.  
-- Mettre le dossier ressource en tant que fichier de ressource dans IntelliJ IDEA. (ressource root)
-- Compilez et exécutez l'application
+
+3. Compilez le projet soit avec Eclipse ou IntelliJ IDEA :
+- Ouvrez le projet dans votre IDE
+- Vérifiez bien que le projet est configuré avec le JDK 8.
+- Puis compilez le projet.
+
+# Problèmes de compilation avec Eclipse
+1. Si vous avez des problèmes avec éclipse, le problème vient peut être du jdk:
+- Clique droit sur le projet, `Properties>Java Build Path>Libraries>Modifier le JRE System Library>Choisir le JDK 8`.
+- Toujours dans les properties, `Java Compiler>Compiler compliance level>Choisir 1.8`.
+2. Si vous avez un problème lié au fichier config:
+- Vérifiez d'avoir bien rempli les champs du fichier config.properties.
+- Sinon, il faut s'assurer que le dossier ressource est bien défini en tant que dossier de ressource. Pour cela, clic droit sur le dossier ressource>Build Path>Use as Source Folder.
+3. Si vous avez un problème lié à la classe "`org.postgresql.Driver`": 
+- C'est que la librairie n'est pas bien importée, pour cela, clic droit sur le projet `Build Path>Configure Build Path>Libraries>Classpath>Add External JARs`, puis Choisir le fichier postgresql-42.2.23.jar dans le dossier lib.
+
+# Problèmes de compilation avec IntelliJ IDEA
+1. Si vous avez des problèmes avec IntelliJ IDEA, le problème vient peut être du jdk:
+- Vous pouvez essayer de modifier le jdk`File>Project Structure>Project>Project SDK>Choisir le JDK 8`.
+- Toujours dans les properties, `File>Project Structure>Project>Project language level>Choisir SDK Default`.
+2. Si vous avez un problème lié au fichier config:
+- Vérifiez d'avoir bien rempli les champs du fichier config.properties.
+- Sinon, il faut s'assurer que le dossier ressource est bien défini en tant que dossier de ressource. Pour cela, clic droit sur le dossier ressource>Mark Directory as>Resources Root.
+3. Si vous avez un problème lié à la classe "`org.postgresql.Driver`":
+- C'est que la librairie n'est pas bien importée, pour cela, clic droit sur le projet `Open Module Settings>Libraries>+>Java`, puis choisir le fichier postgresql-42.2.23.jar dans le dossier lib.
 
 # Utilisation
-Lancez l'application et accédez à l'interface utilisateur pour gérer les fournisseurs, les produits, les commandes et les ventes. Utilisez les tableaux de bord pour obtenir des informations détaillées sur les opérations de la supérette.
+Lancez l'application et accédez à l'interface utilisateur pour gérer les fournisseurs, les produits, les commandes et les ventes. Utilisez les tableaux de bord pour obtenir des informations détaillées sur les opérations de la supérette. 
+Si vous avez de problèmes de compilation veuillez consulter les sections ci-dessus.
 
 # License
 Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus de détails.
