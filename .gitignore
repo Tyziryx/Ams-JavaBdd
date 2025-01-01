@@ -30,3 +30,5 @@ postgresql_42_7_4.xml
 *.zip
 
 
+/.metadata/
+/bin/
