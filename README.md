@@ -6,7 +6,9 @@
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 ## Description
-Tout d'abord, il est conseillé de lire ce README sur GitHub, puisque le rendu sur GitHub est plus lisible que sur un éditeur de texte. ensuite, si vous avez des problèmes de compilation, veuillez consulter les sections ci-dessous.
+Tout d'abord, il est conseillé de lire ce README sur GitHub, puisque le rendu sur GitHub est plus lisible que sur un éditeur de texte. Voici le lien du dépôt GitHub : [Ams-JavaBdd](https://github.com/Tyziryx/Ams-JavaBdd).
+
+Ensuite, si vous avez des problèmes de compilation, veuillez consulter les sections ci-dessous.
 
 Ce projet propose l'informatisation d'une supérette pour la gestion des fournisseurs, des achats, des stocks, des clients et des ventes. L'application permet au gérant de la supérette d'accéder à divers tableaux de bord et de gérer efficacement les opérations quotidiennes.
 
