@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import main.java.data.sql.Gestion;
-import Exception.GrapheDataException;
+import main.java.exception.GrapheDataException;
 
 import java.sql.ResultSet;
 import java.util.*;
