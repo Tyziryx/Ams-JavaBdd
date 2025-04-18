@@ -129,7 +129,7 @@ Lancez l'application et accédez à l'interface utilisateur pour gérer les four
 Les tableaux qui ont un hover, sont double cliquable pour afficher plus d'informations, ou pour les modifier rapidement.
 Les tableaux qui ont un clique droit, sont modifiables, vous pouvez ajouter, modifier, ou supprimer des éléments.
 
-L'exécutable .jar se trouve dans le dossier `build`
+L'exécutable .jar se trouve dans le dossier `build`.
 
 Si vous avez de problèmes de compilation veuillez consulter les sections ci-dessus.
 
